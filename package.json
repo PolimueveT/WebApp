@@ -1,0 +1,25 @@
+{
+  "name": "PolimueveT-Web",
+  "version": "0.0.0",
+  "description": "Carpooling para la poblacion de la UPV, Valencia, España",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.4.4",
+    "socket.io": "~0.9.16",
+    "passport": "~0.1.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PolimueveT/WebApp.git"
+  },
+  "author": "PolimueveT Team",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/PolimueveT/WebApp/issues"
+  }
+}
