@@ -6,7 +6,10 @@
   "dependencies": {
     "express": "~3.4.4",
     "socket.io": "~0.9.16",
-    "passport": "~0.1.17"
+    "passport": "~0.1.17",
+    "jade": "~0.35.0",
+    "stylus": "~0.39.4",
+    "nib": "~1.0.1"
   },
   "devDependencies": {},
   "scripts": {
