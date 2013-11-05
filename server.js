@@ -45,12 +45,24 @@ db.open(function(err, db) {
     }
 });
 
+var UserDAO = require('./api/dao/UserDAO');
+var userDAO = new UserDAO(db);
+var UserController = require('./api/controller/UserController');
+var userController = new UserController(userDAO);
 
 
+app.get('/a', userController.getUser)
+
+
+/**
+ * GET: Leer
+ * POST: Crear
+ * PUT: Actualizar
+ * DELETE: Borrar
+ */
 
 ////////////////////////////////////////////////////////////////
 app.get('/api/juanes/:id/', function(req, res) {
-  var id = req.params.id;
   db.collection('usuarios', function(err, collection) {
    collection.find({nombre: id}).toArray(function(err, data) {
         if(err) {
