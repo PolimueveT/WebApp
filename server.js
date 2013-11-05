@@ -23,6 +23,58 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'))
 
+
+
+////////////////////////////////////////////////////////////////
+
+var mongo = require('mongodb');
+
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
+
+var server = new Server('127.0.0.1', 27017, {auto_reconnect: true});
+db = new Db('polimuevet', server, { safe: true });
+
+db.open(function(err, db) {
+    if(!err) {
+        console.log("Connected to 'polimuevet' database");
+    }
+    else {
+        console.log("Unable to connecto to 'polimuevet' database");
+    }
+});
+
+
+
+
+////////////////////////////////////////////////////////////////
+app.get('/api/juanes/:id/', function(req, res) {
+  var id = req.params.id;
+  db.collection('usuarios', function(err, collection) {
+   collection.find({nombre: id}).toArray(function(err, data) {
+        if(err) {
+            console.log('ERROR');
+            return;
+        }
+        res.send(data);
+    });
+});
+});
+
+app.post('/api/juanes', function(req, res) {
+    db.collection('usuarios', function(err, collection) {
+      collection.insert({nombre: "peluda"}, function(err, data) {
+        if(err) {
+            console.log('ERROR');
+        }
+        else {
+          console.log('YAY!');
+        }
+    });
+});
+})
+
 // Inicio de la App
 app.get('/', function (req, res) {
    res.render('home/index',
