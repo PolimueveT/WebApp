@@ -1,4 +1,4 @@
-var ParkingController = function(parkingDAO) {
+var ParkingController = function() {
     // body...
 };
 

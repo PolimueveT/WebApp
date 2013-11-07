@@ -50,10 +50,8 @@ var UserDAO = require('./api/dao/UserDAO');
 var userDAO = new UserDAO(db);
 var UserController = require('./api/controller/UserController');
 var userController = new UserController(userDAO);
-var ParkingDAO = require('./api/dao/ParkingDAO');
-var parkingDAO = new ParkingDAO(db);
 var ParkingController = require('./api/controller/ParkingController');
-var parkingController = new ParkingController(parkingDAO);
+var parkingController = new ParkingController();
 
 //Parking
 var ParkingManager = require('./api/service/ParkingManager');
