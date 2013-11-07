@@ -12,7 +12,7 @@ var UserController = function(userDAO) {
               return callback(err);  
             } 
         });
-    }
+    };
 
     this.addUser = function(req, res) {
         // var name = req.params.name;
@@ -23,6 +23,6 @@ var UserController = function(userDAO) {
         // });
     };
 
-}
+};
 
 module.exports = UserController;
