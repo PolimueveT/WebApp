@@ -15,12 +15,12 @@ var UserController = function(userDAO) {
     };
 
     this.addUser = function(req, res) {
-        // var name = req.params.name;
+         var name = req.params.name;
         // validar / parsear name...
-        // _userDAO.insertUser(name, car, blabbla, function(err) {
+         _userDAO.insertUser(name, "seat", null, function(err) {
         // 
         // 
-        // });
+         });
     };
 
 };

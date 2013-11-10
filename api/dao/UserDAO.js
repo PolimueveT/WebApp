@@ -22,6 +22,11 @@ var UserDAO = function(db) {
     };
 
     this.insertUser = function(name, car, callback) {
+          console.log('Ejecutando el post');
+          var collection = _db.collection("usuarios");
+        collection.insert( { nombre: name , coche: car } ,function (err,callback){
+            
+        });
     };
 
 };
