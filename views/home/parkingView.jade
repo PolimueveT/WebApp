@@ -1,0 +1,13 @@
+extend ../layouts/main
+block content
+  .jumbotron
+    h1 Estado del parking
+    p
+        | parking 1: <p class="ocupado">x</p>
+    script(src="/socket.io/socket.io.js")
+    script.
+        var socket = io.connect('http://localhost:3000/showParking');
+        socket.on('palCliente', function (data) {
+            $('.ocupado').text(data.dato);
+            console.log(data);
+         });
