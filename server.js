@@ -90,11 +90,17 @@ app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {
   res.render('home/parkingView');
 })
+
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
+
 app.get('/mis-trayectos', function(req, res) {
   res.render('trayectos/mis-trayectos');
+})
+
+app.get('/trayectos', function(req, res) {
+  res.render('trayectos/trayectos');
 })
 
 app.post('/prueba', function(req, res) {

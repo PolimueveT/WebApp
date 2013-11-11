@@ -1,6 +1,59 @@
 extend ../layouts/main
 block content
     h1 Trayectos
-    p
-        | TODO: Listar trayectos
+
+    
+
+
+    .container
+        form.form-horizontal(role="form")
+            .row
+                .col-sm-3
+                   .form-group
+                        label.col-sm-4.control-label(for="salida") Salida  
+                        .col-sm-11
+                            input.form-control(name="salida", type="text", placeHolder="Salida")
+                .col-sm-3
+                   .form-group
+                        label.col-sm-4.control-label(for="destino") Destino
+                        .col-sm-11
+                           input.form-control(name="destino", type="text", placeHolder="Destino")
+                .col-sm-6
+                    p
+                    | Aquí un datepicker
+
+            
+            .row
+                .col-xs-3 
+                    .h3 Restricciones
+                    br
+                    .form-group
+                        label.col-sm-0.control-label(for="noFumadores") No fumadores
+                        .col-sm-3
+                            input.form-control(name="noFumadores",type="checkbox", id="NoFumadores") 
+                     .form-group
+                        label.col-sm-0.control-label(for="noAnimales") No animales
+                        .col-sm-3
+                            input.form-control(name="noAnimales",type="checkbox", id="NoAnimales") 
+                    .form-group
+                        label.col-sm-0.control-label(for="noComida") No comida
+                        .col-sm-3
+                            input.form-control(name="noComida",type="checkbox", id="NoComida") 
+                    .form-group
+                        label.col-sm-9.control-label(for="equipaje") Tamaño máx. del equipaje
+                        .col-sm-10
+                            select.form-control(name="equipaje")
+                                option Mochila
+                                option Maleta
+                .col-xs-9
+                    .h3 Resultados
+                    .row
+                
+                    
+            
+
+
+
+
+            
     
