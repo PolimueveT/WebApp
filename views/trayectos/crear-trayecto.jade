@@ -1,91 +1,91 @@
 extend ../layouts/main
 block content
-    h1 Crear Trayecto
     .container
         form.form-horizontal(role="form", name="crear-trayecto", method="post", action="/prueba")
             .row
-                .col-md-6
-                    .form-group
-                        label.col-sm-2.control-label(for="nPlazas") Nº Plazas
-                        .col-sm-10
-                            input.form-control(name="nPlazas", type="text", placeHolder="Nº Plazas")
+                .col-md-12
+                    h1 Crear Trayecto
+                    .panel.panel-default
+                        .panel-heading Informacion del Trayecto
+                        .panel-body
+                            .col-md-6
+                                .form-group
+                                    label.col-sm-3.control-label(for="nPlazas") Nº Plazas
+                                    .col-sm-9
+                                        input.form-control(name="nPlazas", type="text", placeHolder="Nº Plazas")
 
-                    .form-group
-                        label.col-sm-2.control-label(for="origen") Origen
-                        .col-sm-10
-                            input.form-control(name="origen", type="text", placeHolder="Origen")
+                                .form-group
+                                    label.col-sm-3.control-label(for="origen") Origen
+                                    .col-sm-9
+                                        input.form-control(name="origen", type="text", placeHolder="Origen")
 
-                    .form-group
-                        label.col-sm-2.control-label(for="horaSalida") Hora Salida
-                        .col-sm-10
-                            input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
-                .col-md-6
-                    .form-group
-                        label.col-sm-2.control-label(for="precio") Precio/Plaza
-                        .col-sm-10
-                            input.form-control(name="precio", type="text", placeHolder="Precio/Plaza")
+                                .form-group
+                                    label.col-sm-3.control-label(for="horaSalida") Hora Salida
+                                    .col-sm-9
+                                        input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                                .form-group
+                                    label.col-sm-3.control-label(for="equipaje") Tamaño max. del equipaje
+                                    .col-sm-9
+                                        select.form-control(name="equipaje")
+                                            option Mochila
+                                            option Maleta
+                            .col-md-6
+                                .form-group
+                                    label.col-sm-3.control-label(for="precio") Precio/Plaza
+                                    .col-sm-9
+                                        input.form-control(name="precio", type="text", placeHolder="Precio/Plaza")
 
-                    .form-group
-                        label.col-sm-2.control-label(for="destino") Destino
-                        .col-sm-10
-                            select.form-control(name="destino")
-                                option Valencia
-                                option Castellón
-                                option Alicante
-                    
-                    .form-group
-                        label.col-sm-2.control-label(for="maxEspera") Max. Espera
-                        .col-sm-10
-                            input.form-control(name="maxEspera",type="text", placeHolder="Max. Espera")
+                                .form-group
+                                    label.col-sm-3.control-label(for="destino") Destino
+                                    .col-sm-9
+                                        select.form-control(name="destino")
+                                            option Valencia
+                                            option Castellón
+                                            option Alicante
+                                
+                                .form-group
+                                    label.col-sm-3.control-label(for="maxEspera") Max. Espera
+                                    .col-sm-9
+                                        input.form-control(name="maxEspera",type="text", placeHolder="Max. Espera")
             .row
                 .col-md-6 
-                    .h2 Restricciones
-                    .form-group
-                        label.col-sm-4.control-label(for="noFumadores") No fumadores
-                        .col-sm-1
-                            input.form-control(name="noFumadores",type="checkbox", id="NoFumadores") 
-                     .form-group
-                        label.col-sm-4.control-label(for="noAnimales") No animales
-                        .col-sm-1
-                            input.form-control(name="noAnimales",type="checkbox", id="NoAnimales") 
-                    .form-group
-                        label.col-sm-4.control-label(for="noComida") No comida
-                        .col-sm-1
-                            input.form-control(name="noComida",type="checkbox", id="NoComida") 
-                .col-md-6 
-                    .h2 Tipo de pasajero
-                    .form-group
-                        label.col-sm-4.control-label(for="alumnos") Alumnos
-                        .col-sm-1
-                            input.form-control(name="alumnos",type="checkbox", id="Alumnos") 
-                     .form-group
-                        label.col-sm-4.control-label(for="profesores") Profesores
-                        .col-sm-1
-                            input.form-control(name="profesores",type="checkbox", id="Profesores") 
-                    .form-group
-                        label.col-sm-4.control-label(for="personal") Personal
-                        .col-sm-1
-                            input.form-control(name="personal",type="checkbox", id="Personal") 
+                    .panel.panel-default
+                        .panel-heading Restricciones
+                        .panel-body
+                            .col-md-6
+                                .form-group
+                                    label.checkbox(for="noFumadores") No fumadores 
+                                        input(name="noFumadores",type="checkbox", id="NoFumadores") 
+                                 .form-group
+                                    label.checkbox(for="noAnimales") No animales 
+                                        input(name="noAnimales",type="checkbox", id="NoAnimales") 
+                            .col-md-6
+                                .form-group
+                                    label.checkbox(for="noComida") No comida 
+                                        input(name="noComida",type="checkbox", id="NoComida")
+                .col-md-6
+                    .panel.panel-default
+                            .panel-heading Tipo de pasajero
+                            .panel-body 
+                                .col-md-6
+                                    .form-group
+                                        label.checkbox(for="alumnos") Alumnos 
+                                            input(name="alumnos",type="checkbox", id="Alumnos") 
+                                     .form-group
+                                        label.checkbox(for="profesores") Profesores 
+                                            input(name="profesores",type="checkbox", id="Profesores") 
+                                .col-md-6
+                                    .form-group
+                                        label.checkbox(for="personal") Personal 
+                                            input(name="personal",type="checkbox", id="Personal") 
             .row
-                .col-md-4
-                    .form-group
-                        label.col-sm-6.control-label(for="equipaje") Tamaño max. del equipaje
-                        .col-sm-6
-                            select.form-control(name="equipaje")
-                                option Mochila
-                                option Maleta
-            .row
-                .col-md-10
+                .col-md-12
                     .form-group
                         label.col-sm-2.control-label(for="observaciones") Observaciones
                         .col-md-10
-                                textarea.col-sm-8(name="observaciones", id="textareaObservaciones")
-            .br
+                                textarea.form-control.col-sm-12(name="observaciones", id="textareaObservaciones", rows="5")
             .row
-                .col-md-6
-                    .col-md-6
-                        .form-group
-                            button.col-sm-4(class="btn btn btn-success", id="cancelar", onClick="submit()") Publicar
-                    .col-md-6
-                        .form-group                        
-                            button.col-sm-4(class="btn btn-danger", id="cancelar",  onClick="reset()") Cancelar
+                .col-md-12
+                    .btn-group.col-md-4.btn-lg
+                        button.col-md-6(class="btn btn btn-success", id="cancelar", onClick="submit()") Publicar
+                        button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Cancelar
