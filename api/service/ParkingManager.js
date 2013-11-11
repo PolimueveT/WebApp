@@ -6,8 +6,18 @@ var ParkingManager = function() {
     var EmisorEventos = eventos.EventEmitter;
     this.ee = new EmisorEventos();
     var _parkings = [
-        { id: 1, plazas: 20, ocupadas: 0},
-        { id: 2, plazas: 30, ocupadas: 0}
+        { id: 1, codigo: "P1A" , lugar: "ETSINF", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 2, codigo: "P1B", lugar: "Rectorado", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 3, codigo: "P3A" , lugar: "Agrónomos", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 4, codigo: "P4P" , lugar: "Lingüística Aplicada", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 5, codigo: "P5A" , lugar: "ETSII", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 6, codigo: "P6A" , lugar: "Pabellón", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 7, codigo: "P6B" , lugar: "CMT", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 8, codigo: "P7A" , lugar: "Deportes", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 9, codigo: "P7B" , lugar: "ETSID", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 10, codigo: "P7C" , lugar: "ADE", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 11, codigo: "P8A" , lugar: "Velódromo", plazas: 20, ocupadas: 0, estado: "Libre"},
+        { id: 12, codigo: "P8B" , lugar: "I3M", plazas: 20, ocupadas: 0, estado: "Libre"}
     ];
     var _sentido = 'subida';
     var cronJob = require('cron').CronJob;
