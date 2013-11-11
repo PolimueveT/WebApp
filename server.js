@@ -93,6 +93,13 @@ app.get('/showParking', function(req, res) {
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
+app.get('/mis-trayectos', function(req, res) {
+  res.render('trayectos/mis-trayectos');
+})
+
+app.post('/prueba', function(req, res) {
+  res.render('trayectos/mis-trayectos')
+})
 
 
 // Ejemplos de Acceso a MongoDB
