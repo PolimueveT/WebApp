@@ -38,7 +38,7 @@ var MongoServer = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
+/*var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
 db = new Db('polimuevet', mongoServer, { safe: true });
 
 db.open(function(err, db) {
@@ -49,6 +49,24 @@ db.open(function(err, db) {
         console.log("Unable to connecto to 'polimuevet' database");
     }
 });
+*/
+
+var mongoServer = new MongoServer("ds053428.mongolab.com", 53428, {auto_reconnect: true});
+db = new Db('polimuevet', mongoServer, { safe: true });
+
+db.open(function(err, db) {
+   db.authenticate('polimuevet', 'hmipolimuevet1', function(err, success) {
+        // Do Something ...
+    });
+    if(!err) {
+        console.log("Connected to 'polimuevet' database");
+    }
+    else {
+        console.log("Unable to connecto to 'polimuevet' database");
+    }
+});
+
+
 
 // API
 var UserDAO = require('./api/dao/UserDAO');
@@ -66,11 +84,14 @@ var parkingController = new ParkingController(parkingManager);
  * PUT: Actualizar
  * DELETE: Borrar
  */
-
+app.post('/api/nuevouser/:name',userController.addUser)
 app.get('/a', userController.getUser)
 app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {
   res.render('home/parkingView');
+})
+app.get('/crear-trayecto', function(req, res) {
+  res.render('trayectos/crear-trayecto');
 })
 
 
@@ -109,7 +130,7 @@ app.get('/', function (req, res) {
   			title : 'Home' 
   		}
   	)
-})
+});
 
 /////// Socket
 /// para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
