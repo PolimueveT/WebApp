@@ -90,6 +90,9 @@ app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {
   res.render('home/parkingView');
 })
+app.get('/crear-trayecto', function(req, res) {
+  res.render('trayectos/crear-trayecto');
+})
 
 
 // Ejemplos de Acceso a MongoDB

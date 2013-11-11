@@ -1,0 +1,39 @@
+extend ../layouts/main
+block content
+    h1 Crear Trayecto
+    .container
+        form.form-horizontal(role="form")
+            .row
+                .col-md-6
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") No. Plazas
+                        .col-sm-10
+                            input.form-control(type="text", placeHolder="No. Plazas")
+
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") Origen
+                        .col-sm-10
+                            input.form-control(type="text", placeHolder="Origen")
+
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") Hora Salida
+                        .col-sm-10
+                            input.form-control(type="text", placeHolder="Hora Salida")
+                .col-md-6
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") Precio/Plaza
+                        .col-sm-10
+                            input.form-control(type="text", placeHolder="Precio/Plaza")
+
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") Destino
+                        .col-sm-10
+                            select.form-control
+                                option 1
+                                option 1
+                                option 1
+                    
+                    .form-group
+                        label.col-sm-2.control-label(for="inputEmail3") Max. Espera
+                        .col-sm-10
+                            input.form-control(type="text", placeHolder="Max. Espera")
