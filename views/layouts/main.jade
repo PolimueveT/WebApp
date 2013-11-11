@@ -6,9 +6,10 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(name="description" content="")
     meta(name="author" content="")
-    title #{title} - My Site
+    title #{title} - PolimueveT
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/nav-bar-top.css')
+    link(rel='stylesheet', href='/css/estilo.css')
     // if lt IE 9
       script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
       script(src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")
@@ -20,17 +21,17 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="#") Project Name
+          a.navbar-brand(href="#") PolimueveT
         .navbar-collapse.collapse
           ul.nav.navbar-nav
             li.active 
-              a(href="#") Home
+              a(href="/") Inicio
             li 
-              a(href="#about") About
+              a(href="/estado-parking") Estado Parking
             li 
-              a(href="#contact") Contact
+              a(href="/trayectos") Trayectos
     .container
         block content
-        
+
     script(src="https://code.jquery.com/jquery-1.10.2.min.js")
     script(src="/js/bootstrap.min.js")
