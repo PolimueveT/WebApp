@@ -1,6 +1,41 @@
     var TripData=require('../data/TripData');
     
 
+var nombrefuncion=function(body){
+
+    var num_plazas = body.num_plazas;
+       var origen = body.origen;
+       var destino = body.destino;
+       var hora_salida = body.hora_salida;
+       var precio_plaza = body.precio_plaza;
+       var tiempo_max_espera = body.tiempo_max_espera;
+       var restricciones = body.restricciones;
+       var max_tamaño_equipaje = body.max_tamaño_equipaje;
+       var tipo_pasajero = body.tipo_pasajero;
+       var observaciones = body.observaciones;
+       var creador_id = body.creador_id;
+       var inscritos = body.inscritos;
+
+
+
+
+
+
+       TripData.Num_plazas=num_plazas;
+       TripData.Origen=origen;
+       TripData.Destino=destino;
+       TripData.Hora_salida=hora_salida;
+       TripData.Precio_plaza=precio_plaza;
+       TripData.Tiempo_max_espera=tiempo_max_espera;
+       TripData.Restricciones=restricciones;
+       TripData.Max_tamaño_equipaje=max_tamaño_equipaje;
+       TripData.Tipo_pasajeros=tipo_pasajero;
+       TripData.Observaciones=observaciones;
+       TripData.Creador_id=creador_id;
+       TripData.Inscritos=inscritos;
+
+};
+
 
     var TripController = function(TripDAO) {
         var _TripDAO = TripDAO;
@@ -11,7 +46,7 @@
             data: null
         };
 
-        console.log(objetoRespuesta);
+        //console.log(objetoRespuesta);
 
       //Por hacer
       this.getTrip = function(req, res, callback) {
@@ -27,15 +62,16 @@
     };
 
     this.addTrip = function(req, res) {
-     var num_plazas = req.body.num_plazas;
-     var origen = req.body.origen;
-     var destino = req.body.destino;
 
-     console.log(num_plazas +" "+ origen +" "+ destino);
+      _tripdata= nombrefuncion(req.body);
+       
+
+
+      // console.log(num_plazas +" "+ origen +" "+ destino);
 
 
         // validar / parsear name...
-        _TripDAO.insertTrip(num_plazas,origen ,destino,null,null,null,null,null,null,null,null, function(err) {
+        _TripDAO.insertTrip(TripData, function(err) {
             if(err){
               console.log('Error TripController');
               objetoRespuesta.success=false;                

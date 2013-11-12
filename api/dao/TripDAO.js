@@ -35,11 +35,11 @@ var TripDAO = function(db) {
     };
 
       //funciona pero falta control de errores/respuesta y revisar si la estructura es adecuada
-    this.insertTrip = function(num_plazas, origen,destino,hora_salida,Tiempo_max_espera,Restricciones,Max_tamaño_equipaje,Tipo_pasajeros,Observaciones,Creador_id,Inscritos, callback) {
+    this.insertTrip = function(tripdata, callback) {
       console.log('Ejecutando el post');
      _db.collection("trayectos",function(err,collection){
 
-       collection.insert( { Num_plazas: num_plazas , Origen: origen , Destino: destino } ,function (err,result){
+       collection.insert( tripdata ,function (err,result){
         
         if(err){
           console.log('Error insertando en collection trayectos');
