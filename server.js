@@ -96,6 +96,7 @@ app.get('/showParking', function(req, res) {
   res.render('home/parkingView');
 })
 
+// Falta crear Controllers
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
@@ -111,6 +112,18 @@ app.get('/trayectos', function(req, res) {
 app.post('/prueba', function(req, res) {
   res.render('trayectos/mis-trayectos')
 })
+
+app.get('/estado-parking', function(req, res) {
+  res.render('home/estado_parking')
+})
+
+app.get('/registrar', function(req, res) {
+  var data = { 
+        title : 'Registrar Usuario' 
+      };
+
+  res.render('cuenta/registrar-usuario', data)
+});
 
 
 // Ejemplos de Acceso a MongoDB
@@ -156,7 +169,7 @@ io.of("/showParking").on("connection", function (socket) {
     // here are connections from /showParking
     console.log('se conectaron a showParking');
     parkingManager.ee.on('parkingEvent', function(datos){
-        socket.emit('palCliente', { dato: datos});
+        socket.emit('palCliente', datos);
     });
 });
 

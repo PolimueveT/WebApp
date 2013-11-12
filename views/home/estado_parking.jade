@@ -4,15 +4,20 @@ block content
 	h1 Estado Parking 
 		small Conoce el estado de tus parkings
 
-	.container
+	.container(ng-controller="ParkingsCtrl")
 		.row
 			table.table.table-striped
 				tr
 					th Parking
 					th Plazas Total
 					th Disponibles
-				each p in parkings
-					tr
-						td= p.nombre
-						td= p.plazas
-						td= p.cant_libre
+				
+					tr(ng-repeat="p in todos_parkings")
+						td {{ p.nombre }}
+						td {{ p.plazas }}
+						td {{ p.cant_libre }}
+
+
+
+block script
+	script(src="/js/ParkingsCtrl.js")

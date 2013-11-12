@@ -1,0 +1,44 @@
+extend ../layouts/main
+block content
+    .container
+        form(role="form", name="crear-trayecto", method="post", action="/prueba")
+            .row
+                h1 Bienvenido!
+                .col-md-6
+                    .panel.panel-default
+                        .panel-heading Entra a tu cuenta
+                        .panel-body
+                            .form-group
+                                label(for="nPlazas") Nombre
+                                input.form-control(id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+
+                            .form-group
+                                label(for="horaSalida") Contraseña
+                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+
+                            .form-group
+                               label.checkbox(for="noFumadores") Recuerdame 
+                                        input(name="noFumadores",type="checkbox", id="NoFumadores") 
+
+                            .form-group
+                                 button.col-md-6(class="btn btn btn-success", id="cancelar", onClick="submit()") Publicar
+                .col-md-6
+                    .panel.panel-default
+                        .panel-heading Registro de Usuario
+                        .panel-body
+                            .form-group
+                                label(for="nPlazas") Nombre
+                                input.form-control(id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+
+                            .form-group
+                                label(for="origen") Email
+                                input.form-control(name="origen", type="text", placeHolder="Origen")
+
+                            .form-group
+                                label(for="horaSalida") Contraseña
+                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+
+                            .form-group
+                                label(for="horaSalida") Conf. Contraseña
+                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                            
