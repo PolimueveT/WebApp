@@ -112,7 +112,7 @@ var ParkingManager = function() {
             actualizar(prob, _parkings[i]);
         };
         // mandamos las plazas libres
-        self.ee.emit('parkingEvent', _parkings[0].plazas - _parkings[0].ocupadas);
+        self.ee.emit('parkingEvent', _parkings);
     }, null, false);
 
     preCarga();

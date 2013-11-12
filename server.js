@@ -156,7 +156,7 @@ io.of("/showParking").on("connection", function (socket) {
     // here are connections from /showParking
     console.log('se conectaron a showParking');
     parkingManager.ee.on('parkingEvent', function(datos){
-        socket.emit('palCliente', { dato: datos});
+        socket.emit('palCliente', datos);
     });
 });
 
