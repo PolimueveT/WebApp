@@ -1,0 +1,6 @@
+{success: "true/false",
+ info: "Campo x vacio " ,
+  data:[{trip1}{trip2}{trip3}]}
+
+  //POST data null
+  //GET  data con info

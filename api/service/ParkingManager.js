@@ -6,18 +6,18 @@ var ParkingManager = function() {
     var EmisorEventos = eventos.EventEmitter;
     this.ee = new EmisorEventos();
     var _parkings = [
-        { id: 1, codigo: "P1A" , lugar: "ETSINF", plazas: 200, ocupadas: 0, estado: "Libre"},
-        { id: 2, codigo: "P1B", lugar: "Rectorado", plazas: 120, ocupadas: 0, estado: "Libre"},
-        { id: 3, codigo: "P3A" , lugar: "Agrónomos", plazas: 400, ocupadas: 0, estado: "Libre"},
-        { id: 4, codigo: "P4P" , lugar: "Lingüística Aplicada", plazas: 150, ocupadas: 0, estado: "Libre"},
-        { id: 5, codigo: "P5A" , lugar: "ETSII", plazas: 30, ocupadas: 0, estado: "Libre"},
-        { id: 6, codigo: "P6A" , lugar: "Pabellón", plazas: 180, ocupadas: 0, estado: "Libre"},
-        { id: 7, codigo: "P6B" , lugar: "CMT", plazas: 150, ocupadas: 0, estado: "Libre"},
-        { id: 8, codigo: "P7A" , lugar: "Deportes", plazas: 300, ocupadas: 0, estado: "Libre"},
-        { id: 9, codigo: "P7B" , lugar: "ETSID", plazas: 100, ocupadas: 0, estado: "Libre"},
-        { id: 10, codigo: "P7C" , lugar: "ADE", plazas: 100, ocupadas: 0, estado: "Libre"},
-        { id: 11, codigo: "P8A" , lugar: "Velódromo", plazas: 60, ocupadas: 0, estado: "Libre"},
-        { id: 12, codigo: "P8B" , lugar: "I3M", plazas: 300, ocupadas: 0, estado: "Libre"}
+        { id: 1, codigo: "P1A" , lugar: "ETSINF", plazas: 200, ocupadas: 0, estado: "Cerrado"},
+        { id: 2, codigo: "P1B", lugar: "Rectorado", plazas: 120, ocupadas: 0, estado: "Cerrado"},
+        { id: 3, codigo: "P3A" , lugar: "Agrónomos", plazas: 400, ocupadas: 0, estado: "Cerrado"},
+        { id: 4, codigo: "P4P" , lugar: "Lingüística Aplicada", plazas: 150, ocupadas: 0, estado: "Cerrado"},
+        { id: 5, codigo: "P5A" , lugar: "ETSII", plazas: 30, ocupadas: 0, estado: "Cerrado"},
+        { id: 6, codigo: "P6A" , lugar: "Pabellón", plazas: 180, ocupadas: 0, estado: "Cerrado"},
+        { id: 7, codigo: "P6B" , lugar: "CMT", plazas: 150, ocupadas: 0, estado: "Cerrado"},
+        { id: 8, codigo: "P7A" , lugar: "Deportes", plazas: 300, ocupadas: 0, estado: "Cerrado"},
+        { id: 9, codigo: "P7B" , lugar: "ETSID", plazas: 100, ocupadas: 0, estado: "Cerrado"},
+        { id: 10, codigo: "P7C" , lugar: "ADE", plazas: 100, ocupadas: 0, estado: "Cerrado"},
+        { id: 11, codigo: "P8A" , lugar: "Velódromo", plazas: 60, ocupadas: 0, estado: "Cerrado"},
+        { id: 12, codigo: "P8B" , lugar: "I3M", plazas: 300, ocupadas: 0, estado: "Cerrado"}
     ];
     var _sentido = 'subida';
     var cronJob = require('cron').CronJob;
@@ -112,7 +112,7 @@ var ParkingManager = function() {
             actualizar(prob, _parkings[i]);
         };
         // mandamos las plazas libres
-        self.ee.emit('parkingEvent', _parkings[0].plazas - _parkings[0].ocupadas);
+        self.ee.emit('parkingEvent', _parkings);
     }, null, false);
 
     preCarga();

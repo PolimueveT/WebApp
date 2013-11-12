@@ -7,6 +7,7 @@ block content
     script.
         var socket = io.connect('http://localhost:3000/showParking');
         socket.on('palCliente', function (data) {
-            $('.ocupado').text(data.dato);
+            var plazasLibresParking1 = data[0].plazas - data[0].ocupadas;
+            $('.ocupado').text(plazasLibresParking1);
             console.log(data);
          });
