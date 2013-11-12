@@ -89,7 +89,7 @@ var parkingController = new ParkingController(parkingManager);
  * DELETE: Borrar
  */
 app.post('/api/nuevouser/:name',userController.addUser)
-app.post('/api/nuevotrip/:num_plazas/:origen/:destino',tripController.addTrip)
+app.post('/api/nuevotrip/',tripController.addTrip)
 app.get('/a', userController.getUser)
 app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {
