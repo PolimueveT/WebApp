@@ -1,0 +1,15 @@
+.navbar,
+.panel-heading {
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -o-linear-gradient(#fafafa, #eaeaea);
+  background: -ms-linear-gradient(#fafafa, #eaeaea);
+  background: linear-gradient(#fafafa, #eaeaea);
+}
+.btn.btn-success {
+  background: -webkit-linear-gradient(#5cb85c, #4cae4c);
+  background: -moz-linear-gradient(#5cb85c, #4cae4c);
+  background: -o-linear-gradient(#5cb85c, #4cae4c);
+  background: -ms-linear-gradient(#5cb85c, #4cae4c);
+  background: linear-gradient(#5cb85c, #4cae4c);
+}
