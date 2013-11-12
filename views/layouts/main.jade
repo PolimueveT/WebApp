@@ -1,5 +1,5 @@
 !!!5
-html
+html(ng-app)
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
@@ -34,8 +34,14 @@ html
               a(href="/crear-trayecto") Crear trayecto
             li
               a(href="/mis-trayectos") Mis trayectos
+            li
+              a(href="/registrar") Registrar
+            li
+              a(href="/Mi Cuenta") Mi Cuenta
     .container
         block content
 
     script(src="https://code.jquery.com/jquery-1.10.2.min.js")
     script(src="/js/bootstrap.min.js")
+    script(src="/js/angular.min.js")
+    block script
