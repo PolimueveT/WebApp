@@ -73,6 +73,10 @@ var UserDAO = require('./api/dao/UserDAO');
 var userDAO = new UserDAO(db);
 var UserController = require('./api/controller/UserController');
 var userController = new UserController(userDAO);
+var TripDAO = require('./api/dao/TripDAO');
+var tripDAO = new TripDAO(db);
+var TripController = require('./api/controller/TripController');
+var tripController = new TripController(tripDAO);
 var ParkingManager = require('./api/service/ParkingManager');
 var parkingManager = new ParkingManager();
 var ParkingController = require('./api/controller/ParkingController');
@@ -85,16 +89,23 @@ var parkingController = new ParkingController(parkingManager);
  * DELETE: Borrar
  */
 app.post('/api/nuevouser/:name',userController.addUser)
+app.post('/api/nuevotrip/:num_plazas/:origen/:destino',tripController.addTrip)
 app.get('/a', userController.getUser)
 app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {
   res.render('home/parkingView');
 })
+
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
+
 app.get('/mis-trayectos', function(req, res) {
   res.render('trayectos/mis-trayectos');
+})
+
+app.get('/trayectos', function(req, res) {
+  res.render('trayectos/trayectos');
 })
 
 app.post('/prueba', function(req, res) {

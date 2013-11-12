@@ -2,6 +2,7 @@ var UserController = function(userDAO) {
     
     var _userDAO = userDAO;
 
+        //Por hacer
     this.getUser = function(req, res, callback) {
         var name = req.params.name;
         console.log('name: ' + name);
@@ -14,6 +15,8 @@ var UserController = function(userDAO) {
         });
     };
 
+
+       //Por hacer     
     this.addUser = function(req, res) {
          var name = req.params.name;
         // validar / parsear name...
