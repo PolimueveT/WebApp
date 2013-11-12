@@ -39,15 +39,17 @@ var TripDAO = function(db) {
       console.log('Ejecutando el post');
      _db.collection("trayectos",function(err,collection){
 
-       collection.insert( { Num_plazas: num_plazas , Origen: origen , Destino: destino } ,function (err,callback){
+       collection.insert( { Num_plazas: num_plazas , Origen: origen , Destino: destino } ,function (err,result){
         
         if(err){
           console.log('Error insertando en collection trayectos');
+          return callback(err);
 
         }
-        else{
-           console.log('Éxito insertando en collection trayectos');
-        }
+        
+          console.log('Éxito insertando en collection trayectos');
+           return callback(null);
+        
 
 
       });
