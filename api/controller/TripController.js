@@ -1,7 +1,7 @@
     var TripData=require('../data/TripData');
     
 
-var nombrefuncion=function(body){
+var crearData=function(body){
 
     var num_plazas = body.num_plazas;
        var origen = body.origen;
@@ -33,6 +33,7 @@ var nombrefuncion=function(body){
        TripData.Observaciones=observaciones;
        TripData.Creador_id=creador_id;
        TripData.Inscritos=inscritos;
+       return TripData;
 
 };
 
@@ -63,7 +64,7 @@ var nombrefuncion=function(body){
 
     this.addTrip = function(req, res) {
 
-      _tripdata= nombrefuncion(req.body);
+      _tripdata= crearData(req.body);
        
 
 
@@ -71,7 +72,7 @@ var nombrefuncion=function(body){
 
 
         // validar / parsear name...
-        _TripDAO.insertTrip(TripData, function(err) {
+        _TripDAO.insertTrip(_tripdata, function(err) {
             if(err){
               console.log('Error TripController');
               objetoRespuesta.success=false;                
