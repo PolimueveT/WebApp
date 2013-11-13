@@ -3,7 +3,6 @@ var TripDAO = function(db) {
     var _db = db;
 
     /**
-     *
      * var viaje = { 
      *     "Num_plazas": "4",
      *  "Origen": "Calle Serpis 4",
@@ -20,69 +19,47 @@ var TripDAO = function(db) {
      * }
      */
 
-
-
-     //Por hacer
-     this.readTrip = function(name, callback) {
+    //Por hacer
+    this.readTrip = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
             return callback(new Error("Nombre invalido."));
         }
-        else{
-
-        }
-        
+        // _db.collection('trayectos')....        
     };
 
-      //funciona pero falta control de errores/respuesta y revisar si la estructura es adecuada
+    //funciona pero falta control de errores/respuesta y revisar si la estructura es adecuada
     this.insertTrip = function(tripdata, callback) {
-      console.log('Ejecutando el post');
-     _db.collection("trayectos",function(err,collection){
+        console.log('Ejecutando el post');
+        _db.collection("trayectos", function(err,collection){
+            collection.insert(tripdata, function (err, result){
+                if(err){
+                    console.log('Error insertando en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito insertando en collection trayectos');
+                return callback(null);
+            });
+        });
+    };
 
-       collection.insert( tripdata ,function (err,result){
-        
-        if(err){
-          console.log('Error insertando en collection trayectos');
-          return callback(err);
-
-        }
-        
-          console.log('Éxito insertando en collection trayectos');
-           return callback(null);
-        
-
-
-      });
-
-      });
-    
-  };
-
-      //Por hacer
-     this.updateTrip = function(name, callback) {
+    //Por hacer
+    this.updateTrip = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
             return callback(new Error("Nombre invalido."));
         }
-        else{
-
-        }
-        
+        // _db.collection()......        
     };
 
-      //Por hacer
+    //Por hacer
     this.deleteTrip = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
             return callback(new Error("Nombre invalido."));
         }
-        else{
-
-        }
-        
+        // _db.collection()....        
     };
-
-
 
 };
 

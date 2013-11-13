@@ -13,21 +13,21 @@ var UserDAO = function(db) {
      * }
      */
 
-     this.readUser = function(name, callback) {
+    this.readUser = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
             return callback(new Error("Nombre invalido."));
         }
-        
+        // ....
     };
 
     this.insertUser = function(name, car, callback) {
-      console.log('Ejecutando el post');
-      var collection = _db.collection("usuarios");
-      collection.insert( { nombre: name , coche: car } ,function (err,callback){
+        console.log('Ejecutando el post');
+        var collection = _db.collection("usuarios");
+        collection.insert({ nombre: name, coche: car },function (err, callback){
         
-      });
-  };
+        });
+    };
 
 };
 
