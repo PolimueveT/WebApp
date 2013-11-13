@@ -1,6 +1,6 @@
 var TripDAO = function(db) {
-    
-    var _db = db;
+
+  var _db = db;
 
     /**
      * var viaje = { 
@@ -44,6 +44,20 @@ var TripDAO = function(db) {
     };
 
     //Por hacer
+    this.readTrips = function(callback) {
+        console.log('Ejecutando el get');
+        _db.collection("trayectos",function(err,collection){
+            collection.find().toArray(function (err,trips){
+                if(err){
+                    console.log('Error consultando en collection trayectos');
+                    return callback(err,null);
+                }
+                console.log('Éxito consultando en collection trayectos');
+                return callback(null,trips);
+            });
+        });
+    };
+
     this.updateTrip = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');

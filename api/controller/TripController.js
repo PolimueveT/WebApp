@@ -12,8 +12,9 @@ var TripController = function(TripDAO) {
 
     //console.log(objetoRespuesta);
 
-    var crearData = function(body) {
-      	var num_plazas = body.num_plazas;
+    var crearData=function(body){
+
+        var num_plazas = body.num_plazas;
         var origen = body.origen;
         var destino = body.destino;
         var hora_salida = body.hora_salida;
@@ -25,6 +26,21 @@ var TripController = function(TripDAO) {
         var observaciones = body.observaciones;
         var creador_id = body.creador_id;
         var inscritos = body.inscritos;
+
+        delete TripData['_id'];
+        //TripData._id=null;
+        TripData.Num_plazas = null;
+        TripData.Origen = null;
+        TripData.Destino = null;
+        TripData.Hora_salida = null;
+        TripData.Precio_plaza = null;
+        TripData.Tiempo_max_espera = null;
+        TripData.Restricciones = null;
+        TripData.Max_tamaño_equipaje = null;
+        TripData.Tipo_pasajeros = null;
+        TripData.Observaciones = null;
+        TripData.Creador_id = null;
+        TripData.Inscritos = null;
 
         TripData.Num_plazas = num_plazas;
         TripData.Origen = origen;
@@ -38,10 +54,12 @@ var TripController = function(TripDAO) {
         TripData.Observaciones = observaciones;
         TripData.Creador_id = creador_id;
         TripData.Inscritos = inscritos;
+
+        console.log('INSERT =' + JSON.stringify(TripData));
         return TripData;
     };
 
-      //Por hacer
+    //Por hacer
     this.getTrip = function(req, res) {
         var name = req.params.name;
         console.log('name: ' + name);
@@ -58,11 +76,27 @@ var TripController = function(TripDAO) {
         });
     };
 
-    this.addTrip = function(req, res) {
-        
-        _tripdata= crearData(req.body);
-        // console.log(num_plazas +" "+ origen +" "+ destino);
+    this.getTrips = function(req, res) {
+         
+        _TripDAO.readTrips( function(err,trips) {
+            if(err) {
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se han leido correctamente todos los trayectos";
+            objetoRespuesta.data=trips;
+            res.send(objetoRespuesta);
+        });
+    };
 
+    this.addTrip = function(req, res) {
+        console.log('request =' + JSON.stringify(req.body))
+        _tripdata= crearData(req.body);
         // validar / parsear name...
         _TripDAO.insertTrip(_tripdata, function(err) {
             if(err) {

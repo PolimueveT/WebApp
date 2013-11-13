@@ -90,8 +90,11 @@ var parkingController = new ParkingController(parkingManager);
  * PUT: Actualizar
  * DELETE: Borrar
  */
+app.use(express.bodyParser());
+
 app.post('/api/nuevouser/:name',userController.addUser)
-app.post('/api/nuevotrip/',tripController.addTrip)
+app.post('/api/nuevotrip',tripController.addTrip)
+app.get('/api/gettrips',tripController.getTrips)
 app.get('/a', userController.getUser)
 app.get('/parking', parkingController.listParkings)
 app.get('/showParking', function(req, res) {

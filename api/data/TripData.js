@@ -1,7 +1,7 @@
 
 
 module.exports=
-{ 
+{ 	"_id":null,
 	"Num_plazas": 0,
 	"Origen": null,
 	"Destino": null,
