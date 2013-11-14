@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-    .container
+    .container(ng-controller="CrearTrayectoCtrl")
         form.form-horizontal(role="form", name="crear-trayecto", method="post", action="/prueba")
             .row
                 .col-md-12
@@ -12,21 +12,21 @@ block content
                                 .form-group
                                     label.col-sm-3.control-label(for="nPlazas") Nº Plazas
                                     .col-sm-9
-                                        input.form-control(name="nPlazas", type="text", placeHolder="Nº Plazas")
-
+                                        input.form-control(ng-model="num_plazas",id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+                                        
                                 .form-group
                                     label.col-sm-3.control-label(for="origen") Origen
                                     .col-sm-9
-                                        input.form-control(name="origen", type="text", placeHolder="Origen")
+                                        input.form-control(ng-model="origen",name="origen", type="text", placeHolder="Origen")
 
                                 .form-group
                                     label.col-sm-3.control-label(for="horaSalida") Hora Salida
                                     .col-sm-9
-                                        input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                                        input.form-control(ng-model="horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida")
                                 .form-group
                                     label.col-sm-3.control-label(for="equipaje") Tamaño max. del equipaje
                                     .col-sm-9
-                                        select.form-control(name="equipaje")
+                                        select.form-control(ng-model="equipaje",name="equipaje")
                                             option Mochila
                                             option Maleta
                             .col-md-6
@@ -87,5 +87,8 @@ block content
             .row
                 .col-md-12
                     .btn-group.col-md-4.btn-lg
-                        button.col-md-6(class="btn btn btn-success", id="cancelar", onClick="submit()") Publicar
+                        button.col-md-6(class="btn btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar
                         button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Cancelar
+
+block script
+    script(src="/js/CrearTrayectoCtrl.js")

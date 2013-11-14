@@ -1,20 +1,20 @@
 var express = require('express')
-  , stylus = require('stylus')
-  , nib = require('nib');
+, stylus = require('stylus')
+, nib = require('nib');
 
 var app = express(),
-    server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+server = require('http').createServer(app),
+io = require('socket.io').listen(server);
 
 /**
  * Configuracion de View Engine
  * y Estilo
  */
 
-function compile(str, path) {
+ function compile(str, path) {
   return stylus(str)
-    .set('filename', path)
-    .use(nib())
+  .set('filename', path)
+  .use(nib())
 }
 
 // Configuracion Express
@@ -22,10 +22,10 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 app.use(express.logger('dev'))
 app.use(stylus.middleware(
-  { 
-  	src: __dirname + '/public', 
-  	compile: compile
-  }
+{ 
+ src: __dirname + '/public', 
+ compile: compile
+}
 ))
 app.use(express.static(__dirname + '/public'))
 
@@ -35,8 +35,8 @@ app.use(express.static(__dirname + '/public'))
 var mongo = require('mongodb');
 
 var MongoServer = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+Db = mongo.Db,
+BSON = mongo.BSONPure;
 
 /*var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
 db = new Db('polimuevet', mongoServer, { safe: true });
@@ -51,19 +51,21 @@ db.open(function(err, db) {
 });
 */
 
+// Pongo las 2 conexiones juntas porque a veces quiero probar en local... (comento una u otra)
+// var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
 var mongoServer = new MongoServer("ds053428.mongolab.com", 53428, {auto_reconnect: true});
 db = new Db('polimuevet', mongoServer, { safe: true });
 
 db.open(function(err, db) {
-   db.authenticate('polimuevet', 'hmipolimuevet1', function(err, success) {
+ db.authenticate('polimuevet', 'hmipolimuevet1', function(err, success) {
         // Do Something ...
-    });
-    if(!err) {
-        console.log("Connected to 'polimuevet' database");
-    }
-    else {
-        console.log("Unable to connecto to 'polimuevet' database");
-    }
+      });
+ if(!err) {
+  console.log("Connected to 'polimuevet' database");
+}
+else {
+  console.log("Unable to connecto to 'polimuevet' database");
+}
 });
 
 
@@ -88,14 +90,29 @@ var parkingController = new ParkingController(parkingManager);
  * PUT: Actualizar
  * DELETE: Borrar
  */
-app.post('/api/nuevouser/:name',userController.addUser)
-app.post('/api/nuevotrip/:num_plazas/:origen/:destino',tripController.addTrip)
-app.get('/a', userController.getUser)
-app.get('/parking', parkingController.listParkings)
-app.get('/showParking', function(req, res) {
-  res.render('home/parkingView');
+ app.use(express.bodyParser());
+
+ app.post('/api/nuevouser/:name',userController.addUser)
+ //TRAYECTOS
+ app.get('/api/gettrips',tripController.getTrips)
+ app.get('/api/gettrip/:id',tripController.getTrip)
+ app.post('/api/nuevotrip',tripController.addTrip)
+ app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+ ///////////////////////////////////////////////////
+ app.get('/a', userController.getUser)
+ app.get('/parking', parkingController.listParkings)
+ app.get('/estado-parking', function(req, res) {
+  var data = {
+    parkings: [] 
+  };
+
+  parkingManager.getParkings(function(err, parkings) {
+    data.parkings = parkings;
+    res.render('home/estado_parking', data);
+  });
 })
 
+// Falta crear Controllers
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
@@ -111,6 +128,14 @@ app.get('/trayectos', function(req, res) {
 app.post('/prueba', function(req, res) {
   res.render('trayectos/mis-trayectos')
 })
+
+app.get('/registrar', function(req, res) {
+  var data = { 
+    title : 'Registrar Usuario' 
+  };
+
+  res.render('cuenta/registrar-usuario', data)
+});
 
 
 // Ejemplos de Acceso a MongoDB
@@ -143,21 +168,21 @@ app.post('/prueba', function(req, res) {
 
 // Inicio de la App
 app.get('/', function (req, res) {
-   res.render('home/index',
-  		{ 
-  			title : 'Home' 
-  		}
-  	)
+ res.render('home/index',
+ { 
+   title : 'Home' 
+ }
+ )
 });
 
 /////// Socket
 /// para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
-io.of("/showParking").on("connection", function (socket) {
+io.of("/estado-parking").on("connection", function (socket) {
     // here are connections from /showParking
     console.log('se conectaron a showParking');
     parkingManager.ee.on('parkingEvent', function(datos){
-        socket.emit('palCliente', { dato: datos});
+      socket.emit('palCliente', datos);
     });
-});
+  });
 
 server.listen(3000)

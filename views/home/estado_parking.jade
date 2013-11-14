@@ -1,18 +1,43 @@
 extend ../layouts/main
 
 block content
-	h1 Estado Parking 
-		small Conoce el estado de tus parkings
+    h1 Estado Parking 
+        small Conoce el estado de tus parkings
 
-	.container
-		.row
-			table.table.table-striped
-				tr
-					th Parking
-					th Plazas Total
-					th Disponibles
-				each p in parkings
-					tr
-						td= p.nombre
-						td= p.plazas
-						td= p.cant_libre
+    .container(ng-controller="ParkingsCtrl")
+        .row
+            table.table.table-striped
+                tr
+                    th Codigo
+                    th Lugar
+                    th Plazas Total
+                    th Disponibles
+                    th Estado
+                
+                    tr(ng-repeat="p in todos_parkings")
+                        td {{ p.codigo }}
+                        td {{ p.lugar }}
+                        td {{ p.plazas }}
+                        td {{ p.plazas - p.ocupadas }}
+                        td 
+                            span(class="label", ng-class = "{'label-success': p.estado == 'Libre', 'label-danger': p.estado == 'Personal Autorizado', 'label-default': p.estado == 'Completo'}") {{ p.estado }}
+
+
+block script
+    script(src="/js/ParkingsCtrl.js")
+    script(src="/socket.io/socket.io.js")
+    script.
+        var scope,
+        socket = io.connect('http://localhost:3000/estado-parking');
+        $(document).ready(function (){
+            scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
+            scope.setParkings(!{JSON.stringify(parkings)});
+            scope.$apply();
+        });
+        socket.on('palCliente', function (data) {
+            console.log(data);
+            if(scope !== undefined){
+                scope.setParkings(data);
+                scope.$apply(); 
+            }
+        });
