@@ -59,20 +59,22 @@ var TripController = function(TripDAO) {
         return TripData;
     };
 
-    //Por hacer
+
     this.getTrip = function(req, res) {
-        var name = req.params.name;
-        console.log('name: ' + name);
-        // validar / parsear name...
-        _TripDAO.readUser(name, function(err, user) {
+         var id=req.params.id;
+        _TripDAO.readTrip(id, function(err,trip) {
             if(err) {
-                console.log("err: "+err);
-                // falta enviar el error en la estructura de respuesta que hemos acordado...
-                res.send(err);
-                return callback(err);  
-            }
-            // falta enviar el usuario en la estructura de respuesta que hemos acordado...
-            res.send(user);
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha leido correctamente el trayecto";
+            objetoRespuesta.data=trip;
+            res.send(objetoRespuesta);
         });
     };
 
@@ -110,6 +112,24 @@ var TripController = function(TripDAO) {
             objetoRespuesta.success = true;                
             objetoRespuesta.info = "Trayecto creado correctamente";
             objetoRespuesta.data = null;
+            res.send(objetoRespuesta);
+        });
+    };
+
+        this.deleteTrip = function(req, res) {
+         var id=req.params.id;
+        _TripDAO.deleteTrip(id, function(err) {
+            if(err) {
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha eliminado correctamente el trayecto";
+            objetoRespuesta.data=null;
             res.send(objetoRespuesta);
         });
     };

@@ -1,3 +1,4 @@
+  ObjectID = require('mongodb').ObjectID;
 var TripDAO = function(db) {
 
   var _db = db;
@@ -19,31 +20,30 @@ var TripDAO = function(db) {
      * }
      */
 
-    //Por hacer
-    this.readTrip = function(name, callback) {
-        if(!name) {
-            console.log('dao receive no name');
-            return callback(new Error("Nombre invalido."));
-        }
-        // _db.collection('trayectos')....        
-    };
 
-    //funciona pero falta control de errores/respuesta y revisar si la estructura es adecuada
-    this.insertTrip = function(tripdata, callback) {
-        console.log('Ejecutando el post');
+
+
+    this.readTrip = function(id, callback) {
+        console.log('Ejecutando el get');
+        if(!id) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
         _db.collection("trayectos", function(err,collection){
-            collection.insert(tripdata, function (err, result){
+            collection.find({"_id":ObjectID(id)}).toArray(function (err, trip){
                 if(err){
-                    console.log('Error insertando en collection trayectos');
+                    console.log('Error leyendo en collection trayectos');
                     return callback(err);
                 }
-                console.log('Éxito insertando en collection trayectos');
-                return callback(null);
+                console.log('Éxito leyendo en collection trayectos');
+                // console.log('READ =' + JSON.stringify(trip));
+                return callback(null,trip);
             });
         });
     };
 
-    //Por hacer
+
     this.readTrips = function(callback) {
         console.log('Ejecutando el get');
         _db.collection("trayectos",function(err,collection){
@@ -58,6 +58,21 @@ var TripDAO = function(db) {
         });
     };
 
+
+    this.insertTrip = function(tripdata, callback) {
+        console.log('Ejecutando el post');
+        _db.collection("trayectos", function(err,collection){
+            collection.insert(tripdata, function (err, result){
+                if(err){
+                    console.log('Error insertando en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito insertando en collection trayectos');
+                return callback(null);
+            });
+        });
+    };
+
     this.updateTrip = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
@@ -66,13 +81,29 @@ var TripDAO = function(db) {
         // _db.collection()......        
     };
 
-    //Por hacer
-    this.deleteTrip = function(name, callback) {
-        if(!name) {
-            console.log('dao receive no name');
-            return callback(new Error("Nombre invalido."));
+
+    this.deleteTrip = function(id, callback) {
+        console.log('Ejecutando el delete');
+        if(!id) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
         }
-        // _db.collection()....        
+
+        _db.collection("trayectos", function(err,collection){
+            collection.remove({"_id":ObjectID(id)}, function (err, result){
+                if(err){
+                    console.log('Error borrando en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito borrando en collection trayectos');
+                return callback(null);
+            });
+        });
+
+
+        
+
+              
     };
 
 };

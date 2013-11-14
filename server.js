@@ -93,8 +93,12 @@ var parkingController = new ParkingController(parkingManager);
  app.use(express.bodyParser());
 
  app.post('/api/nuevouser/:name',userController.addUser)
- app.post('/api/nuevotrip',tripController.addTrip)
+ //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
+ app.get('/api/gettrip/:id',tripController.getTrip)
+ app.post('/api/nuevotrip',tripController.addTrip)
+ app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+ ///////////////////////////////////////////////////
  app.get('/a', userController.getUser)
  app.get('/parking', parkingController.listParkings)
  app.get('/estado-parking', function(req, res) {
