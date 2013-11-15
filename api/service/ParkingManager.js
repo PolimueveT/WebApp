@@ -83,9 +83,9 @@ var ParkingManager = function() {
         var idx = Math.floor(Math.random() * prob.length);
         var update = prob[idx];
         if(parking.ocupadas+update < 0)
-            parking.ocupadas++;
+            parking.ocupadas = 0;
         else if(parking.ocupadas+update > parking.plazas)
-            parking.ocupadas--;
+            parking.ocupadas = parking.plazas;
         else
             parking.ocupadas += update;
         calcularEstado(parking);
@@ -121,7 +121,7 @@ var ParkingManager = function() {
                 prob = [-1, -1, -1, -1, -1, -1, -1, -1, -1, 0];
             }
             // coeficiente para parkings grandes
-            if(parking.plazas > 180) {
+            if(_parkings[i].plazas > 180) {
                 for (var j=0; j<prob.length; j++) {
                     prob[j] = prob[j] * 2;
                 }
