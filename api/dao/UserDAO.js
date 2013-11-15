@@ -78,6 +78,29 @@ var UserDAO = function(db) {
         });
     };
 
+
+    /**
+    * Método que elimina un usuario a través de su ID
+    */
+    this.deleteUser = function(id, callback) {
+        console.log('Se va a eliminar el usuario: '+ id);
+        if(!id) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.remove({"_id":ObjectID(id)}, function (err, result){
+                if(err){
+                    console.log('Error borrando en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Se ha eliminado el usuario correctamente');
+                return callback(null);
+            });
+        });
+    };
+
 };
 
 module.exports = UserDAO;

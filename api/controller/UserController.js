@@ -135,6 +135,28 @@ var UserController = function(userDAO) {
         });
     };
 
+
+    /**
+    * Método que elimina un usuario a través de su ID
+    */
+    this.deleteUser = function(req, res) {
+        var idUser = req.params.id;
+        _UserDAO.deleteUser(idUser, function(err) {
+            if(err) {
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Usuario eliminado correctamente.";
+            objetoRespuesta.data = null;
+            res.send(objetoRespuesta);
+        });
+    };
+
 };
 
 module.exports = UserController;
