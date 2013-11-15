@@ -1,3 +1,4 @@
+ObjectID = require('mongodb').ObjectID;
 var UserDAO = function(db) {
     
     var _db = db;
@@ -13,6 +14,7 @@ var UserDAO = function(db) {
      * }
      */
 
+     //Por hacer
     this.readUser = function(name, callback) {
         if(!name) {
             console.log('dao receive no name');
@@ -21,11 +23,17 @@ var UserDAO = function(db) {
         // ....
     };
 
-    this.insertUser = function(name, car, callback) {
+    this.insertTrip = function(userdata, callback) {
         console.log('Ejecutando el post');
-        var collection = _db.collection("usuarios");
-        collection.insert({ nombre: name, coche: car },function (err, callback){
-        
+        _db.collection("usuarios", function(err,collection){
+            collection.insert(userdata, function (err, result){
+                if(err){
+                    console.log('Error insertando en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Éxito insertando en collection usuarios');
+                return callback(null);
+            });
         });
     };
 
