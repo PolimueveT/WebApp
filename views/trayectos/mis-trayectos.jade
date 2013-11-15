@@ -18,7 +18,6 @@ block content
 									th Max. Espera
 									th Restricciones
 									th Max. Tamaño Equipaje
-								
 									tr(ng-repeat="t in trayectos_ofreciendo")
 										td {{ t.Num_plazas }}
 										td {{ t.Origen }}
@@ -30,7 +29,6 @@ block content
 											span(ng-repeat="r in t.Restricciones") 
 												{{ r }}
 										td {{ t.Max_tamano_equipaje }}
-
 			.row
 				.col-md-12
 					.panel.panel-default

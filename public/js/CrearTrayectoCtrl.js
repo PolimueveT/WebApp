@@ -20,9 +20,11 @@ function CrearTrayectoCtrl($scope, $http) {
 
 		// Enviamos obj con un POST al server
 		// Por AJAX.
-		var data = JSON.stringify(obj);
 		$http.post('/api/newtrip', obj).success(function (response){
 			console.log(response);
+			if(response.success === true) { 
+				window.location = "/mis-trayectos";	
+			 }
 		});
 	};
 
