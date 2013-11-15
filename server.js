@@ -96,7 +96,9 @@ var parkingController = new ParkingController(parkingManager);
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
- app.post('/api/nuevotrip',tripController.addTrip)
+ app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ app.post('/api/newtrip',tripController.addTrip)
+ app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
  app.get('/a', userController.getUser)

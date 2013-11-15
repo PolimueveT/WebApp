@@ -58,6 +58,26 @@ var TripDAO = function(db) {
         });
     };
 
+    this.readTripsPerson = function(Cid, callback) {
+        console.log('Ejecutando el get');
+        if(!Cid) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("trayectos", function(err,collection){
+            collection.find({"Creador_id": Cid}).toArray(function (err, trips){
+                if(err){
+                    console.log('Error leyendo en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito leyendo en collection trayectos');
+                // console.log('READ =' + JSON.stringify(trip));
+                return callback(null,trips);
+            });
+        });
+    };
+
 
     this.insertTrip = function(tripdata, callback) {
         console.log('Ejecutando el post');
@@ -73,12 +93,21 @@ var TripDAO = function(db) {
         });
     };
 
-    this.updateTrip = function(name, callback) {
-        if(!name) {
-            console.log('dao receive no name');
-            return callback(new Error("Nombre invalido."));
-        }
-        // _db.collection()......        
+    this.updateTrip = function(tripdata, callback) {
+         var id=tripdata._id;
+         delete tripdata['_id'];
+         console.log('Ejecutando el update');
+         _db.collection("trayectos", function(err,collection){
+
+            collection.update({"_id":ObjectID(id)},tripdata, function (err, result){
+                if(err){
+                    console.log('Error actualizando en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito actualizando en collection trayectos');
+                return callback(null);
+            });
+        });
     };
 
 
