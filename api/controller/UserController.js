@@ -93,9 +93,12 @@ var UserController = function(userDAO) {
     };
 
 
-    this.getAllUsers = function(req, res) {
+    /**
+    * Método que obtiene todos los usuarios
+    */
+    this.getAllUsers = function(req, res){
         _UserDAO.getAllUsers(function(err, users){
-            if(err) {
+            if(err){
                 console.log('Error UserController');
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = err;
@@ -104,8 +107,30 @@ var UserController = function(userDAO) {
                 return;
             } 
             objetoRespuesta.success = true;                
-            objetoRespuesta.info = "Se han leido correctamente todos los usuarios";
+            objetoRespuesta.info = "Se han obtenido correctamente todos los usuarios";
             objetoRespuesta.data = users;
+            res.send(objetoRespuesta);
+        });
+    };
+
+
+    /**
+    * Método que obtiene un usuario a través de su ID
+    */
+    this.getUserById = function(req, res){
+        var idUser = req.params.id;
+        _UserDAO.getUserById(idUser, function(err, user){
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Se ha obtenido correctamente el usuario: "+idUser;
+            objetoRespuesta.data = user;
             res.send(objetoRespuesta);
         });
     };
