@@ -1,0 +1,21 @@
+extend ../layouts/main
+block content
+	.container(ng-controller="MisTrayectoCtrl")
+		form.form-horizontal(role="form", name="crear-trayecto", method="post", action="/prueba")
+			h1 Mis trayectos
+			.row
+				.col-md-12
+					.panel.panel-default
+						.panel-heading Trayectos que estoy ofreciendo
+						.panel-body
+							.row(ng-repeat="t in trayectos_ofreciendo")
+								.col-md-12
+									{{ t.origen }}
+
+
+			.row
+				.col-md-12
+					.panel.panel-default
+						.panel-heading Trayectos que estoy inscrito
+						.panel-body
+							.col-md-12
