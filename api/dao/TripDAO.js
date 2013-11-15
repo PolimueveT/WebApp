@@ -152,6 +152,8 @@ var TripDAO = function(db) {
         });
     };
 
+
+    // ATENCION: No se comprueba que la persona exista
     this.addPersonToTrip = function(tripId, personId, callback) {
         if(!tripId) return callback(new Error("tripId invalido"));
         if(!personId) return callback(new Error("personId invalido"));
