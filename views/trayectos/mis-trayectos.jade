@@ -1,46 +1,50 @@
 extend ../layouts/main
-
 block content
-	.container
-		h1 Mis tratectos
-		.row
-			.panel.panel-default
-				.panel-body
-					.col-md-6
-						.form-group
-							label.col-sm-2.control-label(for="Filtro") Filtro
-							.col-sm-10
-								select.form-control
-									option Favoritos
-		.row
-			.panel.panel-default
-				.panel-body
-					.col-md-12
-						.form-group
-						table.table.table-hover.table-bordered
-							tr
-								th Fecha
-								th Hora
-								th Origen
-								th Destino
-								th Plazas
-								th Precio
-								th Características
-							tr
-								td 26/11/13
-								td 19:00
-								td Valencia
-								td Castellon
-								td 5
-								td 6
-								td NF - NA
+	.container(ng-controller="MisTrayectosCtrl")
+		form.form-horizontal(role="form", name="crear-trayecto", method="post", action="/prueba")
+			h1 Mis trayectos
+			.row
+				.col-md-12
+					.panel.panel-default
+						.panel-heading Trayectos que estoy ofreciendo
+						.panel-body
+							table.table
+								tr
+									th Num. Plazas
+									th Origen
+									th Destino
+									th Hora Salida
+									th Precio Plaza
+									th Max. Espera
+									th Restricciones
+									th Max. Tamaño Equipaje
+								
+									tr(ng-repeat="t in trayectos_ofreciendo")
+										td {{ t.Num_plazas }}
+										td {{ t.Origen }}
+										td {{ t.Destino }}
+										td {{ t.Hora_salida }}
+										td {{ t.Precio_plaza }}
+										td {{ t.Tiempo_max_espera }}
+										td 
+											span(ng-repeat="r in t.Restricciones") 
+												{{ r }}
+										td {{ t.Max_tamano_equipaje }}
 
-/					each t in trayectos
-/						tr
-/							td t.fecha
-/							td t.hora
-/							td t.origen
-/							td t.destino
-/							td t.plazas
-/							td t.precio
-/							td t.caracteristicas
+			.row
+				.col-md-12
+					.panel.panel-default
+						.panel-heading Trayectos que estoy inscrito
+						.panel-body
+							.col-md-12
+
+block script
+	script(src="/js/MisTrayectosCtrl.js")
+	script.
+		var scope;
+		$(document).ready(function (){
+			scope = angular.element('[ng-controller="MisTrayectosCtrl"]').scope();
+			scope.id_user = 'from_site';
+			scope.getData();
+			scope.$apply();
+		});
