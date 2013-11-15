@@ -116,10 +116,51 @@ var TripController = function(TripDAO) {
                 res.send(objetoRespuesta);
                 return;
             } 
+
+            if(trips.length > 0){
+
             objetoRespuesta.success=true;                
             objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Cid;
             objetoRespuesta.data=trips;
             res.send(objetoRespuesta);
+            return;
+          }
+
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info="La persona  "+Cid+" no tiene trayectos";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+            return;
+
+        });
+    };
+        this.getTripsInscrito = function(req, res) {
+         var Iid=req.params.id;
+        _TripDAO.readTripsInscrito(Iid, function(err,trips) {
+            if(err) {
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+
+            if(trips.length > 0){
+
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
+            objetoRespuesta.data=trips;
+            res.send(objetoRespuesta);
+            return;
+          }
+
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info="La persona  "+Iid+" no esta inscrito en ningún trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+            return;
+
         });
     };
 
