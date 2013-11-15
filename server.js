@@ -84,6 +84,10 @@ var parkingManager = new ParkingManager();
 var ParkingController = require('./api/controller/ParkingController');
 var parkingController = new ParkingController(parkingManager);
 
+// Web Controllers
+var HomeController = require('./controllers/HomeController');
+var homeController = new HomeController();
+
 /**
  * GET: Leer
  * POST: Crear
@@ -97,11 +101,25 @@ var parkingController = new ParkingController(parkingManager);
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
  app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
  app.post('/api/newtrip',tripController.addTrip)
  app.put('/api/applytrip', tripController.applyTrip)
  app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
+<<<<<<< HEAD
+
+ //USUARIOS
+ //app.get('/api/gettrips',tripController.getTrips)
+ //app.get('/api/gettrip/:id',tripController.getTrip)
+ //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
+  app.post('/api/newuser',userController.addUser)
+ //app.put('/api/updatetrip',tripController.updateTrip)
+ //app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+ ///////////////////////////////////////////////////
+
+
  app.get('/a', userController.getUser)
  app.get('/parking', parkingController.listParkings)
  app.get('/estado-parking', function(req, res) {
@@ -119,26 +137,21 @@ var parkingController = new ParkingController(parkingManager);
 app.get('/crear-trayecto', function(req, res) {
   res.render('trayectos/crear-trayecto');
 })
+=======
+>>>>>>> c2918c9761dcce36c50a0bee116d762998cc1d23
 
-app.get('/mis-trayectos', function(req, res) {
-  res.render('trayectos/mis-trayectos');
-})
+// Se usa esto para algo?? 
+app.get('/a', userController.getUser) 
 
-app.get('/trayectos', function(req, res) {
-  res.render('trayectos/trayectos');
-})
+// API para listar Parkings
+app.get('/api/parking', parkingController.listParkings);
 
-app.post('/prueba', function(req, res) {
-  res.render('trayectos/mis-trayectos')
-})
-
-app.get('/registrar', function(req, res) {
-  var data = { 
-    title : 'Registrar Usuario' 
-  };
-
-  res.render('cuenta/registrar-usuario', data)
-});
+// Web
+app.get('/estado-parking', homeController.estado_parking);
+app.get('/crear-trayecto', homeController.crear_trayecto);
+app.get('/mis-trayectos', homeController.mis_trayectos);
+app.get('/trayectos', homeController.trayectos);
+app.get('/registrar', homeController.registrar);
 
 
 // Ejemplos de Acceso a MongoDB

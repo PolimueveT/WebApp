@@ -79,6 +79,28 @@ var TripDAO = function(db) {
     };
 
 
+
+        this.readTripsInscrito = function(Iid, callback) {
+        console.log('Ejecutando el get');
+        if(!Iid) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("trayectos", function(err,collection){
+            collection.find({"Inscritos": Iid }).toArray(function (err, trips){
+                if(err){
+                    console.log('Error leyendo en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito leyendo en collection trayectos');
+                // console.log('READ =' + JSON.stringify(trip));
+                return callback(null,trips);
+            });
+        });
+    };
+
+
     this.insertTrip = function(tripdata, callback) {
         console.log('Ejecutando el post');
         _db.collection("trayectos", function(err,collection){

@@ -17,6 +17,7 @@ var TripController = function(TripDAO) {
         var num_plazas = body.num_plazas;
         var origen = body.origen;
         var destino = body.destino;
+        var fecha_salida=body.fecha_salida;
         var hora_salida = body.hora_salida;
         var precio_plaza = body.precio_plaza;
         var tiempo_max_espera = body.tiempo_max_espera;
@@ -32,6 +33,7 @@ var TripController = function(TripDAO) {
         TripData.Num_plazas = null;
         TripData.Origen = null;
         TripData.Destino = null;
+        TripData.Fecha_salida = null;
         TripData.Hora_salida = null;
         TripData.Precio_plaza = null;
         TripData.Tiempo_max_espera = null;
@@ -55,6 +57,7 @@ var TripController = function(TripDAO) {
         TripData.Origen = origen;
         TripData.Destino = destino;
         TripData.Hora_salida = hora_salida;
+        TripData.Fecha_salida = fecha_salida;
         TripData.Precio_plaza = precio_plaza;
         TripData.Tiempo_max_espera = tiempo_max_espera;
         TripData.Restricciones = restricciones;
@@ -116,10 +119,51 @@ var TripController = function(TripDAO) {
                 res.send(objetoRespuesta);
                 return;
             } 
+
+            if(trips.length > 0){
+
             objetoRespuesta.success=true;                
             objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Cid;
             objetoRespuesta.data=trips;
             res.send(objetoRespuesta);
+            return;
+          }
+
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info="La persona  "+Cid+" no tiene trayectos";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+            return;
+
+        });
+    };
+        this.getTripsInscrito = function(req, res) {
+         var Iid=req.params.id;
+        _TripDAO.readTripsInscrito(Iid, function(err,trips) {
+            if(err) {
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+
+            if(trips.length > 0){
+
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
+            objetoRespuesta.data=trips;
+            res.send(objetoRespuesta);
+            return;
+          }
+
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info="La persona  "+Iid+" no esta inscrito en ningún trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+            return;
+
         });
     };
 
