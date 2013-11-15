@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-	.container(ng-controller="MisTrayectoCtrl")
+	.container(ng-controller="MisTrayectosCtrl")
 		form.form-horizontal(role="form", name="crear-trayecto", method="post", action="/prueba")
 			h1 Mis trayectos
 			.row
@@ -8,10 +8,28 @@ block content
 					.panel.panel-default
 						.panel-heading Trayectos que estoy ofreciendo
 						.panel-body
-							.row(ng-repeat="t in trayectos_ofreciendo")
-								.col-md-12
-									{{ t.origen }}
-
+							table.table
+								tr
+									th Num. Plazas
+									th Origen
+									th Destino
+									th Hora Salida
+									th Precio Plaza
+									th Max. Espera
+									th Restricciones
+									th Max. Tamaño Equipaje
+								
+									tr(ng-repeat="t in trayectos_ofreciendo")
+										td {{ t.Num_plazas }}
+										td {{ t.Origen }}
+										td {{ t.Destino }}
+										td {{ t.Hora_salida }}
+										td {{ t.Precio_plaza }}
+										td {{ t.Tiempo_max_espera }}
+										td 
+											span(ng-repeat="r in t.Restricciones") 
+												{{ r }}
+										td {{ t.Max_tamano_equipaje }}
 
 			.row
 				.col-md-12
@@ -19,3 +37,14 @@ block content
 						.panel-heading Trayectos que estoy inscrito
 						.panel-body
 							.col-md-12
+
+block script
+	script(src="/js/MisTrayectosCtrl.js")
+	script.
+		var scope;
+		$(document).ready(function (){
+			scope = angular.element('[ng-controller="MisTrayectosCtrl"]').scope();
+			scope.id_user = 'from_site';
+			scope.getData();
+			scope.$apply();
+		});
