@@ -110,7 +110,7 @@ var homeController = new HomeController();
 
  //USUARIOS
  app.get('/api/getusers',userController.getAllUsers);
- //app.get('/api/gettrip/:id',tripController.getTrip)
+ app.get('/api/getuser/:id',userController.getUserById);
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
   app.post('/api/newuser',userController.addUser)

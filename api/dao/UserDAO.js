@@ -42,7 +42,7 @@ var UserDAO = function(db) {
     * Método que obtiene todos los usuarios
     */
     this.getAllUsers = function(callback) {
-        console.log('Voy a obtener todos los usuarios');
+        console.log('Se van a obtener todos los usuarios');
         _db.collection("usuarios", function(err, collection){
             collection.find().toArray(function (err, users){
                 if(err){
@@ -51,6 +51,29 @@ var UserDAO = function(db) {
                 }
                 console.log('Se han obtenido todos los usuarios correctamente');
                 return callback(null, users);
+            });
+        });
+    };
+
+
+    /**
+    * Método que obtiene un usuario a través de su ID
+    */
+    this.getUserById = function(id, callback){
+        console.log('Se va a obtener el usuario: '+id);
+        if(!id) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.find({"_id":ObjectID(id)}).toArray(function (err, user){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Se ha obtenido el usuario correctamente');
+                return callback(null, user);
             });
         });
     };
