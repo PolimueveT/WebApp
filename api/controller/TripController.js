@@ -167,7 +167,7 @@ var TripController = function(TripDAO) {
 
 
     this.deleteTrip = function(req, res) {
-         var id=req.params.id;
+        var id=req.params.id;
         _TripDAO.deleteTrip(id, function(err) {
             if(err) {
                 console.log('Error TripController');
@@ -181,6 +181,19 @@ var TripController = function(TripDAO) {
             objetoRespuesta.info="Se ha eliminado correctamente el trayecto";
             objetoRespuesta.data=null;
             res.send(objetoRespuesta);
+        });
+    };
+
+    this.applyTrip = function(req, res) {
+        var tripId = req.body.tripId;
+        var personId = req.body.personId;
+        _TripDAO.addPersonToTrip(tripId, personId, function(err) {
+            if(err){
+                console.log(err);
+                res.send('algo');
+                return;
+            }
+            res.send('otro algo');
         });
     };
 

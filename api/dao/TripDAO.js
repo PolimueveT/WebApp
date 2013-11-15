@@ -128,11 +128,26 @@ var TripDAO = function(db) {
                 return callback(null);
             });
         });
+    };
 
-
-        
-
-              
+    this.addPersonToTrip = function(tripId, personId, callback) {
+        if(!tripId) return callback(new Error("tripId invalido"));
+        if(!personId) return callback(new Error("personId invalido"));
+        _db.collection('trayectos', function(err, tripCollection) {
+            tripCollection.findOne({_id: ObjectID(tripId)}, function(err, trip) {
+                if(err) return callback(new Error("error buscando trayecto"));
+                if(!trip) return callback(new Error("trayecto no encontrado"));
+                if(trip.Inscritos.length === trip.Num_plazas)
+                    return callback(new Error("no hay plazas disponibles en el trayecto"));
+                if(trip.Inscritos.indexOf(personId) != -1)
+                    return callback(new Error("la persona ya esta inscrita en el trayecto"));
+                tripCollection.update({_id: ObjectID(tripId)}, {'$addToSet': { Inscritos: personId}},
+                    function(err) {
+                    if(err) return callback(new Error("error agregando pasajero al viaje"));
+                    return callback(null);
+                });
+            });
+        });     
     };
 
 };
