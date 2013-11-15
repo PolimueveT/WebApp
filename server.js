@@ -102,6 +102,18 @@ var parkingController = new ParkingController(parkingManager);
  app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
+
+ //USUARIOS
+ //app.get('/api/gettrips',tripController.getTrips)
+ //app.get('/api/gettrip/:id',tripController.getTrip)
+ //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
+  app.post('/api/newuser',userController.addUser)
+ //app.put('/api/updatetrip',tripController.updateTrip)
+ //app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+ ///////////////////////////////////////////////////
+
+
  app.get('/a', userController.getUser)
  app.get('/parking', parkingController.listParkings)
  app.get('/estado-parking', function(req, res) {
