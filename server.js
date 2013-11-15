@@ -118,28 +118,6 @@ var homeController = new HomeController();
  //app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
 
-
- app.get('/a', userController.getUser)
- app.get('/parking', parkingController.listParkings)
- app.get('/estado-parking', function(req, res) {
-  var data = {
-    parkings: [] 
-  };
-
-  parkingManager.getParkings(function(err, parkings) {
-    data.parkings = parkings;
-    res.render('home/estado_parking', data);
-  });
-})
-
-// Falta crear Controllers
-app.get('/crear-trayecto', function(req, res) {
-  res.render('trayectos/crear-trayecto');
-})
-
-// Se usa esto para algo?? 
-app.get('/a', userController.getUser) 
-
 // API para listar Parkings
 app.get('/api/parking', parkingController.listParkings);
 
