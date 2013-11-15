@@ -27,11 +27,11 @@ var ParkingManager = function() {
         var dia = date.getDay();
         var hora = date.getHours();
         var carga = null;
-        if(dia >= 1 && dia <= 5 && hora >= 7 && hora <= 23) {
+        if(dia >= 1 && dia <= 5 && hora >= 7 && hora <  23) {
             for (var i = 0; i < _parkings.length; i++) {
                 if (hora <= 9)
                     carga = 0.2;
-                if(hora > 9 && hora <= 10)
+                if(hora === 10)
                     carga = 0.7;
                 if(hora > 10 && hora <= 12)
                     carga = 0.9;
@@ -42,7 +42,7 @@ var ParkingManager = function() {
                 if(hora > 16 && hora <= 18)
                     carga = 0.4;
                 if(hora > 18 && hora <= 20)
-                    carga = 0.25;
+                    carga = 0.15;
                 if(hora > 20)
                     carga = 0.1;
                 _parkings[i].ocupadas = Math.floor(carga * _parkings[i].plazas);
@@ -99,15 +99,32 @@ var ParkingManager = function() {
         var hora = date.getHours();
         var prob = null;
         for (var i = 0; i < _parkings.length; i++) {
-            if (hora <= 9 ) {
-                prob = [-1, 0, 0, 0, 1, 1, 1, 1, 1, 2];
+            if (hora <= 8 ) {
+                prob = [-1, 0, 0, 0, 0, 1, 1, 1, 1, 1];
             }
-            if (hora > 9 && hora <= 11) {
-                prob = [-1, 0, 0, 0, 1, 1, 1, 2, 2, 2];
+            if (hora > 8 && hora <= 11) {
+                prob = [-1, 0, 0, 1, 1, 1, 1, 2, 2, 2];
             }
-            if(hora > 11 && hora <= 23) {
-                // prob = [-2, -1, -1, -1, 0, 0, 0, 0, 1, 1];
-                prob = [-1, -1, 0, 0, 1, 1, 2, 2, 3, 3];
+            if(hora > 11 && hora <= 13) {
+                prob = [-1, -1, -1, 0, 0, 0, 0, 1, 1, 1];
+            }
+            if(hora > 13 && hora <= 16) {
+                prob = [-1, -1, -1, -1, 0, 0, 0, 1, 1, 1];
+            }
+            if(hora > 16 && hora <= 18) {
+                prob = [-1, -1, -1, -1, -1, 0, 0, 0, 1, 1];
+            }
+            if(hora > 18 && hora <= 20) {
+                prob = [-1, -1, -1, -1, -1, -1, 0, 0, 0, 1];
+            }
+            if(hora > 20) {
+                prob = [-1, -1, -1, -1, -1, -1, -1, -1, -1, 0];
+            }
+            // coeficiente para parkings grandes
+            if(parking.plazas > 180) {
+                for (var j=0; j<prob.length; j++) {
+                    prob[j] = prob[j] * 2;
+                }
             }
             actualizar(prob, _parkings[i]);
         };
@@ -119,24 +136,6 @@ var ParkingManager = function() {
     abierto.start();
     cerrado.start();
     job.start();
-
-    // var job2 = new cronJob('* */1 * * * *', function(){
-    //     var update = 1;
-    //     if(_parkings[0].plazas === _parkings[0].ocupadas){
-    //         update = -1;
-    //         _sentido = 'bajada';
-    //     }
-    //     if(_sentido === 'bajada') {
-    //         update = -1;
-    //         if(_parkings[0].ocupadas === 0) {
-    //            update = 1;
-    //            _sentido = 'subida';
-    //         }
-    //     }
-    //     _parkings[0].ocupadas += update;
-    //     self.ee.emit('parkingEvent', _parkings[0].ocupadas);
-    //     // console.log('Plazas ocupadas de parking 1: ' + _parkings[0].ocupadas + ' de ' + _parkings[0].plazas);
-    // }, null, true);
 
     this.getParkings = function(callback) {
         return callback(null, _parkings);
