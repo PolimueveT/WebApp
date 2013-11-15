@@ -161,6 +161,8 @@ var TripDAO = function(db) {
                 if(!trip) return callback(new Error("trayecto no encontrado"));
                 if(trip.Inscritos.length === trip.Num_plazas)
                     return callback(new Error("no hay plazas disponibles en el trayecto"));
+                if(personId === trip.Creador_id)
+                    return callback(new Error("no esta permitido inscribirse en el trayecto creado por uno mismo"));
                 if(trip.Inscritos.indexOf(personId) != -1)
                     return callback(new Error("la persona ya esta inscrita en el trayecto"));
                 tripCollection.update({_id: ObjectID(tripId)}, {'$addToSet': { Inscritos: personId}},
