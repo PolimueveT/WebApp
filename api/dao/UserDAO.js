@@ -80,6 +80,26 @@ var UserDAO = function(db) {
 
 
     /**
+    * Método que actualiza los datos de un usuario
+    */
+    this.updateUser = function(userData, callback) {
+         var id = userData._id;
+         delete userData['_id'];
+         console.log('Ejecutando el update');
+         _db.collection("usuarios", function(err, collection){
+            collection.update({"_id":ObjectID(id)}, userData, function (err, result){
+                if(err){
+                    console.log('Error actualizando en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Éxito actualizando en collection usuarios');
+                return callback(null);
+            });
+        });
+    };
+
+
+    /**
     * Método que elimina un usuario a través de su ID
     */
     this.deleteUser = function(id, callback) {
