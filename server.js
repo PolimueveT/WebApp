@@ -106,6 +106,38 @@ var homeController = new HomeController();
  app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
+<<<<<<< HEAD
+
+ //USUARIOS
+ //app.get('/api/gettrips',tripController.getTrips)
+ //app.get('/api/gettrip/:id',tripController.getTrip)
+ //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
+  app.post('/api/newuser',userController.addUser)
+ //app.put('/api/updatetrip',tripController.updateTrip)
+ //app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+ ///////////////////////////////////////////////////
+
+
+ app.get('/a', userController.getUser)
+ app.get('/parking', parkingController.listParkings)
+ app.get('/estado-parking', function(req, res) {
+  var data = {
+    parkings: [] 
+  };
+
+  parkingManager.getParkings(function(err, parkings) {
+    data.parkings = parkings;
+    res.render('home/estado_parking', data);
+  });
+})
+
+// Falta crear Controllers
+app.get('/crear-trayecto', function(req, res) {
+  res.render('trayectos/crear-trayecto');
+})
+=======
+>>>>>>> c2918c9761dcce36c50a0bee116d762998cc1d23
 
 // Se usa esto para algo?? 
 app.get('/a', userController.getUser) 
