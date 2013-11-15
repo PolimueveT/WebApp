@@ -100,6 +100,7 @@ var homeController = new HomeController();
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
  app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
+ app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
  app.post('/api/newtrip',tripController.addTrip)
  app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
