@@ -1,4 +1,4 @@
-var UserData=require('../data/UserData');
+var UserData = require('../data/UserData');
 var UserController = function(userDAO) {
     
     var _UserDAO = userDAO;
@@ -131,6 +131,29 @@ var UserController = function(userDAO) {
             objetoRespuesta.success = true;                
             objetoRespuesta.info = "Se ha obtenido correctamente el usuario: "+idUser;
             objetoRespuesta.data = user;
+            res.send(objetoRespuesta);
+        });
+    };
+
+
+    /**
+    * Método que actualiza los datos de un usuario
+    */
+    this.updateUser = function(req, res) {
+        console.log('requestmod =' + JSON.stringify(req.body))
+        var _userData = crearData(true, req.body);
+        _UserDAO.updateUser(_userData, function(err) {
+            if(err) {
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            }
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Usuario modificado correctamente";
+            objetoRespuesta.data = null;
             res.send(objetoRespuesta);
         });
     };

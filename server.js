@@ -109,13 +109,13 @@ var homeController = new HomeController();
  ///////////////////////////////////////////////////
 
 //USUARIOS
-app.get('/api/getusers',userController.getAllUsers);
-app.get('/api/getuser/:id',userController.getUserById);
-app.delete('/api/deleteuser/:id',userController.deleteUser);
+app.get('/api/getusers', userController.getAllUsers);
+app.get('/api/getuser/:id', userController.getUserById);
+app.delete('/api/deleteuser/:id', userController.deleteUser);
+app.put('/api/updateuser', userController.updateUser);
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
   app.post('/api/newuser',userController.addUser)
- //app.put('/api/updatetrip',tripController.updateTrip)
  ///////////////////////////////////////////////////
 
 // API para listar Parkings
