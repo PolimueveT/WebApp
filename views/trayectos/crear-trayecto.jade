@@ -33,12 +33,12 @@ block content
                                 .form-group
                                     label.col-sm-3.control-label(for="precio") Precio/Plaza
                                     .col-sm-9
-                                        input.form-control(name="precio", type="text", placeHolder="Precio/Plaza")
+                                        input.form-control(ng-model="precio",name="precio", type="text", placeHolder="Precio/Plaza")
 
                                 .form-group
                                     label.col-sm-3.control-label(for="destino") Destino
                                     .col-sm-9
-                                        select.form-control(name="destino")
+                                        select.form-control(ng-model="destino",name="destino")
                                             option Valencia
                                             option Castellón
                                             option Alicante
@@ -46,7 +46,7 @@ block content
                                 .form-group
                                     label.col-sm-3.control-label(for="maxEspera") Max. Espera
                                     .col-sm-9
-                                        input.form-control(name="maxEspera",type="text", placeHolder="Max. Espera")
+                                        input.form-control(ng-model="max_espera",name="maxEspera",type="text", placeHolder="Max. Espera")
             .row
                 .col-md-6 
                     .panel.panel-default
@@ -83,7 +83,7 @@ block content
                     .form-group
                         label.col-sm-2.control-label(for="observaciones") Observaciones
                         .col-md-10
-                                textarea.form-control.col-sm-12(name="observaciones", id="textareaObservaciones", rows="5")
+                                textarea.form-control.col-sm-12(ng-model="observaciones",name="observaciones", id="textareaObservaciones", rows="5")
             .row
                 .col-md-12
                     .btn-group.col-md-4.btn-lg
