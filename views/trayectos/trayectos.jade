@@ -1,7 +1,7 @@
 extend ../layouts/main
 block content
     h1 Búsqueda de Trayectos
-    .container
+    .container(ng-controller="BuscarTrayectosCtrl")
         form.form-horizontal(role="form")
             .row
                 .col-sm-3
@@ -43,26 +43,28 @@ block content
                                     select.form-control(name="equipaje")
                                         option Mochila
                                         option Maleta
-                .col-xs-9
+                .col-md-9
                     .panel.panel-default
                         .panel-heading Resultados de búsqueda
                         .panel-body
-                            .container(ng-controller="BuscarTrayectosCtrl")
-                            .row
-                                table.table.table-striped
-                                    tr
-                                        th Fecha
-                                        th Origen
-                                        th Destino                                       
-                                        th Hora Salida
-                                        th Plazas Disponibles
-                                    
-                                        tr(ng-repeat="t in trayectos")
-                                            td ?
-                                            td {{ t.Origen }}
-                                            td {{ t.Destino }}
-                                            td {{ t.Hora_salida }}
-                                            td {{ t.Num_plazas - t.Inscritos.length}}
+                                .col-md-12
+                                    table.table.table-striped
+                                        tr
+                                            th Fecha
+                                            th Hora Salida
+                                            th Origen
+                                            th Destino                                       
+                                           
+                                            th Plazas Disponibles
+                                        
+                                            tr(ng-repeat="t in trayectos")
+                                                script.
+                                                    console.log("---"+t);
+                                                td {{ t.Fecha_salida}}
+                                                td {{ t.Origen }}
+                                                td {{ t.Destino }}
+                                                td {{ t.Hora_salida }}
+                                                td {{ t.Num_plazas - t.Inscritos.length }}
 block script
     script(src="/js/BuscarTrayectosCtrl.js")
     script.
