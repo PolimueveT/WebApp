@@ -80,6 +80,33 @@ var UserDAO = function(db) {
 
 
     /**
+    * Método que obtiene los usuarios de un tipo de usuario
+    */
+    this.getUsersByType = function(type, callback){
+        
+        if(!type) {
+            console.log('dao receive no type');
+            return callback(new Error("type invalido."));
+
+        }else if(type != '1' && type != '2') {
+            console.log('Tipo de usuario no definido');
+            return callback("Tipo de usuario no definido.");
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.find({"UserType":type}).toArray(function (err, users){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Se han obtenido los usuarios correctamente');
+                return callback(null, users);
+            });
+        });
+    };
+
+
+    /**
     * Método que actualiza los datos de un usuario
     */
     this.updateUser = function(userData, callback) {

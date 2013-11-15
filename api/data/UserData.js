@@ -6,6 +6,7 @@ module.exports=
 	"Email": null,
 	"Pass": null,
 	"Passconf": null,
+	"UserType": null,
 };
 
 
