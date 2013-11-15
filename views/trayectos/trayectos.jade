@@ -47,7 +47,7 @@ block content
                     .panel.panel-default
                         .panel-heading Resultados de búsqueda
                         .panel-body
-                            .container(ng-controller="TrayectosCtrl")
+                            .container(ng-controller="BuscarTrayectosCtrl")
                             .row
                                 table.table.table-striped
                                     tr
@@ -57,12 +57,22 @@ block content
                                         th Hora Salida
                                         th Plazas Disponibles
                                     
-                                        tr
-                                            td uno
-                                            td dos
-                                            td tres
-                                            td cuatro
-                                            td cinco
+                                        tr(ng-repeat="t in trayectos")
+                                            td ?
+                                            td {{ t.Origen }}
+                                            td {{ t.Destino }}
+                                            td {{ t.Hora_salida }}
+                                            td {{ t.Num_plazas - t.Inscritos.length}}
+block script
+    script(src="/js/BuscarTrayectosCtrl.js")
+    script.
+        var scope;
+        $(document).ready(function (){
+            scope = angular.element('[ng-controller="BuscarTrayectosCtrl"]').scope();
+            scope.getData();
+            scope.$apply();
+        });                                               
+                                        
 
 
 
