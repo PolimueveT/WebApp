@@ -38,3 +38,6 @@ var HomeController = function(Dao){
 	};
 
 };
+
+
+module.exports = HomeController;
