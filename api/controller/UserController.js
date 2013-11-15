@@ -92,6 +92,24 @@ var UserController = function(userDAO) {
         });
     };
 
+
+    this.getAllUsers = function(req, res) {
+        _UserDAO.getAllUsers(function(err, users){
+            if(err) {
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Se han leido correctamente todos los usuarios";
+            objetoRespuesta.data = users;
+            res.send(objetoRespuesta);
+        });
+    };
+
 };
 
 module.exports = UserController;

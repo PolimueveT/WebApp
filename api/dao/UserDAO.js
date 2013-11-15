@@ -37,6 +37,24 @@ var UserDAO = function(db) {
         });
     };
 
+
+    /**
+    * Método que obtiene todos los usuarios
+    */
+    this.getAllUsers = function(callback) {
+        console.log('Voy a obtener todos los usuarios');
+        _db.collection("usuarios", function(err, collection){
+            collection.find().toArray(function (err, users){
+                if(err){
+                    console.log('Se ha producido un error al obtener todos los usuarios');
+                    return callback(err, null);
+                }
+                console.log('Se han obtenido todos los usuarios correctamente');
+                return callback(null, users);
+            });
+        });
+    };
+
 };
 
 module.exports = UserDAO;

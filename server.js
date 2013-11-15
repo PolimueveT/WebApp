@@ -109,7 +109,7 @@ var homeController = new HomeController();
  ///////////////////////////////////////////////////
 
  //USUARIOS
- //app.get('/api/gettrips',tripController.getTrips)
+ app.get('/api/getusers',userController.getAllUsers);
  //app.get('/api/gettrip/:id',tripController.getTrip)
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
