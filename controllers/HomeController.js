@@ -15,12 +15,15 @@ var HomeController = function(Dao){
 	}
 
 	self.crear_trayecto = function(req, res) {
+		var data = {
+			title : 'Creando Trayecto'
+		}
 		res.render('trayectos/crear-trayecto');
 	};
 
 	self.mis_trayectos = function(req, res) {
 		var data = { 
-			title : 'Registrar Usuario' 
+			title : 'Gestión de mis trayectos' 
 		};
 		res.render('trayectos/mis-trayectos');
 	};

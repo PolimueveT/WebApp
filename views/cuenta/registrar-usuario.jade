@@ -1,47 +1,49 @@
 extend ../layouts/main
 block content
-    .container
-        form(role="form", name="crear-trayecto", method="post", action="/prueba")
+    .container(ng-controller="CrearUsuarioCtrl")
             .row
-                h1 Bienvenido!
+                h1 ¡Bienvenido!
                 .col-md-6
+                    form(role="form", name="ingresar", method="post")
                     .panel.panel-default
                         .panel-heading Entra a tu cuenta
                         .panel-body
                             .form-group
                                 label(for="nPlazas") Nombre
-                                input.form-control(id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+                                input.form-control(ng-model="name", id="nombre",name="nombre", type="text", placeHolder="Nombre")
 
                             .form-group
                                 label(for="horaSalida") Contraseña
-                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                                input.form-control(ng-model="pass", name="passwordUsuario",type="text", placeHolder="Contraseña")
 
                             .form-group
-                               label.checkbox(for="noFumadores") Recuerdame 
-                                        input(name="noFumadores",type="checkbox", id="NoFumadores") 
+                               label.checkbox(for="labelrecuerdame") Recuerdame 
+                                        input(ng-model="recuerdame", name="recuerdame",type="checkbox", id="recuerdame") 
 
                             .form-group
-                                 button.col-md-6(class="btn btn btn-success", id="cancelar", onClick="submit()") Entrar a mi Cuenta
+                                 button.col-md-6(class="btn btn btn-success", id="entrar", ng-click="Ingresar()") Entrar a mi Cuenta
                 .col-md-6
+                    form(role="form", name="crear-usuario", method="post")
                     .panel.panel-default
                         .panel-heading Registro de Usuario
                         .panel-body
                             .form-group
-                                label(for="nPlazas") Nombre
-                                input.form-control(id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+                                label(for="labelnombre") Nombre
+                                input.form-control(ng-model="nombre", id="nombre",name="nombre", type="text", placeHolder="Nombre")
 
                             .form-group
                                 label(for="origen") Email
-                                input.form-control(name="origen", type="text", placeHolder="Origen")
+                                input.form-control(ng-model="email",name="email", type="email", placeHolder="Email")
 
                             .form-group
                                 label(for="horaSalida") Contraseña
-                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                                input.form-control(ng-model="password", name="password",type="password", placeHolder="Contraseña")
 
                             .form-group
-                                label(for="horaSalida") Conf. Contraseña
-                                input.form-control(name="horaSalida",type="text", placeHolder="Hora Salida")
+                                label(for="horaSalida") Confirma contraseña
+                                input.form-control(ng-model="password2",name="password2",type="password", placeHolder="Repite la contraseña")
 
                             .form-group
-                                 button.col-md-6(class="btn btn btn-primary", id="cancelar", onClick="submit()") Registrar mi cuenta
-                            
+                                 button.col-md-6(class="btn btn btn-primary", id="registrar", ng-click="RegistrarUsuario()") Registrarme
+block script
+    script(src="/js/CrearUsuarioCtrl.js")
