@@ -23,7 +23,7 @@ var UserDAO = function(db) {
         // ....
     };
 
-    this.insertTrip = function(userdata, callback) {
+    this.insertUser = function(userdata, callback) {
         console.log('Ejecutando el post');
         _db.collection("usuarios", function(err,collection){
             collection.insert(userdata, function (err, result){

@@ -76,7 +76,7 @@ var UserController = function(userDAO) {
 
         }
  
-        _UserDAO.insertTrip(_userdata, function(err) {
+        _UserDAO.insertUser(_userdata, function(err) {
             if(err) {
                 console.log('Error UserController');
                 objetoRespuesta.success = false;                
