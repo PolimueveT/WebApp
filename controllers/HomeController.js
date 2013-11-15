@@ -4,14 +4,10 @@ var HomeController = function(Dao){
 
 	self.estado_parking = function(req, res) {
 		var data = {
-			title: 'Estado Parking',
-			parkings: [] 
+			title: 'Estado Parking'
 		};
-
-		parkingManager.getParkings(function(err, parkings) {
-			data.parkings = parkings;
-			res.render('home/estado_parking', data);
-		});
+		
+		res.render('home/estado_parking', data);
 	}
 
 	self.crear_trayecto = function(req, res) {
