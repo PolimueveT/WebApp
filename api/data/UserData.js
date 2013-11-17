@@ -7,6 +7,18 @@ module.exports=
 	"Pass": null,
 	"Passconf": null,
 	"UserType": null,
+	"Sexo": null,
+	"FechaNacimiento": null,
+	"Poblacion": null,
+	"Escuela": null,
+	"Observaciones": null,
+	"Coche": {
+		"Marca": null,
+		"Modelo": null,
+		"Año": null,
+		"Color": null,
+		"TipoCombustible": null,
+	},
 };
 
 

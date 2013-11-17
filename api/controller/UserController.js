@@ -19,6 +19,12 @@ var UserController = function(userDAO) {
         var pass = body.pass;
         var passconf = body.passconf;
         var userType = body.usertype;
+        var sexo = body.sexo;
+        var fecNac = body.fechanacimiento;
+        var poblacion = body.poblacion;
+        var escuela = body.escuela;
+        var obs = body.observaciones;
+        var coche = body.coche;
         
      
         UserData.Nombre = null;
@@ -26,6 +32,13 @@ var UserController = function(userDAO) {
         UserData.Pass = null;
         UserData.Passconf = null;
         UserData.UserType = null;
+        UserData.Sexo = null;
+        UserData.FechaNacimiento = null;
+        UserData.Poblacion = null;
+        UserData.Escuela = null;
+        UserData.Observaciones = null;
+        UserData.Coche = null;
+
 
         if(conid){            
              UserData._id = body._id;
@@ -39,6 +52,12 @@ var UserController = function(userDAO) {
         UserData.Pass = pass;
         UserData.Passconf = passconf;
         UserData.UserType = userType;
+        UserData.Sexo = sexo;
+        UserData.FechaNacimiento = fecNac;
+        UserData.Poblacion = poblacion;
+        UserData.Escuela = escuela;
+        UserData.Observaciones = obs;
+        UserData.Coche = coche;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
         return UserData;
