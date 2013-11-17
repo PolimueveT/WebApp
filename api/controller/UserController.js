@@ -17,19 +17,30 @@ var UserController = function(userDAO) {
         var nombre = body.nombre;
         var email = body.email;
         var pass = body.pass;
-        var passconf=body.passconf;
-    
+        var passconf = body.passconf;
+        var userType = body.usertype;
+        var sexo = body.sexo;
+        var fecNac = body.fechanacimiento;
+        var poblacion = body.poblacion;
+        var escuela = body.escuela;
+        var obs = body.observaciones;
+        var coche = body.coche;
         
      
         UserData.Nombre = null;
         UserData.Email = null;
         UserData.Pass = null;
         UserData.Passconf = null;
+        UserData.UserType = null;
+        UserData.Sexo = null;
+        UserData.FechaNacimiento = null;
+        UserData.Poblacion = null;
+        UserData.Escuela = null;
+        UserData.Observaciones = null;
+        UserData.Coche = null;
 
 
-
-        if(conid){
-            
+        if(conid){            
              UserData._id = body._id;
         }
         else{
@@ -40,7 +51,13 @@ var UserController = function(userDAO) {
         UserData.Email = email;
         UserData.Pass = pass;
         UserData.Passconf = passconf;
-  
+        UserData.UserType = userType;
+        UserData.Sexo = sexo;
+        UserData.FechaNacimiento = fecNac;
+        UserData.Poblacion = poblacion;
+        UserData.Escuela = escuela;
+        UserData.Observaciones = obs;
+        UserData.Coche = coche;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
         return UserData;
@@ -131,6 +148,28 @@ var UserController = function(userDAO) {
             objetoRespuesta.success = true;                
             objetoRespuesta.info = "Se ha obtenido correctamente el usuario: "+idUser;
             objetoRespuesta.data = user;
+            res.send(objetoRespuesta);
+        });
+    };
+
+
+    /**
+    * Método que obtiene los usuarios de un tipo de usuario
+    */
+    this.getUsersByType = function(req, res){
+        var userType = req.params.type;
+        _UserDAO.getUsersByType(userType, function(err, users){
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Se han obtenido correctamente los usuarios de tipo: "+userType;
+            objetoRespuesta.data = users;
             res.send(objetoRespuesta);
         });
     };
