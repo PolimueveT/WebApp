@@ -94,6 +94,7 @@ var homeController = new HomeController();
  * PUT: Actualizar
  * DELETE: Borrar
  */
+
  app.use(express.bodyParser());
 
  app.post('/api/nuevouser/:name',userController.addUser)
@@ -127,35 +128,6 @@ app.get('/crear-trayecto', homeController.crear_trayecto);
 app.get('/mis-trayectos', homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
-
-
-// Ejemplos de Acceso a MongoDB
-////////////////////////////////////////////////////////////////
-// app.get('/api/juanes/:id/', function(req, res) {
-//   db.collection('usuarios', function(err, collection) {
-//    collection.find({nombre: id}).toArray(function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//             return;
-//         }
-//         res.send(data);
-//     });
-// });
-// });
-
-// app.post('/api/juanes', function(req, res) {
-//     db.collection('usuarios', function(err, collection) {
-//       collection.insert({nombre: "peluda"}, function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//         }
-//         else {
-//           console.log('YAY!');
-//         }
-//     });
-// });
-// })
-///////////////////////////////////////////////////////////////////
 
 // Inicio de la App
 app.get('/', function (req, res) {

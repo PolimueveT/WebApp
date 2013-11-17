@@ -58,6 +58,7 @@ var ParkingManager = function() {
             _parkings[i].estado = 'Cerrado';
             _parkings[i].ocupadas = 0;
         };
+        self.ee.emit('parkingEvent', _parkings);
     }, null, false);
 
     var abierto = new cronJob('00 00 07 * * 1-5', function(){
@@ -67,6 +68,7 @@ var ParkingManager = function() {
             _parkings[i].estado = 'Libre';
             _parkings[i].ocupadas = 0;
         };
+        self.ee.emit('parkingEvent', _parkings);
     }, null, false);
 
     var calcularEstado = function(parking) {
@@ -91,9 +93,6 @@ var ParkingManager = function() {
         calcularEstado(parking);
     };
 
-    // TODO: 
-    // añadir mas intervalos
-    // añadir un coeficiente para que varie la ocupacion proporcionalmente entre parkings (mas plazas, mas rapido...)
     var job = new cronJob('*/30 * 7-23 * * 1-5', function(){
         var date = new Date();
         var hora = date.getHours();
@@ -117,16 +116,18 @@ var ParkingManager = function() {
             if(hora > 18 && hora <= 20) {
                 prob = [-1, -1, -1, -1, -1, -1, 0, 0, 0, 1];
             }
-            if(hora > 20) {
+            if(hora > 20 && hora < 23) {
                 prob = [-1, -1, -1, -1, -1, -1, -1, -1, -1, 0];
             }
-            // coeficiente para parkings grandes
-            if(_parkings[i].plazas > 180) {
-                for (var j=0; j<prob.length; j++) {
-                    prob[j] = prob[j] * 2;
+            if(hora < 23) {
+                // coeficiente para parkings grandes
+                if(_parkings[i].plazas > 180) {
+                    for (var j=0; j<prob.length; j++) {
+                        prob[j] = prob[j] * 2;
+                    }
                 }
+                actualizar(prob, _parkings[i]);
             }
-            actualizar(prob, _parkings[i]);
         };
         // mandamos las plazas libres
         self.ee.emit('parkingEvent', _parkings);
