@@ -94,9 +94,9 @@ var homeController = new HomeController();
  * PUT: Actualizar
  * DELETE: Borrar
  */
+
  app.use(express.bodyParser());
 
- app.post('/api/nuevouser/:name',userController.addUser)
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
@@ -108,14 +108,17 @@ var homeController = new HomeController();
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
 
- //USUARIOS
- //app.get('/api/gettrips',tripController.getTrips)
- //app.get('/api/gettrip/:id',tripController.getTrip)
+//USUARIOS
+app.get('/api/getusers', userController.getAllUsers);
+app.get('/api/getuser/:id', userController.getUserById);
+app.post('/api/newuser',userController.addUser);
+app.get('/api/getuserstype/:type', userController.getUsersByType);
+app.delete('/api/deleteuser/:id', userController.deleteUser);
+app.put('/api/updateuser', userController.updateUser);
+
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
-  app.post('/api/newuser',userController.addUser)
- //app.put('/api/updatetrip',tripController.updateTrip)
- //app.delete('/api/deletetrip/:id',tripController.deleteTrip)
+  
  ///////////////////////////////////////////////////
 
 // API para listar Parkings
@@ -127,35 +130,6 @@ app.get('/crear-trayecto', homeController.crear_trayecto);
 app.get('/mis-trayectos', homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
-
-
-// Ejemplos de Acceso a MongoDB
-////////////////////////////////////////////////////////////////
-// app.get('/api/juanes/:id/', function(req, res) {
-//   db.collection('usuarios', function(err, collection) {
-//    collection.find({nombre: id}).toArray(function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//             return;
-//         }
-//         res.send(data);
-//     });
-// });
-// });
-
-// app.post('/api/juanes', function(req, res) {
-//     db.collection('usuarios', function(err, collection) {
-//       collection.insert({nombre: "peluda"}, function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//         }
-//         else {
-//           console.log('YAY!');
-//         }
-//     });
-// });
-// })
-///////////////////////////////////////////////////////////////////
 
 // Inicio de la App
 app.get('/', function (req, res) {

@@ -79,6 +79,27 @@ var TripDAO = function(db) {
     };
 
 
+        this.readTripsFiltro = function(tripdata , callback) {
+        console.log('Ejecutando el get');
+        if(!tripdata) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("trayectos", function(err,collection){
+            collection.find({"Inscritos": Iid }).toArray(function (err, trips){
+                if(err){
+                    console.log('Error leyendo en collection trayectos');
+                    return callback(err);
+                }
+                console.log('Éxito leyendo en collection trayectos');
+                // console.log('READ =' + JSON.stringify(trip));
+                return callback(null,trips);
+            });
+        });
+    };
+
+
 
         this.readTripsInscrito = function(Iid, callback) {
         console.log('Ejecutando el get');
@@ -152,6 +173,8 @@ var TripDAO = function(db) {
         });
     };
 
+
+    // ATENCION: No se comprueba que la persona exista
     this.addPersonToTrip = function(tripId, personId, callback) {
         if(!tripId) return callback(new Error("tripId invalido"));
         if(!personId) return callback(new Error("personId invalido"));
@@ -161,6 +184,8 @@ var TripDAO = function(db) {
                 if(!trip) return callback(new Error("trayecto no encontrado"));
                 if(trip.Inscritos.length === trip.Num_plazas)
                     return callback(new Error("no hay plazas disponibles en el trayecto"));
+                if(personId === trip.Creador_id)
+                    return callback(new Error("no esta permitido inscribirse en el trayecto creado por uno mismo"));
                 if(trip.Inscritos.indexOf(personId) != -1)
                     return callback(new Error("la persona ya esta inscrita en el trayecto"));
                 tripCollection.update({_id: ObjectID(tripId)}, {'$addToSet': { Inscritos: personId}},
