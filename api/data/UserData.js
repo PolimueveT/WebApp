@@ -12,6 +12,7 @@ module.exports=
 	"Poblacion": null,
 	"Escuela": null,
 	"Observaciones": null,
+	"Telefono": null,
 	"Coche": {
 		"Marca": null,
 		"Modelo": null,
