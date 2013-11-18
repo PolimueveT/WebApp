@@ -3,16 +3,6 @@ var UserDAO = function(db) {
     
     var _db = db;
 
-    /**
-     * var user = {
-     * 
-     *     nombre: "Juancito",
-     *     coche: "Red Bull RB9",
-     *     plazas: 1,
-     *     pene: "XL"
-     * 
-     * }
-     */
 
      //Por hacer
     this.readUser = function(name, callback) {
