@@ -13,3 +13,9 @@
   background: -ms-linear-gradient(#5cb85c, #4cae4c);
   background: linear-gradient(#5cb85c, #4cae4c);
 }
+input.ng-invalid.ng-dirty {
+  border: 1px solid #c00;
+}
+input.ng-valid.ng-dirty {
+  border: 1px solid #008000;
+}
