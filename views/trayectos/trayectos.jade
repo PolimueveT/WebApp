@@ -4,45 +4,58 @@ block content
     .container(ng-controller="BuscarTrayectosCtrl")
         form.form-horizontal(role="form")
             .row
-                .col-sm-3
+                .col-sm-2
                    .form-group
                         label.col-sm-4.control-label(for="salida") Salida  
                         .col-sm-8
-                            input.form-control(name="salida", type="text", placeHolder="Salida")
+                            input.form-control(ng-model="salida", type="text", placeHolder="Salida")
                 .col-sm-3
                    .form-group
                         label.col-sm-4.control-label(for="destino") Destino
                         .col-sm-8
-                           input.form-control(name="destino", type="text", placeHolder="Destino")
-                .col-sm-4
-                    p
-                    | Aquí un datepicker
-                .col-sm-2
-                    button(type="submit") Buscar
-                        .btn 
-
+                           input.form-control(ng-model="destino", type="text", placeHolder="Destino")
+                .col-sm-3
+                    .form-group
+                        label.col-sm-4.control-label(for="fecha") Fecha
+                        .col-sm-8
+                            #datetimepicker1.input-append.date
+                                input.form-control(data-format='dd/MM/yyyy', type='text')
+                                span.add-on
+                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                .col-sm-3
+                    .form-group
+                        label.col-sm-4.control-label(for="hora") Hora
+                        .col-sm-8
+                            #datetimepicker2.input-append.date
+                                input.form-control(data-format='hh:mm', type='text')
+                                span.add-on
+                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                .col-sm-1
+                    button.col-md-12(class="btn", id="buscar", ng-click="FiltrarTrayectos()") Buscar
+                    
             .row
-                .col-xs-3 
+                .col-md-3 
                     .panel.panel-default
                         .panel-heading Restricciones
                         .panel-body
                             .form-group
                                 label.col-sm-0.control-label(for="noFumadores") No fumadores
                                 .col-sm-3
-                                    input.form-control(name="noFumadores",type="checkbox", id="NoFumadores") 
+                                    input.form-control(ng-model="noFumadores",type="checkbox", id="NoFumadores") 
                              .form-group
                                 label.col-sm-0.control-label(for="noAnimales") No animales
                                 .col-sm-3
-                                    input.form-control(name="noAnimales",type="checkbox", id="NoAnimales") 
+                                    input.form-control(ng-model="noAnimales",type="checkbox", id="NoAnimales") 
                             .form-group
                                 label.col-sm-0.control-label(for="noComida") No comida
                                 .col-sm-3
-                                    input.form-control(name="noComida",type="checkbox", id="NoComida") 
-                            .form-group
-                                label.control-label(for="equipaje") Tamaño máx. del equipaje
-                                    select.form-control(name="equipaje")
-                                        option Mochila
-                                        option Maleta
+                                    input.form-control(ng-model="noComida",type="checkbox", id="NoComida") 
+                            form-group
+                                label.control-label Tamaño máx. del equipaje
+                                .col-sm-12
+                                        select.form-control(ng-model="equipaje")
+                                            option Mochila
+                                            option Maleta
                 .col-md-9
                     .panel.panel-default
                         .panel-heading Resultados de búsqueda
@@ -54,16 +67,13 @@ block content
                                             th Hora Salida
                                             th Origen
                                             th Destino                                       
-                                           
                                             th Plazas Disponibles
                                         
                                             tr(ng-repeat="t in trayectos")
-                                                script.
-                                                    console.log("---"+t);
                                                 td {{ t.Fecha_salida}}
+                                                td {{ t.Hora_salida }}
                                                 td {{ t.Origen }}
                                                 td {{ t.Destino }}
-                                                td {{ t.Hora_salida }}
                                                 td {{ t.Num_plazas - t.Inscritos.length }}
 block script
     script(src="/js/BuscarTrayectosCtrl.js")
@@ -75,9 +85,21 @@ block script
             scope.$apply();
         }); 
 
-$('button').on('click', function(e){
-   
-});                                              
+    script.
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                pickTime:false
+            });
+        });
+
+        $(function() {
+            $('#datetimepicker2').datetimepicker({
+                pickDate: false,
+                pickSeconds: false
+            });
+        });
+
+
                                         
 
 
