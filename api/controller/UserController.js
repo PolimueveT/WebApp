@@ -12,7 +12,7 @@ var UserController = function(userDAO) {
 
 
 
-    var crearData=function(conid,body){
+    var crearData = function(conid,body){
 
         var nombre = body.nombre;
         var email = body.email;
@@ -24,6 +24,7 @@ var UserController = function(userDAO) {
         var poblacion = body.poblacion;
         var escuela = body.escuela;
         var obs = body.observaciones;
+        var telefono = body.telefono;
         var coche = body.coche;
         
      
@@ -37,6 +38,7 @@ var UserController = function(userDAO) {
         UserData.Poblacion = null;
         UserData.Escuela = null;
         UserData.Observaciones = null;
+        UserData.Telefono = null;
         UserData.Coche = null;
 
 
@@ -57,6 +59,7 @@ var UserController = function(userDAO) {
         UserData.Poblacion = poblacion;
         UserData.Escuela = escuela;
         UserData.Observaciones = obs;
+        UserData.Telefono = telefono;
         UserData.Coche = coche;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
@@ -83,7 +86,7 @@ var UserController = function(userDAO) {
     this.addUser = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
         _userdata= crearData(false,req.body);
-        if(_userdata.pass!=_userdata.passconf){
+        if(_userdata.Pass != _userdata.Passconf){
                console.log('Error UserController');
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = "La contraseña y la confirmación no son iguales";
