@@ -97,7 +97,6 @@ var homeController = new HomeController();
 
  app.use(express.bodyParser());
 
- app.post('/api/nuevouser/:name',userController.addUser)
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
@@ -112,12 +111,14 @@ var homeController = new HomeController();
 //USUARIOS
 app.get('/api/getusers', userController.getAllUsers);
 app.get('/api/getuser/:id', userController.getUserById);
+app.post('/api/newuser',userController.addUser);
 app.get('/api/getuserstype/:type', userController.getUsersByType);
 app.delete('/api/deleteuser/:id', userController.deleteUser);
 app.put('/api/updateuser', userController.updateUser);
+
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
-  app.post('/api/newuser',userController.addUser)
+  
  ///////////////////////////////////////////////////
 
 // API para listar Parkings

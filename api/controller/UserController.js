@@ -83,7 +83,7 @@ var UserController = function(userDAO) {
     this.addUser = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
         _userdata= crearData(false,req.body);
-        if(_userdata.pass!=_userdata.passconf){
+        if(_userdata.Pass != _userdata.Passconf){
                console.log('Error UserController');
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = "La contraseña y la confirmación no son iguales";
