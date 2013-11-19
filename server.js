@@ -143,11 +143,10 @@ app.get('/', function (req, res) {
 /////// Socket
 /// para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
 io.of("/estado-parking").on("connection", function (socket) {
-    // here are connections from /showParking
-    console.log('se conectaron a showParking');
+    console.log('un cliente se ha conectado a la visualizacion del parking');
     parkingManager.ee.on('parkingEvent', function(datos){
       socket.emit('palCliente', datos);
     });
-  });
+});
 
 server.listen(3000)
