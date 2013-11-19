@@ -76,7 +76,7 @@ var TripController = function(TripDAO) {
          var id=req.params.id;
         _TripDAO.readTrip(id, function(err,trip) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -94,7 +94,7 @@ var TripController = function(TripDAO) {
          
         _TripDAO.readTrips( function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -112,7 +112,7 @@ var TripController = function(TripDAO) {
          var Cid=req.params.id;
         _TripDAO.readTripsPerson(Cid, function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -129,9 +129,9 @@ var TripController = function(TripDAO) {
             return;
           }
 
-            objetoRespuesta.success=false;                
+            objetoRespuesta.success=true;                
             objetoRespuesta.info="La persona  "+Cid+" no tiene trayectos";
-            objetoRespuesta.data=null;
+            objetoRespuesta.data=[];
             res.send(objetoRespuesta);
             return;
 
@@ -141,7 +141,7 @@ var TripController = function(TripDAO) {
          var Iid=req.params.id;
         _TripDAO.readTripsInscrito(Iid, function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -173,7 +173,7 @@ var TripController = function(TripDAO) {
         // validar / parsear name...
         _TripDAO.insertTrip(_tripdata, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = err;
                 objetoRespuesta.data = null;
@@ -194,7 +194,7 @@ var TripController = function(TripDAO) {
         // validar / parsear name...
         _TripDAO.updateTrip(_tripdata, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = err;
                 objetoRespuesta.data = null;
@@ -214,7 +214,7 @@ var TripController = function(TripDAO) {
         var id=req.params.id;
         _TripDAO.deleteTrip(id, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -233,11 +233,17 @@ var TripController = function(TripDAO) {
         var personId = req.body.personId;
         _TripDAO.addPersonToTrip(tripId, personId, function(err) {
             if(err){
-                console.log(err);
-                res.send('algo');
+                console.log('Error TripController: ' + err);
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
                 return;
             }
-            res.send('otro algo');
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha añadido un pasajero correctamente al trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
         });
     };
 
