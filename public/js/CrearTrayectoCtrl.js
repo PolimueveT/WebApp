@@ -9,8 +9,12 @@ function CrearTrayectoCtrl($scope, $http) {
 	    return curr_date + "/" + curr_month + "/" + curr_year;
 	}
 
-	$scope.change = function() {
-		alert('test');
+	function getTime(){
+		var d = new Date();
+	    var curr_hour = d.getHours();
+	    var curr_minute = d.getMinutes();
+
+	    return curr_hour + ":" + curr_minute;
 	}
 
 	$scope.trayecto = {
@@ -21,7 +25,9 @@ function CrearTrayectoCtrl($scope, $http) {
 			alumnos: true,
 			profesores: true,
 			personal: true
-		}
+		},
+		fecha_time: getDate(),
+		horaSalida: getTime()
 	};
 	$scope.submitted = false;
 
@@ -29,7 +35,10 @@ function CrearTrayectoCtrl($scope, $http) {
 		if ($scope.form.$valid) {
 			var obj = angular.copy($scope.trayecto);
 
-			console.log(obj);
+			var fecha = $scope.trayecto.fecha_time.split("/");
+			var hora = $scope.trayecto.horaSalida.split(":");
+
+			obj.trayecto.fecha_time = new Date(fecha[2], fecha[1], fecha[0], hora[0], hora[1], 0, 0);
 
 			// Enviamos obj con un POST al server
 			// Por AJAX.
