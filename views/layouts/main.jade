@@ -48,4 +48,15 @@ html(ng-app)
     script(src="/js/angular.min.js")
     script(src="/js/underscore-min.js")
     script(src="/js/bootstrap-datetimepicker.min.js")
+    script.
+        $(function() {
+            $('.timePicker').datetimepicker({
+                pickDate:false
+            });
+
+            $('.datePicker').datetimepicker({
+                pickTime:false,
+                weekStart: 1,
+            });
+        });
     block script
