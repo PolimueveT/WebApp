@@ -2,36 +2,49 @@ extend ../layouts/main
 block content
     h1 Búsqueda de Trayectos
     .container(ng-controller="BuscarTrayectosCtrl")
-        form.form-horizontal(role="form")
+        .alert.alert-danger(ng-show="form.submitted && !form.$valid")
+                        span.glyphicon.glyphicon-warning-sign 
+                            b Completa todos los campos obligatorios
+        
+        form.form-horizontal(role="form", name="form", novalidate)
             .row
                 .col-sm-2
-                   .form-group
-                        label.col-sm-4.control-label(for="salida") Salida  
+                   .form-group(ng-class="{'has-error': form.salida.$error.required && form.submitted}") 
+                        label.col-sm-4.control-label(for="origen") Origen  
                         .col-sm-8
-                            input.form-control(ng-model="salida", type="text", placeHolder="Salida")
+                            input.form-control(ng-model="salida", name="salida", type="text", placeHolder="Salida", required)
+
+
                 .col-sm-3
-                   .form-group
+                   .form-group(ng-class="{'has-error': form.destino.$error.required && form.submitted }")
                         label.col-sm-4.control-label(for="destino") Destino
                         .col-sm-8
-                           input.form-control(ng-model="destino", type="text", placeHolder="Destino")
+                            input.form-control(ng-model="destino", name="destino", type="text", placeHolder="Destino", required)
+                
+
                 .col-sm-3
                     .form-group
                         label.col-sm-4.control-label(for="fecha") Fecha
                         .col-sm-8
                             #datetimepicker1.input-append.date
-                                input.form-control(data-format='dd/MM/yyyy', type='text')
+                                input.form-control(ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
                                 span.add-on
                                     i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+
+
                 .col-sm-3
                     .form-group
                         label.col-sm-4.control-label(for="hora") Hora
                         .col-sm-8
                             #datetimepicker2.input-append.date
-                                input.form-control(data-format='hh:mm', type='text')
+                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
                                 span.add-on
                                     i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                
+
                 .col-sm-1
-                    button.col-md-12(class="btn", id="buscar", ng-click="FiltrarTrayectos()") Buscar
+                    .form-group
+                        button.col-md-10(class="btn", id="buscar", ng-click="FiltrarTrayectos()") Buscar
                     
             .row
                 .col-md-3 
@@ -50,10 +63,10 @@ block content
                                 label.col-sm-0.control-label(for="noComida") No comida
                                 .col-sm-3
                                     input.form-control(ng-model="noComida",type="checkbox", id="NoComida") 
-                            form-group
+                            form-group(ng-class="{'has-error': form.equipaje.$error.required && form.submitted }")
                                 label.control-label Tamaño máx. del equipaje
                                 .col-sm-12
-                                        select.form-control(ng-model="equipaje")
+                                        select.form-control(ng-model="equipaje", name="equipaje", required)
                                             option Mochila
                                             option Maleta
                 .col-md-9
@@ -88,7 +101,8 @@ block script
     script.
         $(function() {
             $('#datetimepicker1').datetimepicker({
-                pickTime:false
+                pickTime:false,
+                weekStart: 1,
             });
         });
 
