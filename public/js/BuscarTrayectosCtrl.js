@@ -44,4 +44,8 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 	};
 
+	$scope.EliminarRest = function(){
+		$scope.trayectos = $scope.todos;
+	};
+
 }
