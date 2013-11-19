@@ -3,8 +3,8 @@ block content
     h1 Búsqueda de Trayectos
     .container(ng-controller="BuscarTrayectosCtrl")
         .alert.alert-danger(ng-show="form.submitted && !form.$valid")
-                        span.glyphicon.glyphicon-warning-sign 
-                            b Completa todos los campos obligatorios
+                        span.glyphicon.glyphicon-warning-sign  
+                        b  Completa todos los campos obligatorios
         
         form.form-horizontal(role="form", name="form", novalidate)
             .row
@@ -26,20 +26,22 @@ block content
                     .form-group
                         label.col-sm-4.control-label(for="fecha") Fecha
                         .col-sm-8
-                            #datetimepicker1.input-append.date
-                                input.form-control(ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
-                                span.add-on
-                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                            .datePicker.date.input-group
+                                input.form-control(data-format="dd/MM/yyyy hh:mm:ss",ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
+                                span.add-on.input-group-btn
+                                    a.btn.btn-primary.btn-group
+                                        span.glyphicon.glyphicon-calendar
 
 
                 .col-sm-3
                     .form-group
                         label.col-sm-4.control-label(for="hora") Hora
                         .col-sm-8
-                            #datetimepicker2.input-append.date
+                            .timePicker.date.input-group
                                 input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
-                                span.add-on
-                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                                span.add-on.input-group-btn
+                                    a.btn.btn-primary.btn-group
+                                        span.glyphicon.glyphicon-time
                 
 
                 .col-sm-1
@@ -53,7 +55,7 @@ block content
                         .panel-body
                             .form-group
                                 label.col-sm-0.control-label(for="noFumadores") No fumadores
-                                .col-sm-3
+                                .col-sm-2
                                     input.form-control(ng-model="noFumadores",type="checkbox", id="NoFumadores") 
                              .form-group
                                 label.col-sm-0.control-label(for="noAnimales") No animales
@@ -97,21 +99,6 @@ block script
             scope.getData();
             scope.$apply();
         }); 
-
-    script.
-        $(function() {
-            $('#datetimepicker1').datetimepicker({
-                pickTime:false,
-                weekStart: 1,
-            });
-        });
-
-        $(function() {
-            $('#datetimepicker2').datetimepicker({
-                pickDate: false,
-                pickSeconds: false
-            });
-        });
 
 
                                         

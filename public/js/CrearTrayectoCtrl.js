@@ -8,7 +8,8 @@ function CrearTrayectoCtrl($scope, $http) {
 			alumnos: true,
 			profesores: true,
 			personal: true
-		}
+		},
+		fecha_time: new Date()
 	};
 	$scope.submitted = false;
 
@@ -20,12 +21,12 @@ function CrearTrayectoCtrl($scope, $http) {
 
 			// Enviamos obj con un POST al server
 			// Por AJAX.
-			// $http.post('/api/newtrip', obj).success(function (response){
-			// 	console.log(response);
-			// 	if(response.success === true) { 
-			// 		window.location = "/mis-trayectos";	
-			// 	 }
-			// });
+			$http.post('/api/newtrip', obj).success(function (response){
+				console.log(response);
+				if(response.success === true) { 
+					window.location = "/mis-trayectos";	
+				 }
+			});
 
 	    } else {
 	      $scope.form.submitted = true;
