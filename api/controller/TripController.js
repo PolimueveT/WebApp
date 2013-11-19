@@ -58,7 +58,8 @@ var TripController = function(TripDAO) {
         TripData.Destino = destino;
         TripData.Hora_salida = hora_salida;
         TripData.Fecha_salida = fecha_salida;
-        TripDate
+
+        // TripDate
         TripData.Precio_plaza = precio_plaza;
         TripData.Tiempo_max_espera = tiempo_max_espera;
         TripData.Restricciones = restricciones;
@@ -106,8 +107,6 @@ var TripController = function(TripDAO) {
          delete TripData['Inscritos'];
         }
 
-
-
         console.log('tripdata creado =' + JSON.stringify(TripData));
         return TripData;
     };
@@ -117,7 +116,7 @@ var TripController = function(TripDAO) {
          var id=req.params.id;
         _TripDAO.readTrip(id, function(err,trip) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -131,14 +130,11 @@ var TripController = function(TripDAO) {
         });
     };
 
-
-
     //Obtiene todos los trayectos
     this.getTrips = function(req, res) {
-         
         _TripDAO.readTrips( function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -155,78 +151,66 @@ var TripController = function(TripDAO) {
 
     //Devuelve trayectos que ha creado una persona
     this.getTripsPerson = function(req, res) {
-         var Cid=req.params.id;
+        var Cid=req.params.id;
         _TripDAO.readTripsPerson(Cid, function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
                 res.send(objetoRespuesta);
                 return;
             } 
-
             if(trips.length > 0){
-
+                objetoRespuesta.success=true;                
+                objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Cid;
+                objetoRespuesta.data=trips;
+                res.send(objetoRespuesta);
+                return;
+            }
             objetoRespuesta.success=true;                
-            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Cid;
-            objetoRespuesta.data=trips;
-            res.send(objetoRespuesta);
-            return;
-          }
-
-            objetoRespuesta.success=false;                
             objetoRespuesta.info="La persona  "+Cid+" no tiene trayectos";
-            objetoRespuesta.data=null;
+            objetoRespuesta.data=[];
             res.send(objetoRespuesta);
             return;
-
         });
     };
 
-
     //Devuelve trayectos en los que estas inscrito
-
-        this.getTripsInscrito = function(req, res) {
-         var Iid=req.params.id;
+    this.getTripsInscrito = function(req, res) {
+        var Iid=req.params.id;
         _TripDAO.readTripsInscrito(Iid, function(err,trips) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
                 res.send(objetoRespuesta);
                 return;
             } 
-
             if(trips.length > 0){
-
-            objetoRespuesta.success=true;                
-            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
-            objetoRespuesta.data=trips;
-            res.send(objetoRespuesta);
-            return;
-          }
-
+                objetoRespuesta.success=true;                
+                objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
+                objetoRespuesta.data=trips;
+                res.send(objetoRespuesta);
+                return;
+            }
             objetoRespuesta.success=false;                
             objetoRespuesta.info="La persona  "+Iid+" no esta inscrito en ningún trayecto";
             objetoRespuesta.data=null;
             res.send(objetoRespuesta);
             return;
-
         });
     };
 
-
-
-//Devuelve trayectos con filtro
-      this.getTripsFiltro = function(req, res) {
-         _tripdata= crearData(false,req.body);
+    //Devuelve trayectos con filtro
+    this.getTripsFiltro = function(req, res) {
+        _tripdata= crearData(false,req.body);
 
          //crear objeto consulta
 
 
-         _tripdata.
+         // _tripdata.
 
 
 
@@ -258,15 +242,14 @@ var TripController = function(TripDAO) {
         });
     };
 
-
-//Añade un trayecto
+    //Añade un trayecto
     this.addTrip = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
         _tripdata= crearData(false,req.body);
         // validar / parsear name...
         _TripDAO.insertTrip(_tripdata, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = err;
                 objetoRespuesta.data = null;
@@ -280,8 +263,6 @@ var TripController = function(TripDAO) {
         });
     };
 
-
-
     //Actualiza un trayecto 
     this.updateTrip = function(req, res) {
         console.log('requestmod =' + JSON.stringify(req.body))
@@ -289,7 +270,7 @@ var TripController = function(TripDAO) {
         // validar / parsear name...
         _TripDAO.updateTrip(_tripdata, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = err;
                 objetoRespuesta.data = null;
@@ -303,13 +284,12 @@ var TripController = function(TripDAO) {
         });
     };
 
-
     //Borra un trayecto
     this.deleteTrip = function(req, res) {
         var id=req.params.id;
         _TripDAO.deleteTrip(id, function(err) {
             if(err) {
-                console.log('Error TripController');
+                console.log('Error TripController: ' + err);
                 objetoRespuesta.success=false;                
                 objetoRespuesta.info=err;
                 objetoRespuesta.data=null;
@@ -323,16 +303,23 @@ var TripController = function(TripDAO) {
         });
     };
 
+    // agrega un pasajero a un trayecto (recibe id del pasajero, id del trayecto)
     this.applyTrip = function(req, res) {
         var tripId = req.body.tripId;
         var personId = req.body.personId;
         _TripDAO.addPersonToTrip(tripId, personId, function(err) {
             if(err){
-                console.log(err);
-                res.send('algo');
+                console.log('Error TripController: ' + err);
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
                 return;
             }
-            res.send('otro algo');
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha añadido un pasajero correctamente al trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
         });
     };
 
