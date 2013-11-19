@@ -25,17 +25,27 @@ block content
                                         input.form-control(ng-model="trayecto.origen",name="origen", type="text", placeHolder="Origen", required)
                                         span(ng-show="form.origen.$error.required && form.submitted") El trayecto debe tener un origen
 
+                                .form-group(ng-class="{'has-error': form.fecha_time.$error.required && form.submitted }")
+                                    label.col-sm-3.control-label(for="fecha_time") Fecha Salida
+                                    .col-sm-9
+                                        .datePicker.date.input-group
+                                            input.form-control(data-format="dd/MM/yyyy",ng-model="trayecto.fecha_time",name="fecha_time",type="text", placeHolder="Fecha Salida", required)
+                                            span.add-on.input-group-btn
+                                                a.btn.btn-primary.btn-group
+                                                    span.glyphicon.glyphicon-calendar
+                                        span(ng-show="form.fecha_time.$error.required && form.submitted") La Fecha de Salida es Requerida
+
                                 .form-group(ng-class="{'has-error': form.horaSalida.$error.required && form.submitted }")
                                     label.col-sm-3.control-label(for="horaSalida") Hora Salida
                                     .col-sm-9
-                                        input.form-control(ng-model="trayecto.horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida", required)
+                                        .timePicker.date.input-group
+                                            input.form-control(data-format="hh:mm:ss",ng-model="trayecto.horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida", required)
+                                            span.add-on.input-group-btn
+                                                a.btn.btn-primary.btn-group
+                                                    span.glyphicon.glyphicon-time
                                         span(ng-show="form.horaSalida.$error.required && form.submitted") La Hora de Salida es Requerida
-                                .form-group
-                                    label.col-sm-3.control-label(for="equipaje") Tamaño max. del equipaje
-                                    .col-sm-9
-                                        select.form-control(ng-model="trayecto.equipaje",name="equipaje")
-                                            option Mochila
-                                            option Maleta
+
+                                
                             .col-md-6
                                 .form-group(ng-class="{'has-error': (form.precio.$error.required || form.precio.$error.number || form.precio.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="precio") Precio/Plaza
@@ -55,6 +65,13 @@ block content
                                     .col-sm-9
                                         input.form-control(ng-model="trayecto.max_espera",name="maxEspera",type="number", placeHolder="Cant. Minutos", required, min="0")
                                         span(ng-show="(form.maxEspera.$error.required || form.maxEspera.$error.number || form.maxEspera.$error.min) && form.submitted") Tiempo Max. Espera tiene que ser un numero
+
+                                .form-group
+                                    label.col-sm-3.control-label(for="equipaje") Tamaño max. del equipaje
+                                    .col-sm-9
+                                        select.form-control(ng-model="trayecto.equipaje",name="equipaje")
+                                            option Mochila
+                                            option Maleta
             .row
                 .col-md-6 
                     .panel.panel-default
@@ -95,8 +112,14 @@ block content
             .row
                 .col-md-12
                     .btn-group.col-md-4.btn-lg
-                        button.col-md-6(class="btn btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar Trayecto
+                        button.col-md-6(class="btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar Trayecto
                         button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Limpiar Campos
 
 block script
     script(src="/js/CrearTrayectoCtrl.js")
+    script.
+        var scope;
+        $(document).ready(function (){
+            scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
+            scope.$apply();
+        }); 
