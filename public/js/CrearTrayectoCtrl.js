@@ -1,5 +1,18 @@
 function CrearTrayectoCtrl($scope, $http) {
 
+	function getDate(){
+		var d = new Date();
+	    var curr_date = d.getDate();
+	    var curr_month = d.getMonth() + 1; //Months are zero based
+	    var curr_year = d.getFullYear();
+
+	    return curr_date + "/" + curr_month + "/" + curr_year;
+	}
+
+	$scope.change = function() {
+		alert('test');
+	}
+
 	$scope.trayecto = {
 		num_plazas: 1,
 		precio: 0,
@@ -8,8 +21,7 @@ function CrearTrayectoCtrl($scope, $http) {
 			alumnos: true,
 			profesores: true,
 			personal: true
-		},
-		fecha_time: new Date()
+		}
 	};
 	$scope.submitted = false;
 
