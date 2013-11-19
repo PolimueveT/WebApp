@@ -3,16 +3,6 @@ var UserDAO = function(db) {
     
     var _db = db;
 
-    /**
-     * var user = {
-     * 
-     *     nombre: "Juancito",
-     *     coche: "Red Bull RB9",
-     *     plazas: 1,
-     *     pene: "XL"
-     * 
-     * }
-     */
 
      //Por hacer
     this.readUser = function(name, callback) {
@@ -74,6 +64,53 @@ var UserDAO = function(db) {
                 }
                 console.log('Se ha obtenido el usuario correctamente');
                 return callback(null, user);
+            });
+        });
+    };
+
+
+    /**
+    * Método que obtiene los usuarios de un tipo de usuario
+    */
+    this.getUsersByType = function(type, callback){
+        
+        if(!type) {
+            console.log('dao receive no type');
+            return callback(new Error("type invalido."));
+
+        }else if(type != '1' && type != '2') {
+            console.log('Tipo de usuario no definido');
+            return callback("Tipo de usuario no definido.");
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.find({"UserType":type}).toArray(function (err, users){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Se han obtenido los usuarios correctamente');
+                return callback(null, users);
+            });
+        });
+    };
+
+
+    /**
+    * Método que actualiza los datos de un usuario
+    */
+    this.updateUser = function(userData, callback) {
+         var id = userData._id;
+         delete userData['_id'];
+         console.log('Ejecutando el update');
+         _db.collection("usuarios", function(err, collection){
+            collection.update({"_id":ObjectID(id)}, userData, function (err, result){
+                if(err){
+                    console.log('Error actualizando en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Éxito actualizando en collection usuarios');
+                return callback(null);
             });
         });
     };

@@ -1,60 +1,123 @@
 extend ../layouts/main
 block content
     h1 Búsqueda de Trayectos
-    .container
-        form.form-horizontal(role="form")
+    .container(ng-controller="BuscarTrayectosCtrl")
+        .alert.alert-danger(ng-show="form.submitted && !form.$valid")
+                        span.glyphicon.glyphicon-warning-sign 
+                            b Completa todos los campos obligatorios
+        
+        form.form-horizontal(role="form", name="form", novalidate)
             .row
-                .col-sm-3
-                   .form-group
-                        label.col-sm-4.control-label(for="salida") Salida  
-                        .col-sm-12
-                            input.form-control(name="salida", type="text", placeHolder="Salida")
-                .col-sm-3
-                   .form-group
-                        label.col-sm-4.control-label(for="destino") Destino
-                        .col-sm-11
-                           input.form-control(name="destino", type="text", placeHolder="Destino")
-                .col-sm-4
-                    p
-                    | Aquí un datepicker
                 .col-sm-2
-                    button(type="submit") Buscar
-                        .btn 
+                   .form-group(ng-class="{'has-error': form.salida.$error.required && form.submitted}") 
+                        label.col-sm-4.control-label(for="origen") Origen  
+                        .col-sm-8
+                            input.form-control(ng-model="salida", name="salida", type="text", placeHolder="Salida", required)
 
-            
+
+                .col-sm-3
+                   .form-group(ng-class="{'has-error': form.destino.$error.required && form.submitted }")
+                        label.col-sm-4.control-label(for="destino") Destino
+                        .col-sm-8
+                            input.form-control(ng-model="destino", name="destino", type="text", placeHolder="Destino", required)
+                
+
+                .col-sm-3
+                    .form-group
+                        label.col-sm-4.control-label(for="fecha") Fecha
+                        .col-sm-8
+                            #datetimepicker1.input-append.date
+                                input.form-control(ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
+                                span.add-on
+                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+
+
+                .col-sm-3
+                    .form-group
+                        label.col-sm-4.control-label(for="hora") Hora
+                        .col-sm-8
+                            #datetimepicker2.input-append.date
+                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
+                                span.add-on
+                                    i(data-time-icon='icon-time', data-date-icon='icon-calendar')
+                
+
+                .col-sm-1
+                    .form-group
+                        button.col-md-10(class="btn", id="buscar", ng-click="FiltrarTrayectos()") Buscar
+                    
             .row
-                .col-xs-3 
+                .col-md-3 
                     .panel.panel-default
                         .panel-heading Restricciones
                         .panel-body
                             .form-group
                                 label.col-sm-0.control-label(for="noFumadores") No fumadores
                                 .col-sm-3
-                                    input.form-control(name="noFumadores",type="checkbox", id="NoFumadores") 
+                                    input.form-control(ng-model="noFumadores",type="checkbox", id="NoFumadores") 
                              .form-group
                                 label.col-sm-0.control-label(for="noAnimales") No animales
                                 .col-sm-3
-                                    input.form-control(name="noAnimales",type="checkbox", id="NoAnimales") 
+                                    input.form-control(ng-model="noAnimales",type="checkbox", id="NoAnimales") 
                             .form-group
                                 label.col-sm-0.control-label(for="noComida") No comida
                                 .col-sm-3
-                                    input.form-control(name="noComida",type="checkbox", id="NoComida") 
-                            .form-group
-                                label.col-sm-10.control-label(for="equipaje") Tamaño máx. del equipaje
+                                    input.form-control(ng-model="noComida",type="checkbox", id="NoComida") 
+                            form-group(ng-class="{'has-error': form.equipaje.$error.required && form.submitted }")
+                                label.control-label Tamaño máx. del equipaje
                                 .col-sm-12
-                                    select.form-control(name="equipaje")
-                                        option Mochila
-                                        option Maleta
-                .col-xs-9
+                                        select.form-control(ng-model="equipaje", name="equipaje", required)
+                                            option Mochila
+                                            option Maleta
+                .col-md-9
                     .panel.panel-default
                         .panel-heading Resultados de búsqueda
                         .panel-body
-                
+                                .col-md-12
+                                    table.table.table-striped
+                                        tr
+                                            th Fecha
+                                            th Hora Salida
+                                            th Origen
+                                            th Destino                                       
+                                            th Plazas Disponibles
+                                        
+                                            tr(ng-repeat="t in trayectos")
+                                                td {{ t.Fecha_salida}}
+                                                td {{ t.Hora_salida }}
+                                                td {{ t.Origen }}
+                                                td {{ t.Destino }}
+                                                td {{ t.Num_plazas - t.Inscritos.length }}
+block script
+    script(src="/js/BuscarTrayectosCtrl.js")
+    script.
+        var scope;
+        $(document).ready(function (){
+            scope = angular.element('[ng-controller="BuscarTrayectosCtrl"]').scope();
+            scope.getData();
+            scope.$apply();
+        }); 
+
+    script.
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                pickTime:false,
+                weekStart: 1,
+            });
+        });
+
+        $(function() {
+            $('#datetimepicker2').datetimepicker({
+                pickDate: false,
+                pickSeconds: false
+            });
+        });
+
+
+                                        
+
+
+
+
                     
-            
-
-
-
-
-            
-    
+                

@@ -94,9 +94,9 @@ var homeController = new HomeController();
  * PUT: Actualizar
  * DELETE: Borrar
  */
+
  app.use(express.bodyParser());
 
- app.post('/api/nuevouser/:name',userController.addUser)
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
  app.get('/api/gettrip/:id',tripController.getTrip)
@@ -109,13 +109,16 @@ var homeController = new HomeController();
  ///////////////////////////////////////////////////
 
 //USUARIOS
-app.get('/api/getusers',userController.getAllUsers);
-app.get('/api/getuser/:id',userController.getUserById);
-app.delete('/api/deleteuser/:id',userController.deleteUser);
+app.get('/api/getusers', userController.getAllUsers);
+app.get('/api/getuser/:id', userController.getUserById);
+app.post('/api/newuser',userController.addUser);
+app.get('/api/getuserstype/:type', userController.getUsersByType);
+app.delete('/api/deleteuser/:id', userController.deleteUser);
+app.put('/api/updateuser', userController.updateUser);
+
  //app.get('/api/getpersontrips/:id',tripController.getTripsPerson)
  //app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
-  app.post('/api/newuser',userController.addUser)
- //app.put('/api/updatetrip',tripController.updateTrip)
+  
  ///////////////////////////////////////////////////
 
 // API para listar Parkings
@@ -127,35 +130,6 @@ app.get('/crear-trayecto', homeController.crear_trayecto);
 app.get('/mis-trayectos', homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
-
-
-// Ejemplos de Acceso a MongoDB
-////////////////////////////////////////////////////////////////
-// app.get('/api/juanes/:id/', function(req, res) {
-//   db.collection('usuarios', function(err, collection) {
-//    collection.find({nombre: id}).toArray(function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//             return;
-//         }
-//         res.send(data);
-//     });
-// });
-// });
-
-// app.post('/api/juanes', function(req, res) {
-//     db.collection('usuarios', function(err, collection) {
-//       collection.insert({nombre: "peluda"}, function(err, data) {
-//         if(err) {
-//             console.log('ERROR');
-//         }
-//         else {
-//           console.log('YAY!');
-//         }
-//     });
-// });
-// })
-///////////////////////////////////////////////////////////////////
 
 // Inicio de la App
 app.get('/', function (req, res) {
@@ -169,11 +143,10 @@ app.get('/', function (req, res) {
 /////// Socket
 /// para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
 io.of("/estado-parking").on("connection", function (socket) {
-    // here are connections from /showParking
-    console.log('se conectaron a showParking');
+    console.log('un cliente se ha conectado a la visualizacion del parking');
     parkingManager.ee.on('parkingEvent', function(datos){
       socket.emit('palCliente', datos);
     });
-  });
+});
 
 server.listen(3000)

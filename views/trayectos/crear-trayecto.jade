@@ -1,52 +1,60 @@
 extend ../layouts/main
 block content
     .container(ng-controller="CrearTrayectoCtrl")
-        form.form-horizontal(role="form", name="crear-trayecto", method="post")
+        form.form-horizontal(role="form", name="form", method="post", novalidate)
             .row
                 .col-md-12
                     h1 Crear Trayecto
+                    .alert.alert-danger(ng-show="form.submitted && !form.$valid")
+                        span.glyphicon.glyphicon-warning-sign 
+                        b  Error en formulario 
+                        p Favor de comprobar los campos
                     .panel.panel-default
                         .panel-heading Informacion del Trayecto
                         .panel-body
                             .col-md-6
-                                .form-group
+                                .form-group(ng-class="{'has-error': (form.nPlazas.$error.required || form.nPlazas.$error.number|| form.nPlazas.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="nPlazas") Nº Plazas
                                     .col-sm-9
-                                        input.form-control(ng-model="num_plazas",id="numPlazas",name="nPlazas", type="text", placeHolder="Nº Plazas")
+                                        input.form-control(ng-model="trayecto.num_plazas",id="numPlazas",name="nPlazas", type="number", placeHolder="Nº Plazas", required, min="1")
+                                        span(ng-show="(form.nPlazas.$error.required || form.nPlazas.$error.number || form.nPlazas.$error.min) && form.submitted") Numero de Plazas tiene que ser un numero mayor que 0
                                         
-                                .form-group
+                                .form-group(ng-class="{'has-error': form.origen.$error.required && form.submitted }")
                                     label.col-sm-3.control-label(for="origen") Origen
                                     .col-sm-9
-                                        input.form-control(ng-model="origen",name="origen", type="text", placeHolder="Origen")
+                                        input.form-control(ng-model="trayecto.origen",name="origen", type="text", placeHolder="Origen", required)
+                                        span(ng-show="form.origen.$error.required && form.submitted") El trayecto debe tener un origen
 
-                                .form-group
+                                .form-group(ng-class="{'has-error': form.horaSalida.$error.required && form.submitted }")
                                     label.col-sm-3.control-label(for="horaSalida") Hora Salida
                                     .col-sm-9
-                                        input.form-control(ng-model="horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida")
+                                        input.form-control(ng-model="trayecto.horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida", required)
+                                        span(ng-show="form.horaSalida.$error.required && form.submitted") La Hora de Salida es Requerida
                                 .form-group
                                     label.col-sm-3.control-label(for="equipaje") Tamaño max. del equipaje
                                     .col-sm-9
-                                        select.form-control(ng-model="equipaje",name="equipaje")
+                                        select.form-control(ng-model="trayecto.equipaje",name="equipaje")
                                             option Mochila
                                             option Maleta
                             .col-md-6
-                                .form-group
+                                .form-group(ng-class="{'has-error': (form.precio.$error.required || form.precio.$error.number || form.precio.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="precio") Precio/Plaza
                                     .col-sm-9
-                                        input.form-control(ng-model="precio",name="precio", type="text", placeHolder="Precio/Plaza")
-
+                                        input.form-control(ng-model="trayecto.precio",name="precio", type="number", placeHolder="Precio/Plaza", required, min="0")
+                                        span(ng-show="(form.precio.$error.required || form.precio.$error.number || form.precio.$error.min) && form.submitted") Precio tiene que ser un numero
                                 .form-group
                                     label.col-sm-3.control-label(for="destino") Destino
                                     .col-sm-9
-                                        select.form-control(ng-model="destino",name="destino")
+                                        select.form-control(ng-model="trayecto.destino",name="destino")
                                             option Valencia
                                             option Castellón
                                             option Alicante
                                 
-                                .form-group
+                                .form-group(ng-class="{'has-error': (form.maxEspera.$error.required || form.maxEspera.$error.number || form.maxEspera.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="maxEspera") Max. Espera
                                     .col-sm-9
-                                        input.form-control(ng-model="max_espera",name="maxEspera",type="text", placeHolder="Max. Espera")
+                                        input.form-control(ng-model="trayecto.max_espera",name="maxEspera",type="number", placeHolder="Cant. Minutos", required, min="0")
+                                        span(ng-show="(form.maxEspera.$error.required || form.maxEspera.$error.number || form.maxEspera.$error.min) && form.submitted") Tiempo Max. Espera tiene que ser un numero
             .row
                 .col-md-6 
                     .panel.panel-default
@@ -55,14 +63,14 @@ block content
                             .col-md-6
                                 .form-group
                                     label.checkbox(for="noFumadores") No fumadores 
-                                        input(name="noFumadores",type="checkbox", id="NoFumadores") 
+                                        input(ng-model="trayecto.restricciones.no_fumadores",name="noFumadores",type="checkbox", id="NoFumadores") 
                                  .form-group
                                     label.checkbox(for="noAnimales") No animales 
-                                        input(name="noAnimales",type="checkbox", id="NoAnimales") 
+                                        input(ng-model="trayecto.restricciones.no_animales",name="noAnimales",type="checkbox", id="NoAnimales") 
                             .col-md-6
                                 .form-group
                                     label.checkbox(for="noComida") No comida 
-                                        input(name="noComida",type="checkbox", id="NoComida")
+                                        input(ng-model="trayecto.restricciones.no_comida",name="noComida",type="checkbox", id="NoComida")
                 .col-md-6
                     .panel.panel-default
                             .panel-heading Tipo de pasajero
@@ -70,25 +78,25 @@ block content
                                 .col-md-6
                                     .form-group
                                         label.checkbox(for="alumnos") Alumnos 
-                                            input(name="alumnos",type="checkbox", id="Alumnos") 
+                                            input(ng-model="trayecto.tipo_pasajero.alumnos",name="alumnos",type="checkbox", id="Alumnos") 
                                      .form-group
                                         label.checkbox(for="profesores") Profesores 
-                                            input(name="profesores",type="checkbox", id="Profesores") 
+                                            input(ng-model="trayecto.tipo_pasajero.profesores",name="profesores",type="checkbox", id="Profesores") 
                                 .col-md-6
                                     .form-group
                                         label.checkbox(for="personal") Personal 
-                                            input(name="personal",type="checkbox", id="Personal") 
+                                            input(ng-model="trayecto.tipo_pasajero.personal",name="personal",type="checkbox", id="Personal") 
             .row
                 .col-md-12
                     .form-group
                         label.col-sm-2.control-label(for="observaciones") Observaciones
                         .col-md-10
-                                textarea.form-control.col-sm-12(ng-model="observaciones",name="observaciones", id="textareaObservaciones", rows="5")
+                                textarea.form-control.col-sm-12(ng-model="trayecto.observaciones",name="observaciones", id="textareaObservaciones", rows="5")
             .row
                 .col-md-12
                     .btn-group.col-md-4.btn-lg
-                        button.col-md-6(class="btn btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar
-                        button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Cancelar
+                        button.col-md-6(class="btn btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar Trayecto
+                        button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Limpiar Campos
 
 block script
     script(src="/js/CrearTrayectoCtrl.js")
