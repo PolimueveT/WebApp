@@ -58,6 +58,7 @@ var TripController = function(TripDAO) {
         TripData.Destino = destino;
         TripData.Hora_salida = hora_salida;
         TripData.Fecha_salida = fecha_salida;
+        TripDate
         TripData.Precio_plaza = precio_plaza;
         TripData.Tiempo_max_espera = tiempo_max_espera;
         TripData.Restricciones = restricciones;
@@ -67,11 +68,51 @@ var TripController = function(TripDAO) {
         TripData.Creador_id = creador_id;
         TripData.Inscritos = inscritos;
 
+        if(TripData.Num_plazas==null){
+         delete TripData['Num_plazas'];
+        }
+           if(TripData.Origen==null){
+         delete TripData['Origen'];
+        }
+           if(TripData.Destino==null){
+         delete TripData['Destino'];
+        }
+           if(TripData.Fecha_time==null){
+         delete TripData['Fecha_time'];
+        }
+           if(TripData.Precio_plaza==null){
+         delete TripData['Precio_plaza'];
+        }
+           if(TripData.Tiempo_max_espera==null){
+         delete TripData['Tiempo_max_espera'];
+        }
+           if(TripData.Restricciones==null){
+         delete TripData['Restricciones'];
+        }
+            if(TripData.Max_tamaño_equipaje==null){
+         delete TripData['Max_tamaño_equipaje'];
+        }
+            if(TripData.Tipo_pasajeros==null){
+         delete TripData['Restricciones'];
+        }
+            if(TripData.Observaciones==null){
+         delete TripData['Restricciones'];
+        }
+            if(TripData.Creador_id==null){
+         delete TripData['Restricciones'];
+        }
+
+            if(TripData.Inscritos==null){
+         delete TripData['Inscritos'];
+        }
+
+
+
         console.log('tripdata creado =' + JSON.stringify(TripData));
         return TripData;
     };
 
-
+    //obtiene un trayecto dado su id
     this.getTrip = function(req, res) {
          var id=req.params.id;
         _TripDAO.readTrip(id, function(err,trip) {
@@ -90,6 +131,9 @@ var TripController = function(TripDAO) {
         });
     };
 
+
+
+    //Obtiene todos los trayectos
     this.getTrips = function(req, res) {
          
         _TripDAO.readTrips( function(err,trips) {
@@ -108,6 +152,8 @@ var TripController = function(TripDAO) {
         });
     };
 
+
+    //Devuelve trayectos que ha creado una persona
     this.getTripsPerson = function(req, res) {
          var Cid=req.params.id;
         _TripDAO.readTripsPerson(Cid, function(err,trips) {
@@ -137,6 +183,10 @@ var TripController = function(TripDAO) {
 
         });
     };
+
+
+    //Devuelve trayectos en los que estas inscrito
+
         this.getTripsInscrito = function(req, res) {
          var Iid=req.params.id;
         _TripDAO.readTripsInscrito(Iid, function(err,trips) {
@@ -167,6 +217,49 @@ var TripController = function(TripDAO) {
         });
     };
 
+
+
+//Devuelve trayectos con filtro
+      this.getTripsFiltro = function(req, res) {
+         _tripdata= crearData(false,req.body);
+
+         //crear objeto consulta
+
+
+         _tripdata.
+
+
+
+        _TripDAO.readTripsFiltro(_tripdata, function(err,trips) {
+            if(err) {
+                console.log('Error TripController');
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+
+            if(trips.length > 0){
+
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
+            objetoRespuesta.data=trips;
+            res.send(objetoRespuesta);
+            return;
+          }
+
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info="La persona  "+Iid+" no esta inscrito en ningún trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+            return;
+
+        });
+    };
+
+
+//Añade un trayecto
     this.addTrip = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
         _tripdata= crearData(false,req.body);
@@ -188,6 +281,8 @@ var TripController = function(TripDAO) {
     };
 
 
+
+    //Actualiza un trayecto 
     this.updateTrip = function(req, res) {
         console.log('requestmod =' + JSON.stringify(req.body))
         _tripdata= crearData(true,req.body);
@@ -209,7 +304,7 @@ var TripController = function(TripDAO) {
     };
 
 
-
+    //Borra un trayecto
     this.deleteTrip = function(req, res) {
         var id=req.params.id;
         _TripDAO.deleteTrip(id, function(err) {
