@@ -17,8 +17,9 @@ var TripController = function(TripDAO) {
         var num_plazas = body.num_plazas;
         var origen = body.origen;
         var destino = body.destino;
-        var fecha_salida=body.fecha_salida;
-        var hora_salida = body.hora_salida;
+        //var fecha_salida=body.fecha_salida;
+        //var hora_salida = body.hora_salida;
+        var fecha_time = body.fecha_time;
         var precio_plaza = body.precio_plaza;
         var tiempo_max_espera = body.tiempo_max_espera;
         var restricciones = body.restricciones;
@@ -33,8 +34,9 @@ var TripController = function(TripDAO) {
         TripData.Num_plazas = null;
         TripData.Origen = null;
         TripData.Destino = null;
-        TripData.Fecha_salida = null;
-        TripData.Hora_salida = null;
+        //TripData.Fecha_salida = null;
+        //TripData.Hora_salida = null;
+        TripData.Fecha_time=null;
         TripData.Precio_plaza = null;
         TripData.Tiempo_max_espera = null;
         TripData.Restricciones = null;
@@ -56,10 +58,11 @@ var TripController = function(TripDAO) {
         TripData.Num_plazas = num_plazas;
         TripData.Origen = origen;
         TripData.Destino = destino;
-        TripData.Hora_salida = hora_salida;
-        TripData.Fecha_salida = fecha_salida;
+       // TripData.Hora_salida = hora_salida;
+        //TripData.Fecha_salida = fecha_salida;
+        TripData.Fecha_time=Fecha_time
 
-        // TripDate
+     
         TripData.Precio_plaza = precio_plaza;
         TripData.Tiempo_max_espera = tiempo_max_espera;
         TripData.Restricciones = restricciones;
@@ -227,14 +230,14 @@ var TripController = function(TripDAO) {
             if(trips.length > 0){
 
             objetoRespuesta.success=true;                
-            objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Iid;
+            objetoRespuesta.info="Se han leido correctamente los trayectos  "+Iid;
             objetoRespuesta.data=trips;
             res.send(objetoRespuesta);
             return;
           }
 
             objetoRespuesta.success=false;                
-            objetoRespuesta.info="La persona  "+Iid+" no esta inscrito en ningún trayecto";
+            objetoRespuesta.info="no hay trayectos para esta fecha";
             objetoRespuesta.data=null;
             res.send(objetoRespuesta);
             return;
