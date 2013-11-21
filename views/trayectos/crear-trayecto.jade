@@ -39,7 +39,7 @@ block content
                                     label.col-sm-3.control-label(for="horaSalida") Hora Salida
                                     .col-sm-9
                                         .timePicker.date.input-group
-                                            input.form-control(data-format="hh:mm:ss",ng-model="trayecto.horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida", required)
+                                            input.form-control(data-format="hh:mm",ng-model="trayecto.horaSalida",name="horaSalida",type="text", placeHolder="Hora Salida", required)
                                             span.add-on.input-group-btn
                                                 a.btn.btn-primary.btn-group
                                                     span.glyphicon.glyphicon-time
@@ -121,5 +121,6 @@ block script
         var scope;
         $(document).ready(function (){
             scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
+            scope.trayecto.creador_id = "from_site";
             scope.$apply();
         }); 

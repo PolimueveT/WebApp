@@ -60,7 +60,7 @@ var TripController = function(TripDAO) {
         TripData.Destino = destino;
        // TripData.Hora_salida = hora_salida;
         //TripData.Fecha_salida = fecha_salida;
-        TripData.Fecha_time=Fecha_time
+        TripData.Fecha_time= fecha_time
 
      
         TripData.Precio_plaza = precio_plaza;
@@ -164,6 +164,7 @@ var TripController = function(TripDAO) {
                 res.send(objetoRespuesta);
                 return;
             } 
+            console.log(trips);
             if(trips.length > 0){
                 objetoRespuesta.success=true;                
                 objetoRespuesta.info="Se han leido correctamente los trayectos de la persona "+Cid;
