@@ -23,22 +23,22 @@ block content
                 
 
                 .col-sm-3
-                    .form-group
+                    .form-group(ng-class="{'has-error': form.Fecha.$error.required && form.submitted }")
                         label.col-sm-4.control-label(for="fecha") Fecha
                         .col-sm-8
                             .datePicker.date.input-group
-                                input.form-control(data-format="dd/MM/yyyy hh:mm:ss",ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
+                                input.form-control(data-format="dd/MM/yyyy hh:mm:ss",ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text', required)
                                 span.add-on.input-group-btn
                                     a.btn.btn-primary.btn-group
                                         span.glyphicon.glyphicon-calendar
 
 
                 .col-sm-3
-                    .form-group
+                    .form-group(ng-class="{'has-error': form.Hora.$error.required && form.submitted }")
                         label.col-sm-4.control-label(for="hora") Hora
                         .col-sm-8
                             .timePicker.date.input-group
-                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
+                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text', required)
                                 span.add-on.input-group-btn
                                     a.btn.btn-primary.btn-group
                                         span.glyphicon.glyphicon-time
@@ -59,11 +59,11 @@ block content
                                     input.form-control(ng-model="noFumadores",type="checkbox", id="NoFumadores") 
                              .form-group
                                 label.col-sm-0.control-label(for="noAnimales") No animales
-                                .col-sm-3
+                                .col-sm-2
                                     input.form-control(ng-model="noAnimales",type="checkbox", id="NoAnimales") 
                             .form-group
                                 label.col-sm-0.control-label(for="noComida") No comida
-                                .col-sm-3
+                                .col-sm-2
                                     input.form-control(ng-model="noComida",type="checkbox", id="NoComida") 
                             form-group(ng-class="{'has-error': form.equipaje.$error.required && form.submitted }")
                                 label.control-label Tamaño máx. del equipaje
@@ -72,7 +72,7 @@ block content
                                             option Mochila
                                             option Maleta
                     .form-group
-                        button.col-md-12(class="btn", id="buscar", ng-click="EliminarRest()") Eliminar Restricciones
+                        button.col-md-12(class="btn", id="buscar", ng-click="EliminarRest()", onClick="reset()") Eliminar Restricciones
 
                 .col-md-9
                     .panel.panel-default
@@ -81,15 +81,15 @@ block content
                                 .col-md-12
                                     table.table.table-striped
                                         tr
-                                            th Fecha
+                                            th Fecha Salida
                                             th Hora Salida
                                             th Origen
                                             th Destino                                       
                                             th Plazas Disponibles
                                         
                                             tr(ng-repeat="t in trayectos")
-                                                td {{ t.Fecha_salida}}
-                                                td {{ t.Hora_salida }}
+                                                td {{ t.Fecha_time }}
+                                                td {{ t.Fecha_time }}
                                                 td {{ t.Origen }}
                                                 td {{ t.Destino }}
                                                 td {{ t.Num_plazas - t.Inscritos.length }}

@@ -15,25 +15,20 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 	$scope.FiltrarTrayectos = function () {
 		if ($scope.form.$valid) {
-			
-
 			var filtrados = _.filter($scope.todos, function(tra){ 
+				/*var f = $scope.fecha_salida.split("/");
+				var h = $scope.hora_salida.split(":");
+				var fecha_hora = new Date(f[2], f[1], f[0], h[0], h[1], 0, 0); */
+				
+				var fyh = tra.Fecha_time;
+				var f = fyh.split("-");
+				var au = f[2].split("T");
+				var h = au[1].split(":");
 
-				if ($scope.hora_salida && $scope.hora_salida ){
-					var f = $scope.fecha_salida.split("/");
-					var h = $scope.hora_salida.split(":");
-
-					console.log('HORA FECHA '+$scope.hora_salida +' '+$scope.fecha_salida);
-
-					var fecha_hora = new Date(f[2], f[1], f[0], h[0], h[1], 0, 0); 
-					console.log(fecha_hora.getDate());
-
-					return (tra.Origen.toUpperCase() == $scope.salida.toUpperCase())&&(tra.Destino.toUpperCase() == $scope.destino.toUpperCase())/*&&(tra.Restricciones[0] === $scope.noFumadores)&&(tra.Restricciones[1] === $scope.noAnimales)&&(tra.Restricciones[2] === $scope.noComida)&&(tra.Max_tamaño_equipaje == $scope.equipaje)*/ ;
-				} else{
-					console.log('No fecha y hora');
-					console.log(tra.Origen);
-					return (tra.Origen == $scope.salida)&&(tra.Destino == $scope.destino)/*&&(tra.Restricciones[0] === $scope.noFumadores)&&(tra.Restricciones[1] === $scope.noAnimales)&&(tra.Restricciones[2] === $scope.noComida)&&(tra.Max_tamaño_equipaje == $scope.equipaje) */;
-				}
+				var fecha = au[0]+"/"+f[1]+"/"+f[0];
+				var hora = h[0]+":"+h[1];
+	
+				return (tra.Origen.toUpperCase() == $scope.salida.toUpperCase())&&(tra.Destino.toUpperCase() == $scope.destino.toUpperCase())&&(fecha == $scope.fecha_salida)&&(hora == $scope.hora_salida)&&(tra.Restricciones.no_fumadores == $scope.noFumadores)&&(tra.Restricciones.no_animales == $scope.noAnimales)&&(tra.Restricciones.no_comida == $scope.noComida)/*&&(tra.Max_tamaño_equipaje == $scope.equipaje)*/;
 			});
 
 			$scope.trayectos = filtrados;
