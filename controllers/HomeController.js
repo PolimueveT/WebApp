@@ -3,9 +3,11 @@ var HomeController = function(Dao){
 	var self = this;
 
 	self.ver_trayecto = function(req, res) {
-		
+		console.log(req.params);
+
 		var data = {
-			title: 'Ver Trayecto'
+			title: 'Ver Trayecto',
+			id_trayecto: req.params.id
 		};
 		
 		res.render('trayectos/ver-trayecto', data);

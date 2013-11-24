@@ -1,39 +1,44 @@
 extend ../layouts/main
 block content
-    .container(ng-controller="CrearTrayectoCtrl")
+    .container(ng-controller="VerTrayectoCtrl")
             .row
                 .col-md-12
                     h1 Trayecto
                         small 
-                            a.btn.btn-primary.pull-right 
+                            a.btn.btn-primary.pull-right(ng-click="unirmeTrayecto()")
                                 span.glyphicon.glyphicon-plus-sign
                                 |  Unirse A Trayecto
                     .panel.panel-default
                         .panel-heading Informacion del Trayecto
                         .panel-body
-                            .col-md-6
-                                table.table
-                                    tr
-                                        th Nº Plazas
-                                        td 4 (2 libres)
-                                    tr 
-                                        th Fecha Salida
-                                        td origen...
-                                    tr 
-                                        th Hora Salida
-                                        td origen...
-                                        
-                            .col-md-6
-                                table.table
-                                    tr
-                                        th Precio/Plaza
-                                        td 4 (2 libres)
-                                    tr 
-                                        th Max. Espera
-                                        td origen...
-                                    tr 
-                                        th Tamaño max. del equipaje
-                                        td origen...
+                            .row
+                                .col-md-6
+                                    table.table
+                                        tr
+                                            th Nº Plazas
+                                            td {{ trayecto.Num_plazas }} (2 libres)
+                                        tr 
+                                            th Fecha Salida
+                                            td {{ trayecto.Fecha_time }}
+                                        tr 
+                                            th Hora Salida
+                                            td {{ trayecto.hora_salida }}
+                                            
+                                .col-md-6
+                                    table.table
+                                        tr
+                                            th Precio/Plaza
+                                            td {{ trayecto.Precio }} (2 libres)
+                                        tr 
+                                            th Max. Espera
+                                            td {{ trayecto.MaxEspera }}
+                                        tr 
+                                            th Tamaño max. del equipaje
+                                            td {{ trayecto.Equipaje }}
+                            .row
+                                .col-md-12
+                                    h3 Observaciones
+                                    p {{ trayecto.Observaciones }}
                             
             .row
                 .col-md-6 
@@ -61,7 +66,18 @@ block content
                             table.table
                                 tr 
                                     th Origen
-                                    td origen...
+                                    td {{ trayecto.Origen }}
                                 tr 
                                     th Destino
-                                    td origen...
+                                    td {{ trayecto.Destino }}
+
+block script
+    script(src="/js/VerTrayectoCtrl.js")
+    script.
+        var scope;
+        $(document).ready(function(){
+            scope = angular.element('[ng-controller="VerTrayectoCtrl"]').scope();
+            scope.getTrayecto('!{id_trayecto}');
+            scope.current_user = "from_site";
+            scope.$apply();
+        });
