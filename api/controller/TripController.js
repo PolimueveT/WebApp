@@ -313,9 +313,9 @@ var TripController = function(TripDAO) {
         var personId = req.body.personId;
         _TripDAO.addPersonToTrip(tripId, personId, function(err) {
             if(err){
-                console.log('Error TripController: ' + err);
+                console.log('Error TripController: ' + err.message);
                 objetoRespuesta.success=false;                
-                objetoRespuesta.info=err;
+                objetoRespuesta.info=err.message;
                 objetoRespuesta.data=null;
                 res.send(objetoRespuesta);
                 return;
@@ -327,14 +327,15 @@ var TripController = function(TripDAO) {
         });
     };
 
+    // borra un pasajero de un trayecto
     this.cancelPassenger = function(req, res) {
         var tripId = req.body.tripId;
         var personId = req.body.personId;
         _TripDAO.removePersonFromTrip(tripId, personId, function(err) {
             if(err){
-                console.log('Error TripController: ' + err);
+                console.log('Error TripController: ' + err.message);
                 objetoRespuesta.success=false;                
-                objetoRespuesta.info=err;
+                objetoRespuesta.info=err.message;
                 objetoRespuesta.data=null;
                 res.send(objetoRespuesta);
                 return;
