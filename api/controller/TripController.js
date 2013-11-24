@@ -327,6 +327,25 @@ var TripController = function(TripDAO) {
         });
     };
 
+    this.cancelPassenger = function(req, res) {
+        var tripId = req.body.tripId;
+        var personId = req.body.personId;
+        _TripDAO.removePersonFromTrip(tripId, personId, function(err) {
+            if(err){
+                console.log('Error TripController: ' + err);
+                objetoRespuesta.success=false;                
+                objetoRespuesta.info=err;
+                objetoRespuesta.data=null;
+                res.send(objetoRespuesta);
+                return;
+            }
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha eliminado un pasajero correctamente del trayecto";
+            objetoRespuesta.data=null;
+            res.send(objetoRespuesta);
+        });
+    }
+
 };
 
 module.exports = TripController;

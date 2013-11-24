@@ -197,6 +197,18 @@ var TripDAO = function(db) {
         });     
     };
 
+    this.removePersonFromTrip = function(tripId, personId, callback) {
+        if(!tripId) return callback(new Error("tripId invalido"));
+        if(!personId) return callback(new Error("personId invalido"));
+        _db.collection('trayectos', function(err, tripCollection) {
+            tripCollection.update({_id: ObjectID(tripId)}, {'$pull': { Inscritos: personId }},
+                function(err) {
+                    if(err) return callback(new Error("error borrando pasajero del viaje"));
+                    return callback(null);
+            });
+        });
+    };
+
 };
 
 module.exports = TripDAO;
