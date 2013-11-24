@@ -10,14 +10,12 @@ var BuscarTrayectosCtrl = function($scope, $http){
 				$scope.todos = result.data;
 				for (var i = 0; i<$scope.todos.length; ++i){
 					var fyh = $scope.todos[i].Fecha_time;
-					var f = fyh.split("-");
-					var au = f[2].split("T");
-					var h = au[1].split(":");
 
-					var fecha = au[0]+"/"+f[1]+"/"+f[0];
-					var hora = h[0]+":"+h[1];
+					var fechaObj = moment(fyh);
 
-					$scope.todos[i].Fecha_time = fecha +" - "+hora;
+					$scope.todos[i].id = $scope.todos[i]._id;
+					$scope.todos[i].FechaFromNow = fechaObj.fromNow();
+					$scope.todos[i].Fecha_time = fechaObj.format("DD-MM-YYYY h:mm:ss a");
 				}
 				$scope.trayectos = $scope.todos;
 			}

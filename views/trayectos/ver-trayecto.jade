@@ -1,0 +1,67 @@
+extend ../layouts/main
+block content
+    .container(ng-controller="CrearTrayectoCtrl")
+            .row
+                .col-md-12
+                    h1 Trayecto
+                        small 
+                            a.btn.btn-primary.pull-right 
+                                span.glyphicon.glyphicon-plus-sign
+                                |  Unirse A Trayecto
+                    .panel.panel-default
+                        .panel-heading Informacion del Trayecto
+                        .panel-body
+                            .col-md-6
+                                table.table
+                                    tr
+                                        th Nº Plazas
+                                        td 4 (2 libres)
+                                    tr 
+                                        th Fecha Salida
+                                        td origen...
+                                    tr 
+                                        th Hora Salida
+                                        td origen...
+                                        
+                            .col-md-6
+                                table.table
+                                    tr
+                                        th Precio/Plaza
+                                        td 4 (2 libres)
+                                    tr 
+                                        th Max. Espera
+                                        td origen...
+                                    tr 
+                                        th Tamaño max. del equipaje
+                                        td origen...
+                            
+            .row
+                .col-md-6 
+                    .panel.panel-default
+                        .panel-heading 
+                            span.glyphicon.glyphicon-user  
+                            |  Creador
+                        .panel-body 
+                            table.table
+                                tr
+                                    th Nombre
+                                    td Juan Perez
+                                tr 
+                                    th Coche
+                                    td Seat Leon Rojo
+                                tr 
+                                    th Departamento
+                                    td Informatica
+                .col-md-6
+                    .panel.panel-default
+                        .panel-heading 
+                            span.glyphicon.glyphicon-road 
+                            |  Ruta
+                        .panel-body
+                            table.table
+                                tr 
+                                    th Origen
+                                    td origen...
+                                tr 
+                                    th Destino
+                                    td origen...
