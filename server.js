@@ -52,8 +52,8 @@ db.open(function(err, db) {
 */
 
 // Pongo las 2 conexiones juntas porque a veces quiero probar en local... (comento una u otra)
-var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
-// var mongoServer = new MongoServer("ds053428.mongolab.com", 53428, {auto_reconnect: true});
+// var mongoServer = new MongoServer('127.0.0.1', 27017, {auto_reconnect: true});
+var mongoServer = new MongoServer("ds053428.mongolab.com", 53428, {auto_reconnect: true});
 db = new Db('polimuevet', mongoServer, { safe: true });
 
 db.open(function(err, db) {
