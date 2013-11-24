@@ -125,6 +125,9 @@ var TripDAO = function(db) {
     this.insertTrip = function(tripdata, callback) {
         console.log('Ejecutando el post');
         _db.collection("trayectos", function(err,collection){
+            ///////////////////////////////////////////////
+            tripdata.Inscritos = [];
+            ///////////////////////////////////////////////
             collection.insert(tripdata, function (err, result){
                 if(err){
                     console.log('Error insertando en collection trayectos');
