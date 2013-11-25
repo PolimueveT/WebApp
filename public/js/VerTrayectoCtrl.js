@@ -6,8 +6,9 @@ function VerTrayectoCtrl($scope, $http) {
 	$scope.avisos = [];
 
 	$scope.getUnidoATrayecto = function (){
-		$http.get('/api/isuserintrip/' + $scope.trayecto._id + '/' + $scope.current_user).success(function(result){
+		$http.get('/api/isuserintrip/' + $scope.current_user + '/' + $scope.trayecto._id ).success(function(result){
 			console.log(result);
+			$scope.unido_trayecto = result.data;
 		});
 	};
 
@@ -20,6 +21,10 @@ function VerTrayectoCtrl($scope, $http) {
 				var fechaObj = moment(obj.Fecha_time);
 				obj.Fecha_time = fechaObj.format("DD/MM/YYYY") + " (" + fechaObj.fromNow() + ")" ;
 				obj.hora_salida = fechaObj.format("hh:mm a");
+				if(obj.Inscritos === undefined){
+					obj.Inscritos = [];
+				}
+				obj.libres = obj.Num_plazas - obj.Inscritos.length;
 
 				$scope.trayecto = obj;
 
@@ -45,6 +50,7 @@ function VerTrayectoCtrl($scope, $http) {
 			}else{
 				obj.clase = ['alert-success'];
 				$scope.unido_trayecto = true;
+				$scope.trayecto.libres--;
 			}
 
 			obj.texto = result.info;
@@ -62,7 +68,20 @@ function VerTrayectoCtrl($scope, $http) {
 		$http.put('/api/cancelPassenger', data).success(function(result){
 			$scope.avisos.push(data.info);
 
-			$scope.unido_trayecto = false;
+			var obj = {
+				clase: [],
+				texto: ''
+			};
+
+			if(result.success == false){
+				obj.clase = ['alert-danger'];
+			}else{
+				obj.clase = ['alert-success'];
+				$scope.trayecto.libres++;
+				$scope.unido_trayecto = false;
+			}
+
+			obj.texto = result.info;			
 		});
 	};
 

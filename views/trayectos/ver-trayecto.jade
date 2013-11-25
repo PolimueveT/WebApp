@@ -24,7 +24,7 @@ block content
 									table.table
 										tr
 											th Nº Plazas
-											td {{ trayecto.Num_plazas }} (2 libres)
+											td {{ trayecto.Num_plazas }} ({{ trayecto.libres }} libres)
 										tr 
 											th Fecha Salida
 											td {{ trayecto.Fecha_time }}
@@ -89,10 +89,10 @@ block script
 			scope.$apply();
 			scope.getTrayecto('!{id_trayecto}');
 			scope.$apply();
-			//- $('#cerrar-aviso').on('click', function(e){
-			//- 	e.preventDefault();
-			//- 	scope.avisos = [];
-			//- 	scope.$apply();
-			//- });
+			$('#cerrar-aviso').on('click', function(e){
+				e.preventDefault();
+				scope.avisos = [];
+				scope.$apply();
+			});
 		});
 
