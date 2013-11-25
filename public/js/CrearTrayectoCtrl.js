@@ -7,11 +7,11 @@ function CrearTrayectoCtrl($scope, $http) {
 		'ETSID-DISEÑO'
 		'ETSIGCT-GEODESICA'
 		'ETSINF-INFORMATICA'
-		'-CAMINOS'
-		'-TELECO'
-		'-INDUSTRIALES'
-		'-ADE'
-		'-BELLAS ARTES'
+		'ETSICCP-CAMINOS'
+		'ETSIT-TELECOMUNICACIONES'
+		'ETSII-INDUSTRIALES'
+		'ADE'
+		'BELLAS ARTES'
 	];
 
 	function getDate(){
