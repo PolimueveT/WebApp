@@ -2,9 +2,9 @@ extend ../layouts/main
 block content
 	.container(ng-controller="VerTrayectoCtrl")
 			.row
-				.col-md-12
+				.col-md-12.alertas
 					.alert.alert-dismissable(ng-repeat="a in avisos", ng-class="{{ a.clase }}")
-						button(type="button", class="close", data-dismiss="alert", aria-hidden="true", id="cerrar-aviso") &times;
+						button.cerrar-aviso.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
 						| {{ a.texto }}
 			.row
 				.col-md-12
@@ -42,7 +42,7 @@ block content
 											td {{ trayecto.Tiempo_max_espera }} minuto(s)
 										tr 
 											th Tamaño max. del equipaje
-											td {{ trayecto.Equipaje }}
+											td {{ trayecto.Max_tamanyo_equipaje }}
 							.row
 								.col-md-12
 									h3 Observaciones
@@ -89,10 +89,12 @@ block script
 			scope.$apply();
 			scope.getTrayecto('!{id_trayecto}');
 			scope.$apply();
-			$('#cerrar-aviso').on('click', function(e){
+
+			$('.alertas').on('click', '.cerrar-aviso', function(e){
 				e.preventDefault();
 				scope.avisos = [];
 				scope.$apply();
 			});
+
 		});
 

@@ -37,10 +37,10 @@ html(ng-app)
 							a(href="/crear-trayecto") Crear trayecto
 						li
 							a(href="/mis-trayectos") Mis trayectos
-						li
-							a(href="/registrar") Registrar
-						li
-							a(href="/Mi Cuenta") Mi Cuenta
+						//- li
+						//- 	a(href="/registrar") Registrar
+						//- li
+						//- 	a(href="/Mi Cuenta") Mi Cuenta
 		.container
 				block content
 
@@ -53,6 +53,21 @@ html(ng-app)
 		script(src="/js/jquery-ui-1.10.3.custom.min.js")
 		script.
 				moment.lang('es');
+
+				var destinos = [
+					'ETSA-ARQUITECTURA',
+					'ETSIAMN-AGRONOMICA',
+					'ETSIE-EDIFICACION',
+					'ETSID-DISEÑO',
+					'ETSIGCT-GEODESICA',
+					'ETSINF-INFORMATICA',
+					'ETSICCP-CAMINOS',
+					'ETSIT-TELECOMUNICACIONES',
+					'ETSII-INDUSTRIALES',
+					'ADE',
+					'BELLAS ARTES'
+				];
+
 				$(function() {
 						$('.timePicker').datetimepicker({
 								pickDate:false,
@@ -62,6 +77,10 @@ html(ng-app)
 						$('.datePicker').datetimepicker({
 								pickTime:false,
 								weekStart: 1,
+						});
+
+						$('.autocomplete_destino').autocomplete({
+							source: destinos
 						});
 				});
 		block script

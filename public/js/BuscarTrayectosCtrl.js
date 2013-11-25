@@ -50,6 +50,8 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 	$scope.EliminarRest = function(){
 		$scope.trayectos = $scope.todos;
+		$scope.fecha_salida = "";
+		$scope.hora_salida = "";
 	};
 
 }
