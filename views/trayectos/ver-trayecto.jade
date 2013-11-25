@@ -1,86 +1,98 @@
 extend ../layouts/main
 block content
-    .container(ng-controller="VerTrayectoCtrl")
-            .row
-                .col-md-12
-                    h1 Trayecto
-                        small.pull-right
-                            a.btn.btn-primary(ng-click="unirmeTrayecto()")
-                                span.glyphicon.glyphicon-plus-sign
-                                |  Unirse A Trayecto
-                            a.btn.btn-danger(ng-click="unirmeTrayecto()")
-                                span.glyphicon.glyphicon-remove
-                                |  Salir del Trayecto
-                    .panel.panel-default
-                        .panel-heading Informacion del Trayecto
-                        .panel-body
-                            .row
-                                .col-md-6
-                                    table.table
-                                        tr
-                                            th Nº Plazas
-                                            td {{ trayecto.Num_plazas }} (2 libres)
-                                        tr 
-                                            th Fecha Salida
-                                            td {{ trayecto.Fecha_time }}
-                                        tr 
-                                            th Hora Salida
-                                            td {{ trayecto.hora_salida }}
-                                            
-                                .col-md-6
-                                    table.table
-                                        tr
-                                            th Precio/Plaza
-                                            td {{ trayecto.Precio }} (2 libres)
-                                        tr 
-                                            th Max. Espera
-                                            td {{ trayecto.MaxEspera }}
-                                        tr 
-                                            th Tamaño max. del equipaje
-                                            td {{ trayecto.Equipaje }}
-                            .row
-                                .col-md-12
-                                    h3 Observaciones
-                                    p {{ trayecto.Observaciones }}
-                            
-            .row
-                .col-md-6 
-                    .panel.panel-default
-                        .panel-heading 
-                            span.glyphicon.glyphicon-user  
-                            |  Creador
-                        .panel-body 
-                            table.table
-                                tr
-                                    th Nombre
-                                    td Juan Perez
-                                tr 
-                                    th Coche
-                                    td Seat Leon Rojo
-                                tr 
-                                    th Departamento
-                                    td Informatica
-                .col-md-6
-                    .panel.panel-default
-                        .panel-heading 
-                            span.glyphicon.glyphicon-road 
-                            |  Ruta
-                        .panel-body
-                            table.table
-                                tr 
-                                    th Origen
-                                    td {{ trayecto.Origen }}
-                                tr 
-                                    th Destino
-                                    td {{ trayecto.Destino }}
+	.container(ng-controller="VerTrayectoCtrl")
+			.row
+				.col-md-12
+					.alert.alert-dismissable(ng-repeat="a in avisos", ng-class="{{ a.clase }}")
+						button(type="button", class="close", data-dismiss="alert", aria-hidden="true", id="cerrar-aviso") &times;
+						| {{ a.texto }}
+			.row
+				.col-md-12
+					h1 Trayecto
+						small.pull-right
+							a.btn.btn-primary(ng-click="unirmeTrayecto()", ng-hide="unido_trayecto")
+								span.glyphicon.glyphicon-plus-sign
+								|  Unirse A Trayecto
+							a.btn.btn-danger(ng-click="salirTrayecto()", ng-show="unido_trayecto")
+								span.glyphicon.glyphicon-remove
+								|  Salir del Trayecto
+					.panel.panel-default
+						.panel-heading Informacion del Trayecto
+						.panel-body
+							.row
+								.col-md-6
+									table.table
+										tr
+											th Nº Plazas
+											td {{ trayecto.Num_plazas }} ({{ trayecto.libres }} libres)
+										tr 
+											th Fecha Salida
+											td {{ trayecto.Fecha_time }}
+										tr 
+											th Hora Salida
+											td {{ trayecto.hora_salida }}
+											
+								.col-md-6
+									table.table
+										tr
+											th Precio/Plaza
+											td {{ trayecto.Precio }} (2 libres)
+										tr 
+											th Max. Espera
+											td {{ trayecto.MaxEspera }}
+										tr 
+											th Tamaño max. del equipaje
+											td {{ trayecto.Equipaje }}
+							.row
+								.col-md-12
+									h3 Observaciones
+									p {{ trayecto.Observaciones }}
+							
+			.row
+				.col-md-6 
+					.panel.panel-default
+						.panel-heading 
+							span.glyphicon.glyphicon-user  
+							|  Creador
+						.panel-body 
+							table.table
+								tr
+									th Nombre
+									td Juan Perez
+								tr 
+									th Coche
+									td Seat Leon Rojo
+								tr 
+									th Departamento
+									td Informatica
+				.col-md-6
+					.panel.panel-default
+						.panel-heading 
+							span.glyphicon.glyphicon-road 
+							|  Ruta
+						.panel-body
+							table.table
+								tr 
+									th Origen
+									td {{ trayecto.Origen }}
+								tr 
+									th Destino
+									td {{ trayecto.Destino }}
 
 block script
-    script(src="/js/VerTrayectoCtrl.js")
-    script.
-        var scope;
-        $(document).ready(function(){
-            scope = angular.element('[ng-controller="VerTrayectoCtrl"]').scope();
-            scope.getTrayecto('!{id_trayecto}');
-            scope.current_user = "from_site";
-            scope.$apply();
-        });
+	script(src="/js/VerTrayectoCtrl.js")
+	script.
+		var scope;
+		$(document).ready(function(){
+			scope = angular.element('[ng-controller="VerTrayectoCtrl"]').scope();
+			scope.current_user = "from_site";
+			scope.$apply();
+			scope.getTrayecto('!{id_trayecto}');
+			scope.$apply();
+			$('#cerrar-aviso').on('click', function(e){
+				e.preventDefault();
+				scope.avisos = [];
+				scope.$apply();
+			});
+		});
+
