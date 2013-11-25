@@ -13,7 +13,7 @@ block content
 									th Num. Plazas
 									th Origen
 									th Destino
-									th Hora Salida
+									th Fecha y Hora Salida
 									th Precio Plaza
 									th Max. Espera
 									th Restricciones
@@ -22,12 +22,16 @@ block content
 										td {{ t.Num_plazas }}
 										td {{ t.Origen }}
 										td {{ t.Destino }}
-										td {{ t.Fecha_time }}
+										td 
+											{{ t.fechaFormat }}
+											br
+											{{ t.fechaHoraSalida }}
 										td {{ t.Precio_plaza }}
 										td {{ t.Tiempo_max_espera }}
 										td 
-											span(ng-repeat="r in t.Restricciones") 
-												{{ r }}
+											span(ng-repeat="(key, r) in t.Restricciones")
+												{{ 	key.replace('_', ' ').toUpperCase() }}
+												br
 										td {{ t.Max_tamano_equipaje }}
 			.row
 				.col-md-12
@@ -46,3 +50,8 @@ block script
 			scope.getData();
 			scope.$apply();
 		});
+
+		function capitaliseFirstLetter(string)
+		{
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}

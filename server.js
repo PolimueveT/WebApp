@@ -104,6 +104,7 @@ var homeController = new HomeController();
  app.get('/api/getinscritotrips/:id',tripController.getTripsInscrito)
  app.post('/api/newtrip',tripController.addTrip)
  app.put('/api/applytrip', tripController.applyTrip)
+ app.put('/api/cancelPassenger', tripController.cancelPassenger)
  app.put('/api/updatetrip',tripController.updateTrip)
  app.delete('/api/deletetrip/:id',tripController.deleteTrip)
  ///////////////////////////////////////////////////
@@ -130,6 +131,7 @@ app.get('/crear-trayecto', homeController.crear_trayecto);
 app.get('/mis-trayectos', homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
+app.get('/trayecto/:id', homeController.ver_trayecto);
 
 // Inicio de la App
 app.get('/', function (req, res) {
