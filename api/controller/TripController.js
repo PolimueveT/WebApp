@@ -23,7 +23,7 @@ var TripController = function(TripDAO) {
         var precio_plaza = body.precio;
         var tiempo_max_espera = body.max_espera;
         var restricciones = body.restricciones;
-        var max_tamaño_equipaje = body.equipaje;
+        var max_tamanyo_equipaje = body.equipaje;
         var tipo_pasajero = body.tipo_pasajero;
         var observaciones = body.observaciones;
         var creador_id = body.creador_id;
@@ -40,7 +40,7 @@ var TripController = function(TripDAO) {
         TripData.Precio_plaza = null;
         TripData.Tiempo_max_espera = null;
         TripData.Restricciones = null;
-        TripData.Max_tamaño_equipaje = null;
+        TripData.Max_tamanyo_equipaje = null;
         TripData.Tipo_pasajeros = null;
         TripData.Observaciones = null;
         TripData.Creador_id = null;
@@ -66,7 +66,7 @@ var TripController = function(TripDAO) {
         TripData.Precio_plaza = precio_plaza;
         TripData.Tiempo_max_espera = tiempo_max_espera;
         TripData.Restricciones = restricciones;
-        TripData.Max_tamaño_equipaje = max_tamaño_equipaje;
+        TripData.Max_tamanyo_equipaje = max_tamanyo_equipaje;
         TripData.Tipo_pasajeros = tipo_pasajero;
         TripData.Observaciones = observaciones;
         TripData.Creador_id = creador_id;
@@ -93,8 +93,8 @@ var TripController = function(TripDAO) {
            if(TripData.Restricciones==null){
          delete TripData['Restricciones'];
         }
-            if(TripData.Max_tamaño_equipaje==null){
-         delete TripData['Max_tamaño_equipaje'];
+            if(TripData.Max_tamanyo_equipaje==null){
+         delete TripData['Max_tamanyo_equipaje'];
         }
             if(TripData.Tipo_pasajeros==null){
          delete TripData['Restricciones'];
