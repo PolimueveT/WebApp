@@ -5,7 +5,7 @@ module.exports=
 	"Num_plazas": 0,
 	"Origen": null,
 	"Destino": null,
-	"Hora_salida": null,
+	"Fecha_time": null,
 	"Precio_plaza": 0,
 	"Tiempo_max_espera": 0,
 	"Restricciones" :null,
