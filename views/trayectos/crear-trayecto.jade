@@ -22,7 +22,7 @@ block content
                                 .form-group(ng-class="{'has-error': form.origen.$error.required && form.submitted }")
                                     label.col-sm-3.control-label(for="origen") Origen
                                     .col-sm-9
-                                        input.form-control(ng-model="trayecto.origen",name="origen", type="text", placeHolder="Origen", required)
+                                        input.form-control.autocomplete_destino(ng-model="trayecto.origen",name="origen", type="text", placeHolder="Origen", required)
                                         span(ng-show="form.origen.$error.required && form.submitted") El trayecto debe tener un origen
 
                                 .form-group(ng-class="{'has-error': form.fecha_time.$error.required && form.submitted }")
@@ -55,8 +55,8 @@ block content
                                 .form-group
                                     label.col-sm-3.control-label(for="destino") Destino
                                     .col-sm-9
-                                        select.form-control(ng-model="trayecto.destino",name="destino")
-                                            option(ng-repeat="d in destinos") {{ d }}
+                                        input.form-control.autocomplete_destino(ng-model="trayecto.destino",name="destino", type="text", placeHolder="Destino", required)
+                                        span(ng-show="form.destino.$error.required && form.submitted") El trayecto debe tener un destino
                                 
                                 .form-group(ng-class="{'has-error': (form.maxEspera.$error.required || form.maxEspera.$error.number || form.maxEspera.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="maxEspera") Max. Espera
@@ -121,4 +121,8 @@ block script
             scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
             scope.trayecto.creador_id = "from_site";
             scope.$apply();
+
+            $('.autocomplete_destino').autocomplete({
+                source: scope.destinos
+            });
         }); 
