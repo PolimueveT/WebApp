@@ -69,7 +69,7 @@ block content
 												{{ 	key.replace('_', ' ').toUpperCase() }}
 												br
 										td
-											a.btn.btn-primary(href="/trayecto/{{ t.id }}")
+											a.btn.btn-primary(href="/trayecto/{{ i.id }}")
 												span.glyphicon.glyphicon-eye-open
 
 block script
@@ -79,9 +79,9 @@ block script
 		$(document).ready(function (){
 			scope = angular.element('[ng-controller="MisTrayectosCtrl"]').scope();
 			scope.id_user = 'from_site';
+			scope.$apply();
 			scope.getData();
 			scope.getInscritos();
-			scope.$apply();
 		});
 
 		function capitaliseFirstLetter(string)
