@@ -1,5 +1,10 @@
 function CrearTrayectoCtrl($scope, $http) {
 
+	$scope.destinos = [
+		'Algo',
+		'Otro'
+	];
+
 	function getDate(){
 		var d = new Date();
 	    var curr_date = d.getDate();
@@ -38,7 +43,7 @@ function CrearTrayectoCtrl($scope, $http) {
 			var fecha = $scope.trayecto.fecha_time.split("/");
 			var hora = $scope.trayecto.horaSalida.split(":");
 
-			obj.fecha_time = new Date(fecha[2], fecha[1], fecha[0], hora[0], hora[1], 0, 0);
+			obj.fecha_time = new Date(fecha[2], fecha[1] - 1, fecha[0], hora[0], hora[1], 0, 0);
 
 			// Enviamos obj con un POST al server
 			// Por AJAX.

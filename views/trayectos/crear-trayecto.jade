@@ -56,9 +56,7 @@ block content
                                     label.col-sm-3.control-label(for="destino") Destino
                                     .col-sm-9
                                         select.form-control(ng-model="trayecto.destino",name="destino")
-                                            option Valencia
-                                            option Castellón
-                                            option Alicante
+                                            option(ng-repeat="d in destinos") {{ d }}
                                 
                                 .form-group(ng-class="{'has-error': (form.maxEspera.$error.required || form.maxEspera.$error.number || form.maxEspera.$error.min)  && form.submitted }")
                                     label.col-sm-3.control-label(for="maxEspera") Max. Espera
