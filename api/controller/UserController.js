@@ -237,8 +237,12 @@ var UserController = function(userDAO) {
                 res.send(objetoRespuesta);
                 return;
             } 
-            objetoRespuesta.success = true;                
-            objetoRespuesta.info = "";
+            objetoRespuesta.success = true;     
+            if(isInTrip){
+                objetoRespuesta.info = "Usuario inscrito en trayecto";
+            }else{
+                objetoRespuesta.info = "Usuario no inscrito en trayecto";
+            }
             objetoRespuesta.data = isInTrip;
             res.send(objetoRespuesta);
         });
