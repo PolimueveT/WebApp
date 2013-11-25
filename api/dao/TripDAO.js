@@ -185,6 +185,9 @@ var TripDAO = function(db) {
             tripCollection.findOne({_id: ObjectID(tripId)}, function(err, trip) {
                 if(err) return callback(new Error("error buscando trayecto"));
                 if(!trip) return callback(new Error("trayecto no encontrado"));
+                if(trip.Inscritos === undefined){
+                    trip.Inscritos = [];
+                }
                 if(trip.Inscritos.length === trip.Num_plazas)
                     return callback(new Error("no hay plazas disponibles en el trayecto"));
                 // PARA EL SEGUNDO SPRINT ?
