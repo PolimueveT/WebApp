@@ -10,7 +10,7 @@ var MisTrayectosCtrl = function($scope, $http){
 			if(result !== undefined){
 				$scope.trayectos_ofreciendo = [];
 				for (var i = 0; i < result.data.length; i++) {
-					var obj = result.data[i]
+					var obj = result.data[i];
 					var fechaObj = moment(obj.Fecha_time);
 					obj.fechaFormat = fechaObj.fromNow();
 					obj.fechaHoraSalida = fechaObj.format("DD-MM-YYYY h:mm:ss a");
@@ -28,7 +28,7 @@ var MisTrayectosCtrl = function($scope, $http){
 			if(result !== undefined){
 				$scope.trayectos_ofreciendo = [];
 				for (var i = 0; i < result.data.length; i++) {
-					var obj = result.data[i]
+					var obj = result.data[i];
 					var fechaObj = moment(obj.Fecha_time);
 					obj.fechaFormat = fechaObj.fromNow();
 					obj.fechaHoraSalida = fechaObj.format("DD-MM-YYYY h:mm:ss a");
