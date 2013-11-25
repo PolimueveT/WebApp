@@ -121,8 +121,4 @@ block script
             scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
             scope.trayecto.creador_id = "from_site";
             scope.$apply();
-
-            $('.autocomplete_destino').autocomplete({
-                source: scope.destinos
-            });
         }); 
