@@ -1,8 +1,17 @@
 function CrearTrayectoCtrl($scope, $http) {
 
 	$scope.destinos = [
-		'Algo',
-		'Otro'
+		'ETSA-ARQUITECTURA',
+		'ETSIAMN-AGRONOMICA'
+		'ETSIE-EDIFICACION'
+		'ETSID-DISEÑO'
+		'ETSIGCT-GEODESICA'
+		'ETSINF-INFORMATICA'
+		'ETSICCP-CAMINOS'
+		'ETSIT-TELECOMUNICACIONES'
+		'ETSII-INDUSTRIALES'
+		'ADE'
+		'BELLAS ARTES'
 	];
 
 	function getDate(){
