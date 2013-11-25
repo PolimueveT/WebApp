@@ -14,6 +14,7 @@ var MisTrayectosCtrl = function($scope, $http){
 					var fechaObj = moment(obj.Fecha_time);
 					obj.fechaFormat = fechaObj.fromNow();
 					obj.fechaHoraSalida = fechaObj.format("DD-MM-YYYY h:mm:ss a");
+					obj.id = obj._id;
 
 					$scope.trayectos_ofreciendo.push(obj);
 				};
@@ -31,11 +32,25 @@ var MisTrayectosCtrl = function($scope, $http){
 					var fechaObj = moment(obj.Fecha_time);
 					obj.fechaFormat = fechaObj.fromNow();
 					obj.fechaHoraSalida = fechaObj.format("DD-MM-YYYY h:mm:ss a");
+					obj.id = obj._id;
 
-					$scope.trayectos_ofreciendo.push(obj);
+					$scope.trayectos_inscrito.push(obj);
 				};
 			}
 		});	
 	}
+
+	$scope.borrarTrayecto = function(id) {
+		if(confirm('Seguro que desea eliminar el trayecto?')){
+			$http.delete('/api/deletetrip/' + id).success(function(result){
+				var trayecto = _.find($scope.trayectos_ofreciendo, function(r){
+					return r.id === id;
+				});
+
+				var index = $scope.trayectos_ofreciendo.indexOf(trayecto);
+				$scope.trayectos_ofreciendo.splice(index,1);
+			});
+		}
+	};
 
 }

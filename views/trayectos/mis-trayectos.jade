@@ -17,22 +17,27 @@ block content
 									th Precio Plaza
 									th Max. Espera
 									th Restricciones
-									th Max. Tamaño Equipaje
-									tr(ng-repeat="t in trayectos_ofreciendo")
-										td {{ t.Num_plazas }}
-										td {{ t.Origen }}
-										td {{ t.Destino }}
-										td 
-											{{ t.fechaFormat }}
+									th
+								tr(ng-repeat="t in trayectos_ofreciendo")
+									td {{ t.Num_plazas }}
+									td {{ t.Origen }}
+									td {{ t.Destino }}
+									td 
+										{{ t.fechaFormat }}
+										br
+										{{ t.fechaHoraSalida }}
+									td {{ t.Precio_plaza }}
+									td {{ t.Tiempo_max_espera }}
+									td 
+										span(ng-repeat="(key, r) in t.Restricciones")
+											{{ 	key.replace('_', ' ').toUpperCase() }}
 											br
-											{{ t.fechaHoraSalida }}
-										td {{ t.Precio_plaza }}
-										td {{ t.Tiempo_max_espera }}
-										td 
-											span(ng-repeat="(key, r) in t.Restricciones")
-												{{ 	key.replace('_', ' ').toUpperCase() }}
-												br
-										td {{ t.Max_tamano_equipaje }}
+									td
+										a.btn.btn-primary(href="/trayecto/{{ t.id }}")
+											span.glyphicon.glyphicon-eye-open
+										|  
+										a.btn.btn-danger(ng-click="borrarTrayecto(t.id)")
+											span.glyphicon.glyphicon-trash
 			.row
 				.col-md-12
 					.panel.panel-default
@@ -40,30 +45,32 @@ block content
 						.panel-body
 							.col-md-12
 								table.table
-								tr
-									th Num. Plazas
-									th Origen
-									th Destino
-									th Fecha y Hora Salida
-									th Precio Plaza
-									th Max. Espera
-									th Restricciones
-									th Max. Tamaño Equipaje
-									tr(ng-repeat="t in trayectos_inscrito")
-										td {{ t.Num_plazas }}
-										td {{ t.Origen }}
-										td {{ t.Destino }}
+									tr
+										th Num. Plazas
+										th Origen
+										th Destino
+										th Fecha y Hora Salida
+										th Precio Plaza
+										th Max. Espera
+										th Restricciones
+										th
+									tr(ng-repeat="i in trayectos_inscrito")
+										td {{ i.Num_plazas }}
+										td {{ i.Origen }}
+										td {{ i.Destino }}
 										td 
-											{{ t.fechaFormat }}
+											{{ i.fechaFormat }}
 											br
-											{{ t.fechaHoraSalida }}
-										td {{ t.Precio_plaza }}
-										td {{ t.Tiempo_max_espera }}
+											{{ i.fechaHoraSalida }}
+										td {{ i.Precio_plaza }}
+										td {{ i.Tiempo_max_espera }}
 										td 
-											span(ng-repeat="(key, r) in t.Restricciones")
+											span(ng-repeat="(key, r) in i.Restricciones")
 												{{ 	key.replace('_', ' ').toUpperCase() }}
 												br
-										td {{ t.Max_tamano_equipaje }}
+										td
+											a.btn.btn-primary(href="/trayecto/{{ t.id }}")
+												span.glyphicon.glyphicon-eye-open
 
 block script
 	script(src="/js/MisTrayectosCtrl.js")
@@ -73,6 +80,7 @@ block script
 			scope = angular.element('[ng-controller="MisTrayectosCtrl"]').scope();
 			scope.id_user = 'from_site';
 			scope.getData();
+			scope.getInscritos();
 			scope.$apply();
 		});
 
