@@ -222,6 +222,32 @@ var UserController = function(userDAO) {
         });
     };
 
+    /**
+    * Método que obtiene si un usuario está inscrito a un trayecto
+    */
+    this.isUserInTrip = function(req, res){
+        var idUser = req.params.iduser;
+        var idTrip = req.params.idtrip;
+        _UserDAO.isUserInTrip(idUser, idTrip, function(err, isInTrip){
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;     
+            if(isInTrip){
+                objetoRespuesta.info = "Usuario inscrito en trayecto";
+            }else{
+                objetoRespuesta.info = "Usuario no inscrito en trayecto";
+            }
+            objetoRespuesta.data = isInTrip;
+            res.send(objetoRespuesta);
+        });
+    };
+
 };
 
 module.exports = UserController;

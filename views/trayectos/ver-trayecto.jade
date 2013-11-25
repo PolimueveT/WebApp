@@ -4,10 +4,13 @@ block content
             .row
                 .col-md-12
                     h1 Trayecto
-                        small 
-                            a.btn.btn-primary.pull-right(ng-click="unirmeTrayecto()")
+                        small.pull-right
+                            a.btn.btn-primary(ng-click="unirmeTrayecto()")
                                 span.glyphicon.glyphicon-plus-sign
                                 |  Unirse A Trayecto
+                            a.btn.btn-danger(ng-click="unirmeTrayecto()")
+                                span.glyphicon.glyphicon-remove
+                                |  Salir del Trayecto
                     .panel.panel-default
                         .panel-heading Informacion del Trayecto
                         .panel-body
