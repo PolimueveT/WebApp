@@ -138,6 +138,32 @@ var UserDAO = function(db) {
         });
     };
 
+    /**
+    * Método que obtiene si un usuario está inscrito a un trayecto
+    */
+    this.isUserInTrip = function(iduser, idtrip, callback){
+        if(!iduser || !idtrip) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("trayectos", function(err, collection){
+            collection.findOne({"_id":ObjectID(idtrip), "Inscritos": iduser}, function (err, isUser){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+
+                if(isUser != null){
+                    console.log("Encontrado usuario en trip");
+                    return callback(null, true);
+                }
+                console.log("No se ha encontrado usuario en trip");
+                return callback(null, false);                
+            });
+        });
+    };
+
 };
 
 module.exports = UserDAO;
