@@ -15,8 +15,9 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 					$scope.todos[i].id = $scope.todos[i]._id;
 					$scope.todos[i].FechaFromNow = fechaObj.fromNow();
-					$scope.todos[i].Fecha_time = fechaObj.format("DD-MM-YYYY h:mm:ss a");
+					$scope.todos[i].Fecha_time = fechaObj.format("DD/MM/YYYY HH:mm");
 				}
+
 				$scope.trayectos = $scope.todos;
 			}
 		});	
@@ -32,7 +33,7 @@ var BuscarTrayectosCtrl = function($scope, $http){
 				var fecha_hora = new Date(f[2], f[1], f[0], h[0], h[1], 0, 0); */
 
 				var fyh = tra.Fecha_time;
-				var aux = fyh.split(" - ");
+				var aux = fyh.split(" ");
 				var fecha = aux[0];
 				var hora = aux[1];
 	
