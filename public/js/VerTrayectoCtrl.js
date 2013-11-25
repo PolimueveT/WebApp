@@ -66,8 +66,6 @@ function VerTrayectoCtrl($scope, $http) {
 		};
 
 		$http.put('/api/cancelPassenger', data).success(function(result){
-			$scope.avisos.push(data.info);
-
 			var obj = {
 				clase: [],
 				texto: ''
@@ -81,7 +79,8 @@ function VerTrayectoCtrl($scope, $http) {
 				$scope.unido_trayecto = false;
 			}
 
-			obj.texto = result.info;			
+			obj.texto = result.info;		
+			$scope.avisos.push(obj);	
 		});
 	};
 
