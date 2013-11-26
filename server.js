@@ -11,6 +11,8 @@ io = require('socket.io').listen(server);
  * y Estilo
  */
 
+ console.log('environment: ' + app.get('env'));
+
  function compile(str, path) {
   return stylus(str)
   .set('filename', path)
