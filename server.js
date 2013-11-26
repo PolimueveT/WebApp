@@ -96,6 +96,12 @@ var homeController = new HomeController();
  */
 
  app.use(express.bodyParser());
+ 
+ // NO CACHE
+ app.use(function(req, res, next) {
+  res.header('Cache-Control','private'); 
+  next();
+});
 
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)
