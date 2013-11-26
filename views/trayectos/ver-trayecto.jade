@@ -5,7 +5,8 @@ block content
 				.col-md-12.alertas
 					.alert.alert-dismissable(ng-repeat="a in avisos", ng-class="{{ a.clase }}")
 						button.cerrar-aviso.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
-						| {{ a.texto }}
+						span.glyphicon.glyphicon-ok-sign 
+						|  {{ a.texto }}
 			.row
 				.col-md-12
 					h1 Trayecto
@@ -16,56 +17,72 @@ block content
 							a.btn.btn-danger(ng-click="salirTrayecto()", ng-show="unido_trayecto")
 								span.glyphicon.glyphicon-remove
 								|  Salir del Trayecto
-					.panel.panel-default
-						.panel-heading Informacion del Trayecto
-						.panel-body
-							.row
-								.col-md-6
+					.row
+						.col-md-8.trayecto-div
+							.panel.panel-default
+								.panel-heading Informacion del Trayecto
+								.panel-body
+									.row
+										.col-md-6
+											table.table
+												tr
+													th Nº Plazas
+													td {{ trayecto.Num_plazas }} ({{ trayecto.libres }} libres)
+												tr 
+													th Fecha Salida
+													td {{ trayecto.Fecha_time }}
+												tr 
+													th Hora Salida
+													td {{ trayecto.hora_salida }}
+												tr
+													th Restricciones
+													td 
+														span(ng-repeat="(key, r) in trayecto.Restricciones")
+															{{ 	key.replace('_', ' ').toUpperCase() }}
+															br
+
+													
+										.col-md-6
+											table.table
+												tr
+													th Precio/Plaza
+													td {{ trayecto.Precio_plaza }} €
+												tr 
+													th Max. Espera
+													td {{ trayecto.Tiempo_max_espera }} minuto(s)
+												tr 
+													th Tamaño max. del equipaje
+													td {{ trayecto.Max_tamanyo_equipaje }}
+												tr
+													th Tipo Pasajero
+													td 
+														span(ng-repeat="(key, r) in trayecto.Tipo_pasajeros")
+															{{ 	key.replace('_', ' ').toUpperCase() }}
+															br
+
+									.row
+										.col-md-12
+											h3 Observaciones
+											p {{ trayecto.Observaciones }}
+						.col-md-4.creador-div
+							.panel.panel-default
+								.panel-heading 
+									span.glyphicon.glyphicon-user  
+									|  Creador
+								.panel-body 
 									table.table
 										tr
-											th Nº Plazas
-											td {{ trayecto.Num_plazas }} ({{ trayecto.libres }} libres)
+											th Nombre
+											td Juan Perez
 										tr 
-											th Fecha Salida
-											td {{ trayecto.Fecha_time }}
+											th Coche
+											td Seat Leon Rojo
 										tr 
-											th Hora Salida
-											td {{ trayecto.hora_salida }}
-											
-								.col-md-6
-									table.table
-										tr
-											th Precio/Plaza
-											td {{ trayecto.Precio_plaza }} €
-										tr 
-											th Max. Espera
-											td {{ trayecto.Tiempo_max_espera }} minuto(s)
-										tr 
-											th Tamaño max. del equipaje
-											td {{ trayecto.Max_tamanyo_equipaje }}
-							.row
-								.col-md-12
-									h3 Observaciones
-									p {{ trayecto.Observaciones }}
+											th Departamento
+											td Informatica
 							
 			.row
-				.col-md-6 
-					.panel.panel-default
-						.panel-heading 
-							span.glyphicon.glyphicon-user  
-							|  Creador
-						.panel-body 
-							table.table
-								tr
-									th Nombre
-									td Juan Perez
-								tr 
-									th Coche
-									td Seat Leon Rojo
-								tr 
-									th Departamento
-									td Informatica
-				.col-md-6
+				.col-md-12
 					.panel.panel-default
 						.panel-heading 
 							span.glyphicon.glyphicon-road 
@@ -96,5 +113,7 @@ block script
 				scope.$apply();
 			});
 
+			//- var h = $('.trayecto-div').height();
+			//- console.log();
 		});
 

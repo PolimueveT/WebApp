@@ -19,3 +19,6 @@ input.ng-invalid.ng-dirty {
 input.ng-valid.ng-dirty {
   border: 1px solid #008000;
 }
+th {
+  text-align: right;
+}

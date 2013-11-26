@@ -26,6 +26,13 @@ function VerTrayectoCtrl($scope, $http) {
 				}
 				obj.libres = obj.Num_plazas - obj.Inscritos.length;
 
+				if(obj.Restricciones === undefined || _.isEmpty(obj.Restricciones))
+				{
+					obj.Restricciones = {
+						Ninguna: true
+					};	
+				}
+
 				$scope.trayecto = obj;
 
 				$scope.getUnidoATrayecto();
@@ -55,6 +62,7 @@ function VerTrayectoCtrl($scope, $http) {
 
 			obj.texto = result.info;
 
+			$scope.avisos = [];
 			$scope.avisos.push(obj);
 		});
 	};
@@ -79,7 +87,9 @@ function VerTrayectoCtrl($scope, $http) {
 				$scope.unido_trayecto = false;
 			}
 
-			obj.texto = result.info;		
+			obj.texto = result.info;
+				
+			$scope.avisos = [];	
 			$scope.avisos.push(obj);	
 		});
 	};
