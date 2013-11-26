@@ -133,6 +133,7 @@ app.get('/mis-trayectos', homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
 app.get('/trayecto/:id', homeController.ver_trayecto);
+app.get('/editar-trayecto/:id', homeController.editar_trayecto);
 
 // Inicio de la App
 app.get('/', function (req, res) {

@@ -25,16 +25,19 @@ block content
 									td 
 										{{ t.fechaFormat }}
 										br
-										{{ t.fechaHoraSalida }}
-									td {{ t.Precio_plaza }}
-									td {{ t.Tiempo_max_espera }}
+										span(style="color: gray") {{ t.fechaHoraSalida }}
+									td {{ t.Precio_plaza }} €
+									td {{ t.Tiempo_max_espera }} min.
 									td 
-										span(ng-repeat="(key, r) in t.Restricciones")
+										span(ng-repeat="(key, r) in t.Restricciones", ng-show="r")
 											{{ 	key.replace('_', ' ').toUpperCase() }}
 											br
 									td
 										a.btn.btn-primary(href="/trayecto/{{ t.id }}")
 											span.glyphicon.glyphicon-eye-open
+										|  
+										a.btn.btn-info(href="/editar-trayecto/{{ t.id }}")
+											span.glyphicon.glyphicon-pencil
 										|  
 										a.btn.btn-danger(ng-click="borrarTrayecto(t.id)")
 											span.glyphicon.glyphicon-trash
@@ -62,8 +65,8 @@ block content
 											{{ i.fechaFormat }}
 											br
 											{{ i.fechaHoraSalida }}
-										td {{ i.Precio_plaza }}
-										td {{ i.Tiempo_max_espera }}
+										td {{ i.Precio_plaza }} €
+										td {{ i.Tiempo_max_espera }} min.
 										td 
 											span(ng-repeat="(key, r) in i.Restricciones")
 												{{ 	key.replace('_', ' ').toUpperCase() }}

@@ -31,6 +31,44 @@ function CrearTrayectoCtrl($scope, $http) {
 	};
 	$scope.submitted = false;
 
+	$scope.getTrayecto = function(id){
+		$http.get('/api/gettrip/' + id).success(function(result){
+			console.log(result);
+			if (result !== undefined && result.data.length > 0) {
+				var obj = result.data[0];
+
+				var fechaObj = moment(obj.Fecha_time);
+				obj.fecha_time = fechaObj.format("DD/MM/YYYY");
+				obj.horaSalida = fechaObj.format("hh:mm a");
+				if(obj.inscritos === undefined){
+					obj.inscritos = [];
+				}
+				if(obj.Tipo_pasajeros === undefined || _.isEmpty(obj.Tipo_pasajeros))
+				{
+					obj.tipo_pasajero = { 
+						alumnos: true,
+						profesores: true,
+						personal: true
+					};	
+				}else{
+					obj.tipo_pasajero = obj.Tipo_pasajeros;
+				}
+
+				obj.creador_id = obj.Creador_id;
+				obj.destino = obj.Destino;
+				obj.equipaje = obj.Max_tamanyo_equipaje;
+				obj.origen = obj.Origen;
+				obj.precio = obj.Precio_plaza;
+				obj.restricciones = obj.Restricciones;
+				obj.num_plazas = obj.Num_plazas;
+				obj.observaciones = obj.Observaciones;
+				obj.max_espera = obj.Tiempo_max_espera;
+
+				$scope.trayecto = obj;
+			};
+		});
+	};
+
 	$scope.PublicarTrayecto = function () {
 		if ($scope.form.$valid) {
 			var obj = angular.copy($scope.trayecto);
@@ -43,6 +81,29 @@ function CrearTrayectoCtrl($scope, $http) {
 			// Enviamos obj con un POST al server
 			// Por AJAX.
 			$http.post('/api/newtrip', obj).success(function (response){
+				console.log(response);
+				if(response.success === true) { 
+					window.location = "/mis-trayectos";	
+				 }
+			});
+
+	    } else {
+	      $scope.form.submitted = true;
+	    }
+	};
+
+	$scope.editarTrayecto = function () {
+		if ($scope.form.$valid) {
+			var obj = angular.copy($scope.trayecto);
+
+			var fecha = $scope.trayecto.fecha_time.split("/");
+			var hora = $scope.trayecto.horaSalida.split(":");
+
+			obj.fecha_time = new Date(fecha[2], fecha[1] - 1, fecha[0], hora[0], hora[1], 0, 0);
+
+			// Enviamos obj con un POST al server
+			// Por AJAX.
+			$http.put('/api/updatetrip', obj).success(function (response){
 				console.log(response);
 				if(response.success === true) { 
 					window.location = "/mis-trayectos";	
