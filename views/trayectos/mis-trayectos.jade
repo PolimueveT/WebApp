@@ -25,11 +25,11 @@ block content
 									td 
 										{{ t.fechaFormat }}
 										br
-										{{ t.fechaHoraSalida }}
+										span(style="color: gray") {{ t.fechaHoraSalida }}
 									td {{ t.Precio_plaza }} €
 									td {{ t.Tiempo_max_espera }} min.
 									td 
-										span(ng-repeat="(key, r) in t.Restricciones")
+										span(ng-repeat="(key, r) in t.Restricciones", ng-show="r")
 											{{ 	key.replace('_', ' ').toUpperCase() }}
 											br
 									td

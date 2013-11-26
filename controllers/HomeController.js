@@ -6,11 +6,22 @@ var HomeController = function(Dao){
 		console.log(req.params);
 
 		var data = {
-			title: 'Ver Trayecto',
+			title: 'Editar Trayecto',
 			id_trayecto: req.params.id
 		};
 		
 		res.render('trayectos/ver-trayecto', data);
+	}
+
+	self.editar_trayecto = function(req, res) {
+		console.log(req.params);
+
+		var data = {
+			title: 'Ver Trayecto',
+			id_trayecto: req.params.id
+		};
+		
+		res.render('trayectos/editar-trayecto', data);
 	}
 
 	self.estado_parking = function(req, res) {

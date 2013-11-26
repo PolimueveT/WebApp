@@ -18,8 +18,8 @@ block content
 								span.glyphicon.glyphicon-remove
 								|  Salir del Trayecto
 					.row
-						.col-md-8.trayecto-div
-							.panel.panel-default
+						.col-md-8
+							.panel.panel-default.trayecto-div
 								.panel-heading Informacion del Trayecto
 								.panel-body
 									.row
@@ -62,10 +62,10 @@ block content
 
 									.row
 										.col-md-12
-											h3 Observaciones
+											h4 Observaciones
 											p {{ trayecto.Observaciones }}
-						.col-md-4.creador-div
-							.panel.panel-default
+						.col-md-4
+							.panel.panel-default.creador-div
 								.panel-heading 
 									span.glyphicon.glyphicon-user  
 									|  Creador
@@ -88,13 +88,16 @@ block content
 							span.glyphicon.glyphicon-road 
 							|  Ruta
 						.panel-body
-							table.table
-								tr 
-									th Origen
-									td {{ trayecto.Origen }}
-								tr 
-									th Destino
-									td {{ trayecto.Destino }}
+							.col-md-6
+								table.table
+									tr 
+										th Origen
+										td {{ trayecto.Origen }}
+							.col-md-6
+								table.table
+									tr 
+										th Destino
+										td {{ trayecto.Destino }}
 
 block script
 	script(src="/js/VerTrayectoCtrl.js")
@@ -113,7 +116,10 @@ block script
 				scope.$apply();
 			});
 
-			//- var h = $('.trayecto-div').height();
-			//- console.log();
+			setTimeout(function(){
+				var h = $('.trayecto-div').css('height');
+				$('.creador-div').css('height', h);
+			}, 180);
+			
 		});
 
