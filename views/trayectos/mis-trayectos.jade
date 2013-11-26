@@ -36,6 +36,9 @@ block content
 										a.btn.btn-primary(href="/trayecto/{{ t.id }}")
 											span.glyphicon.glyphicon-eye-open
 										|  
+										a.btn.btn-info(href="/editar-trayecto/{{ t.id }}")
+											span.glyphicon.glyphicon-pencil
+										|  
 										a.btn.btn-danger(ng-click="borrarTrayecto(t.id)")
 											span.glyphicon.glyphicon-trash
 			.row
