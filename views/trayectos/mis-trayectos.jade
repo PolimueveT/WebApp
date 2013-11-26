@@ -26,8 +26,8 @@ block content
 										{{ t.fechaFormat }}
 										br
 										{{ t.fechaHoraSalida }}
-									td {{ t.Precio_plaza }}
-									td {{ t.Tiempo_max_espera }}
+									td {{ t.Precio_plaza }} €
+									td {{ t.Tiempo_max_espera }} min.
 									td 
 										span(ng-repeat="(key, r) in t.Restricciones")
 											{{ 	key.replace('_', ' ').toUpperCase() }}
@@ -65,8 +65,8 @@ block content
 											{{ i.fechaFormat }}
 											br
 											{{ i.fechaHoraSalida }}
-										td {{ i.Precio_plaza }}
-										td {{ i.Tiempo_max_espera }}
+										td {{ i.Precio_plaza }} €
+										td {{ i.Tiempo_max_espera }} min.
 										td 
 											span(ng-repeat="(key, r) in i.Restricciones")
 												{{ 	key.replace('_', ' ').toUpperCase() }}
