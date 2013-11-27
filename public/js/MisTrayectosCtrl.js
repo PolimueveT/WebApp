@@ -49,6 +49,14 @@ var MisTrayectosCtrl = function($scope, $http){
 
 				var index = $scope.trayectos_ofreciendo.indexOf(trayecto);
 				$scope.trayectos_ofreciendo.splice(index,1);
+
+				// Trayectos Inscritos
+				var trayecto = _.find($scope.trayectos_inscrito, function(r){
+					return r.id === id;
+				});
+
+				var index = $scope.trayectos_inscrito.indexOf(trayecto);
+				$scope.trayectos_inscrito.splice(index,1);
 			});
 		}
 	};

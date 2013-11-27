@@ -6,7 +6,7 @@ var HomeController = function(Dao){
 		console.log(req.params);
 
 		var data = {
-			title: 'Editar Trayecto',
+			title: 'Ver Trayecto',
 			id_trayecto: req.params.id
 		};
 		
@@ -17,7 +17,7 @@ var HomeController = function(Dao){
 		console.log(req.params);
 
 		var data = {
-			title: 'Ver Trayecto',
+			title: 'Editar Trayecto',
 			id_trayecto: req.params.id
 		};
 		

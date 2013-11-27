@@ -11,6 +11,8 @@ io = require('socket.io').listen(server);
  * y Estilo
  */
 
+ console.log('environment: ' + app.get('env'));
+
  function compile(str, path) {
   return stylus(str)
   .set('filename', path)
@@ -96,6 +98,12 @@ var homeController = new HomeController();
  */
 
  app.use(express.bodyParser());
+ 
+ // NO CACHE
+ app.use(function(req, res, next) {
+  res.header('Cache-Control','private'); 
+  next();
+});
 
  //TRAYECTOS
  app.get('/api/gettrips',tripController.getTrips)

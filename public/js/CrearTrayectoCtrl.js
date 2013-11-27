@@ -39,7 +39,7 @@ function CrearTrayectoCtrl($scope, $http) {
 
 				var fechaObj = moment(obj.Fecha_time);
 				obj.fecha_time = fechaObj.format("DD/MM/YYYY");
-				obj.horaSalida = fechaObj.format("hh:mm a");
+				obj.horaSalida = fechaObj.format("HH:mm");
 				if(obj.inscritos === undefined){
 					obj.inscritos = [];
 				}
@@ -101,7 +101,7 @@ function CrearTrayectoCtrl($scope, $http) {
 
 			obj.fecha_time = new Date(fecha[2], fecha[1] - 1, fecha[0], hora[0], hora[1], 0, 0);
 
-			// Enviamos obj con un POST al server
+			// Enviamos obj con un PUT al server
 			// Por AJAX.
 			$http.put('/api/updatetrip', obj).success(function (response){
 				console.log(response);

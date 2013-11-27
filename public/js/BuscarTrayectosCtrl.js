@@ -37,7 +37,7 @@ var BuscarTrayectosCtrl = function($scope, $http){
 				var fecha = aux[0];
 				var hora = aux[1];
 	
-				return (tra.Origen.toUpperCase() == $scope.salida.toUpperCase())&&(tra.Destino.toUpperCase() == $scope.destino.toUpperCase())&&(fecha == $scope.fecha_salida)&&(hora == $scope.hora_salida)&&(tra.Restricciones.no_fumadores == $scope.noFumadores)&&(tra.Restricciones.no_animales == $scope.noAnimales)&&(tra.Restricciones.no_comida == $scope.noComida)/*&&(tra.Max_tamaño_equipaje == $scope.equipaje)*/;
+				return (tra.Origen.toUpperCase() == $scope.salida.toUpperCase())&&(tra.Destino.toUpperCase() == $scope.destino.toUpperCase())&&(fecha == $scope.fecha_salida)&&(hora == $scope.hora_salida)&&(tra.Restricciones.no_fumadores == $scope.noFumadores)&&(tra.Restricciones.no_animales == $scope.noAnimales)&&(tra.Restricciones.no_comida == $scope.noComida)&&(tra.Max_tamanyo_equipaje == $scope.equipaje);
 			});
 
 			$scope.trayectos = filtrados;
