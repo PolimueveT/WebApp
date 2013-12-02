@@ -1,45 +1,73 @@
 extend ../layouts/main
 
 block content
-    h1 Estado Parking 
-        small Conoce el estado de tus parkings
+	h1 Estado Parking 
+		small Conoce el estado de tus parkings
 
-    .container(ng-controller="ParkingsCtrl")
-        .row
-            table.table.table-striped
-                tr
-                    th Codigo
-                    th Lugar
-                    th Plazas Total
-                    th Disponibles
-                    th Estado
-                
-                    tr(ng-repeat="p in todos_parkings")
-                        td {{ p.codigo }}
-                        td {{ p.lugar }}
-                        td {{ p.plazas }}
-                        td {{ p.plazas - p.ocupadas }}
-                        td 
-                            span(class="label", ng-class = "{'label-success': p.estado == 'Libre', 'label-warning': p.estado == 'Personal Autorizado', 'label-danger': p.estado == 'Completo', 'label-default': p.estado == 'Cerrado'}") {{ p.estado }}
+	.container(ng-controller="ParkingsCtrl")
+		.row 
+			.col-md-12
+				div#map(style="width: 100%; height: 400px")
+		.row
+			table.table.table-striped
+				tr
+					th Codigo
+					th Lugar
+					th Plazas Total
+					th Disponibles
+					th Estado
+				
+					tr(ng-repeat="p in todos_parkings")
+						td {{ p.codigo }}
+						td {{ p.lugar }}
+						td {{ p.plazas }}
+						td {{ p.plazas - p.ocupadas }}
+						td 
+							span(class="label", ng-class = "{'label-success': p.estado == 'Libre', 'label-warning': p.estado == 'Personal Autorizado', 'label-danger': p.estado == 'Completo', 'label-default': p.estado == 'Cerrado'}") {{ p.estado }}
 
 
 block script
-    script(src="/js/ParkingsCtrl.js")
-    script(src="/socket.io/socket.io.js")
-    script.
-        var scope,
-        //- la url tiene que ser la de produccion
-        //- socket = io.connect('http://localhost:3000/estado-parking');
-        socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
-        $(document).ready(function (){
-            scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
-            scope.getParkings();
-            scope.$apply();
-        });
-        socket.on('palCliente', function (data) {
-            console.log(data);
-            if(scope !== undefined){
-                scope.setParkings(data);
-                scope.$apply(); 
-            }
-        });
+	script(src="/js/ParkingsCtrl.js")
+	script(src="/socket.io/socket.io.js")
+	script.
+		var scope,
+		//- la url tiene que ser la de produccion
+		//- socket = io.connect('http://localhost:3000/estado-parking');
+		socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
+		$(document).ready(function (){
+			scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
+			scope.getParkings();
+			scope.$apply();
+		});
+		socket.on('palCliente', function (data) {
+			console.log(data);
+			if(scope !== undefined){
+				scope.setParkings(data);
+				scope.$apply(); 
+			}
+		});
+		var map = new GMaps({
+			div: '#map',
+			lat: 39.481289,
+			lng: -0.3425168
+		});
+
+		var path = [
+			[39.48244,-0.349364], 
+			[39.482179,-0.349064], 
+			[39.48191,-0.349192],	
+			[39.481848,-0.349047],
+			[39.481554,-0.349155],
+			[39.48126,-0.348141],
+			[39.481057,-0.348227],
+			[39.481657,-0.350217],
+		];
+
+		var polygon = map.drawPolygon({
+			paths: path, // pre-defined polygon shape
+			strokeColor: '#BBD8E9',
+			strokeOpacity: 1,
+			strokeWeight: 3,
+			fillColor: '#BBD8E9',
+			fillOpacity: 0.6
+		});
