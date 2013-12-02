@@ -1,6 +1,8 @@
 var express = require('express')
 , stylus = require('stylus')
-, nib = require('nib');
+, nib = require('nib')
+, passport = require('passport')
+, LocalStrategy = require('passport-local').Strategy;
 
 var app = express(),
 server = require('http').createServer(app),
@@ -140,12 +142,18 @@ app.get('/api/parking', parkingController.listParkings);
 
 // Web
 app.get('/estado-parking', homeController.estado_parking);
-app.get('/crear-trayecto', homeController.crear_trayecto);
-app.get('/mis-trayectos', homeController.mis_trayectos);
+app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
+app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
-app.get('/trayecto/:id', homeController.ver_trayecto);
-app.get('/editar-trayecto/:id', homeController.editar_trayecto);
+app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
+app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
+app.post('/login', 
+    passport.authenticate('local', { failureRedirect: '/login'}),
+    function(req, res) {
+        console.log(req.user.username + ' has logged in');
+        res.redirect('/');
+});
 
 
 // Inicio de la App
@@ -165,6 +173,12 @@ io.of("/estado-parking").on("connection", function (socket) {
         socket.emit('palCliente', datos);
     });
 });
+
+// Login (in progress...)
+function ensureAuthenticated (req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+}
 
 
 server.listen(3000)
