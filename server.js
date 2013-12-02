@@ -132,7 +132,7 @@ app.get('/api/getuserstype/:type', userController.getUsersByType);
 app.delete('/api/deleteuser/:id', userController.deleteUser);
 app.put('/api/updateuser', userController.updateUser);
 app.get('/api/isuserintrip/:iduser/:idtrip', userController.isUserInTrip);
-
+app.get('/api/isuserregistered/:name/:pass', userController.isUserRegistered);
 
 // API para listar Parkings
 app.get('/api/parking', parkingController.listParkings);

@@ -164,6 +164,34 @@ var UserDAO = function(db) {
         });
     };
 
+
+    /**
+    * Método que obtiene un usuario a través de su ID
+    */
+    this.isUserRegistered = function(name, pass, callback){
+        console.log('Comprobando usuario y pass ');
+        if(!name || !pass) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.findOne({"_Nombre":name}, "Pass":pass}, function (err, isRegistered){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+
+                if(isRegistered != null){
+                    console.log("El usuario está registrado");
+                    return callback(null, true);
+                }
+                console.log("Usuario no registrado");
+                return callback(null, false);                
+            });
+        });
+    };
+
 };
 
 module.exports = UserDAO;
