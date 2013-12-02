@@ -176,7 +176,7 @@ var UserDAO = function(db) {
         }
 
         _db.collection("usuarios", function(err, collection){
-            collection.findOne({"_Nombre":name}, "Pass":pass}, function (err, isRegistered){
+            collection.findOne({"Nombre":name, "Pass":pass}, function (err, isRegistered){
                 if(err){
                     console.log('Error leyendo en collection usuarios');
                     return callback(err);
