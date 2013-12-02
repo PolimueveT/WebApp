@@ -9,16 +9,19 @@ function CrearUsuarioCtrl($scope, $http) {
 		};
 
 		console.log(obj);
-		if(obj.password != obj.password2) alert("Las contraseñas deben coincidir.");
-
-		// Enviamos obj con un POST al server
-		// Por AJAX.
-		$http.post('/api/newuser', obj).success(function (response){
-			console.log(response);
-			if(response.success === true) { 
-				window.location = "/cuenta";	
-			 }
-		});
+		if(obj.password !== obj.password2) {
+			alert('Las contraseñas deben coincidir');
+		}
+		else {
+			// Enviamos obj con un POST al server
+			// Por AJAX.
+			$http.post('/api/newuser', obj).success(function (response){
+				console.log(response);
+				/*if(response.success === true) { 
+					window.location = "/cuenta";	
+				 }*/
+			});
+		}
 	};
 
 $scope.Ingresar = function () {
@@ -33,9 +36,9 @@ $scope.Ingresar = function () {
 		// Por AJAX.
 		$http.post('/api/login', obj).success(function (response){
 			console.log(response);
-			if(response.success === true) { 
+			/*if(response.success === true) { 
 				window.location = "/cuenta";	
-			 }
+			 }*/
 		});
 	};
 

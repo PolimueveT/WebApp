@@ -10,11 +10,11 @@ block content
                         .panel-body
                             .form-group
                                 label(for="nPlazas") Nombre
-                                input.form-control(ng-model="name", id="nombre",name="nombre", type="text", placeHolder="Nombre")
+                                input.form-control(ng-model="name", required, id="nombre",name="nombre", type="text", placeHolder="Nombre")
 
                             .form-group
                                 label(for="horaSalida") Contraseña
-                                input.form-control(ng-model="pass", name="passwordUsuario",type="text", placeHolder="Contraseña")
+                                input.form-control(ng-model="pass", required, name="passwordUsuario",type="text", placeHolder="Contraseña")
 
                             .form-group
                                label.checkbox(for="labelrecuerdame") Recuerdame 
@@ -29,20 +29,20 @@ block content
                         .panel-body
                             .form-group
                                 label(for="labelnombre") Nombre
-                                input.form-control(ng-model="nombre", id="nombre",name="nombre", type="text", placeHolder="Nombre")
+                                input.form-control(ng-model="nombre", required, id="nombre",name="nombre", type="text", placeHolder="Nombre")
 
                             .form-group
                                 label(for="origen") Email
-                                input.form-control(ng-model="email",name="email", type="email", placeHolder="Email")
+                                input.form-control(ng-model="email",required, name="email", type="email", placeHolder="Email")
 
                             .form-group
                                 label(for="horaSalida") Contraseña
-                                input.form-control(ng-model="password", name="password",type="password", placeHolder="Contraseña")
+                                input.form-control(ng-model="password", required, name="password",type="password", placeHolder="Contraseña")
 
                             .form-group
                                 label(for="horaSalida") Confirma contraseña
-                                input.form-control(ng-model="password2",name="password2",type="password", placeHolder="Repite la contraseña")
-
+                                input.form-control(ng-model="password2", required, name="password2",type="password", placeHolder="Repite la contraseña")
+                                {{ bypass | json}}
                             .form-group
                                  button.col-md-6(class="btn btn btn-primary", id="registrar", ng-click="RegistrarUsuario()") Registrarme
 block script
