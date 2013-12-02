@@ -10,7 +10,7 @@ var HomeController = function(Dao){
 			id_trayecto: req.params.id
 		};
 		
-		res.he
+		// res.he
 		res.render('trayectos/ver-trayecto', data);
 	}
 
