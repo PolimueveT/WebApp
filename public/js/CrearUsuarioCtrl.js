@@ -30,11 +30,13 @@ $scope.Ingresar = function () {
 			password: $scope.nombre,
 		};
 
+		///$scope.obj ??
+
 		console.log(obj);
 
 		// Enviamos obj con un POST al server
 		// Por AJAX.
-		$http.post('/api/login', obj).success(function (response){
+		$http.post('/login', obj).success(function (response){
 			console.log(response);
 			/*if(response.success === true) { 
 				window.location = "/cuenta";	

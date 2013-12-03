@@ -31,8 +31,13 @@ app.use(stylus.middleware(
     compile: compile
 }
 ))
-app.use(express.static(__dirname + '/public'))
+app.use(express.cookieParser());
 app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.session({ secret: 'monopolio' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'))
 
 // NO CACHE
 app.use(function(req, res, next) {
@@ -62,7 +67,6 @@ if ('production' === app.get('env')) {
     // TODO: zona horaria es una hora menos que en ESPAÑA!!!
 }
 
-
 // Conexion a MongoDB
 // Deberiamos meter el resto del codigo dentro de la conexion... (tema de asincrono y tal...)
 var mongo = require('mongodb');
@@ -85,6 +89,58 @@ db.open(function(err, db) {
         console.log("Unable to connecto to 'polimuevet' database");
     }
 });
+
+// PASSPORT
+var users = [
+    { id: 1, username: 'bob', password: '222' },
+    { id: 2, username: 'pep', password: '333' }
+];
+
+var findById = function (id, fn) {
+    var idx = id - 1;
+    if(users[idx]) {
+        fn(null, users[idx]);
+    } else {
+        fn(new Error('User ' + id + ' does not exist'));
+    }
+};
+
+var findByUsername = function(username, fn) {
+    for (var i = 0, len = users.length; i < len; i++) {
+        var user = users[i];
+        if (user.username === username) {
+            return fn(null, user);
+        }
+    }
+    return fn(null, null);
+};
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    findById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        process.nextTick(function() {
+            findByUsername(username, function(err, user) {
+                if (err)
+                    return done(err);
+                if (!user)
+                    return done(null, false, { message: 'Unknown user: ' + username });
+                if (user.password != password)
+                    return done(null, false, { message: 'Invalid password' });
+                return done(null, user);
+            });
+        });
+    }
+));
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -149,10 +205,10 @@ app.get('/registrar', homeController.registrar);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
-    passport.authenticate('local', { failureRedirect: '/login'}),
+    passport.authenticate('local', { failureRedirect: '/'}),
     function(req, res) {
         console.log(req.user.username + ' has logged in');
-        res.redirect('/');
+        res.redirect('/trayectos');
 });
 
 
