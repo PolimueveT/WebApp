@@ -9,36 +9,36 @@ block content
         form.form-horizontal(role="form", name="form", novalidate)
             .row
                 .col-sm-3
-                   .form-group(ng-class="{'has-error': form.salida.$error.required && form.submitted}") 
+                   .form-group(ng-class="{'has-error': form.submitted}") 
                         label.col-sm-3.control-label(for="origen") Origen  
                         .col-sm-9
-                            input.form-control.autocomplete_destino(ng-model="salida", name="salida", type="text", placeHolder="Salida", required)
+                            input.form-control.autocomplete_destino(ng-model="salida", name="salida", type="text", placeHolder="Salida")
 
 
-                .col-sm-4
-                   .form-group(ng-class="{'has-error': form.destino.$error.required && form.submitted }")
+                .col-sm-3
+                   .form-group(ng-class="{'has-error': form.submitted }")
                         label.col-sm-3.control-label(for="destino") Destino
                         .col-sm-9
-                            input.form-control.autocomplete_destino(ng-model="destino", name="destino", type="text", placeHolder="Destino", required)
+                            input.form-control.autocomplete_destino(ng-model="destino", name="destino", type="text", placeHolder="Destino")
 
 
-                .col-sm-2
-                    .form-group(ng-class="{'has-error': form.Fecha.$error.required && form.submitted }")
+                .col-sm-3
+                    .form-group(ng-class="{'has-error': form.submitted }")
                         label.col-sm-3.control-label(for="fecha") Fecha
                         .col-sm-9
                             .datePicker.date.input-group
-                                input.form-control(data-format="dd/MM/yyyy hh:mm:ss",ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text', required)
+                                input.form-control(data-format="dd/MM/yyyy hh:mm:ss",ng-model="fecha_salida", name="Fecha", data-format='dd/MM/yyyy', type='text')
                                 span.add-on.input-group-btn
                                     a.btn.btn-primary.btn-group
                                         span.glyphicon.glyphicon-calendar
 
 
                 .col-sm-2
-                    .form-group(ng-class="{'has-error': form.Hora.$error.required && form.submitted }")
+                    .form-group(ng-class="{'has-error': form.submitted }")
                         label.col-sm-3.control-label(for="hora") Hora
                         .col-sm-9
                             .timePicker.date.input-group
-                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text', required)
+                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
                                 span.add-on.input-group-btn
                                     a.btn.btn-primary.btn-group
                                         span.glyphicon.glyphicon-time
