@@ -9,6 +9,10 @@ block content
                         span.glyphicon.glyphicon-warning-sign 
                         b  Error en formulario 
                         p Favor de comprobar los campos
+
+
+                    div#map(style="width: 100%; height: 400px")
+
                     .panel.panel-default
                         .panel-heading Informacion del Trayecto
                         .panel-body
@@ -122,3 +126,63 @@ block script
             scope.trayecto.creador_id = "from_site";
             scope.$apply();
         }); 
+        var mapMarkers = {
+            origin: false,
+            destination: false
+        };
+        var map = new GMaps({
+            div: '#map',
+            lat: 39.481289,
+            lng: -0.3425168,
+            click: function(e){
+              if(map.markers.length < 2){
+                var icono = ( map.markers.length == 0 ? '/img/inicio.png' : '/img/meta_centro.png' );
+
+                  map.addMarker({
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng(),
+                    draggable: true,
+                    icon: icono,
+                    dragend: function(e) {
+                        if(map.markers.length > 1){
+                            drawRoute();
+                          }
+                      }
+                  });
+                if(map.markers.length > 1){
+                    drawRoute();
+                  }
+              }
+            }
+        });
+
+        function drawRoute(){
+            map.cleanRoute();
+
+            var origin = map.markers[0].getPosition();
+            var destination = map.markers[map.markers.length-1].getPosition();
+
+            map.drawRoute({
+              origin: [origin.lat(), origin.lng()],
+              destination: [destination.lat(), destination.lng()],
+              travelMode: 'driving',
+              strokeColor: '#336699',
+              strokeOpacity: 0.5,
+              strokeWeight: 6
+            });
+        }
+
+        //- map.getRoutes({
+        //-   origin: [origin.lat(), origin.lng()],
+        //-   destination: [destination.lat(), destination.lng()],
+        //-   travelMode: 'driving',
+        //-   callback: function(e){
+        //-     route = new GMaps.Route({
+        //-       map: map,
+        //-       route: e[0],
+        //-       strokeColor: '#336699',
+        //-       strokeOpacity: 0.5,
+        //-       strokeWeight: 10
+        //-     });
+        //-   }
+        //- });
