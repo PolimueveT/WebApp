@@ -180,7 +180,7 @@ app.put('/api/applytrip', tripController.applyTrip)
 app.put('/api/cancelPassenger', tripController.cancelPassenger)
 app.put('/api/updatetrip',tripController.updateTrip)
 app.delete('/api/deletetrip/:id',tripController.deleteTrip)
-
+app.post('/api/getfilteredtrips',tripController.getFilteredTrips);
 
 //USUARIOS
 app.get('/api/getusers', userController.getAllUsers);
