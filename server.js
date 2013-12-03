@@ -225,6 +225,7 @@ app.get('/', function (req, res) {
 // para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
 io.of("/estado-parking").on("connection", function (socket) {
     console.log('un cliente se ha conectado a la visualizacion del parking');
+    console.log('clientes conectados: ' + Object.keys(io.sockets.manager.connected).length);
     parkingManager.ee.on('parkingEvent', function(datos){
         socket.emit('palCliente', datos);
     });

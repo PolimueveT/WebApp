@@ -31,9 +31,7 @@ block script
 	script(src="/socket.io/socket.io.js")
 	script.
 		var scope,
-		//- la url tiene que ser la de produccion
-		//- socket = io.connect('http://localhost:3000/estado-parking');
-		socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
+		socket = io.connect('/estado-parking');
 		$(document).ready(function (){
 			scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
 			scope.getParkings();
