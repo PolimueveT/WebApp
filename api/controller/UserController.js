@@ -248,6 +248,33 @@ var UserController = function(userDAO) {
         });
     };
 
+
+    /**
+    * Método que obtiene si un usuario está registrado
+    */
+    this.isUserRegistered = function(req, res){
+        var name = req.params.name;
+        var pass = req.params.pass;
+        _UserDAO.isUserRegistered(name, pass, function(err, isRegistered){
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;     
+            if(isRegistered){
+                objetoRespuesta.info = "El usuario está registrado";
+            }else{
+                objetoRespuesta.info = "Usuario no está registrado";
+            }
+            objetoRespuesta.data = isRegistered;
+            res.send(objetoRespuesta);
+        });
+    };
+
 };
 
 module.exports = UserController;

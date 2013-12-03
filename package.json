@@ -11,7 +11,8 @@
     "stylus": "~0.39.4",
     "nib": "~1.0.1",
     "mongodb": "~1.3.19",
-    "cron": "~1.0.1"
+    "cron": "~1.0.1",
+    "passport-local": "~0.1.6"
   },
   "devDependencies": {},
   "scripts": {

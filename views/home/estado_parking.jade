@@ -1,45 +1,205 @@
 extend ../layouts/main
 
 block content
-    h1 Estado Parking 
-        small Conoce el estado de tus parkings
+	h1 Estado Parking 
+		small Conoce el estado de tus parkings
 
-    .container(ng-controller="ParkingsCtrl")
-        .row
-            table.table.table-striped
-                tr
-                    th Codigo
-                    th Lugar
-                    th Plazas Total
-                    th Disponibles
-                    th Estado
-                
-                    tr(ng-repeat="p in todos_parkings")
-                        td {{ p.codigo }}
-                        td {{ p.lugar }}
-                        td {{ p.plazas }}
-                        td {{ p.plazas - p.ocupadas }}
-                        td 
-                            span(class="label", ng-class = "{'label-success': p.estado == 'Libre', 'label-warning': p.estado == 'Personal Autorizado', 'label-danger': p.estado == 'Completo', 'label-default': p.estado == 'Cerrado'}") {{ p.estado }}
+	.container(ng-controller="ParkingsCtrl")
+		.row 
+			.col-md-12
+				div#map(style="width: 100%; height: 400px")
+		.row
+			table.table.table-striped
+				tr
+					th Codigo
+					th Lugar
+					th Plazas Total
+					th Disponibles
+					th Estado
+				
+					tr(ng-repeat="p in todos_parkings")
+						td {{ p.codigo }}
+						td {{ p.lugar }}
+						td {{ p.plazas }}
+						td {{ p.plazas - p.ocupadas }}
+						td 
+							span(class="label", ng-class = "{'label-success': p.estado == 'Libre', 'label-warning': p.estado == 'Personal Autorizado', 'label-danger': p.estado == 'Completo', 'label-default': p.estado == 'Cerrado'}") {{ p.estado }}
 
 
 block script
-    script(src="/js/ParkingsCtrl.js")
-    script(src="/socket.io/socket.io.js")
-    script.
-        var scope,
-        //- la url tiene que ser la de produccion
-        //- socket = io.connect('http://localhost:3000/estado-parking');
-        socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
-        $(document).ready(function (){
-            scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
-            scope.getParkings();
-            scope.$apply();
-        });
-        socket.on('palCliente', function (data) {
-            console.log(data);
-            if(scope !== undefined){
-                scope.setParkings(data);
-                scope.$apply(); 
-            }
-        });
+	script(src="/js/ParkingsCtrl.js")
+	script(src="/socket.io/socket.io.js")
+	script.
+		var scope,
+		//- la url tiene que ser la de produccion
+		//- socket = io.connect('http://localhost:3000/estado-parking');
+		socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
+		$(document).ready(function (){
+			scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
+			scope.getParkings();
+			scope.$apply();
+		});
+		socket.on('palCliente', function (data) {
+			console.log(data);
+			if(scope !== undefined){
+				scope.setParkings(data);
+				scope.$apply(); 
+			}
+		});
+		var map = new GMaps({
+			div: '#map',
+			lat: 39.481289,
+			lng: -0.3425168
+		});
+
+
+		function createPolygon(path){
+			return map.drawPolygon({
+					paths: path, // pre-defined polygon shape
+					strokeColor: '#BBD8E9',
+					strokeOpacity: 1,
+					strokeWeight: 3,
+					fillColor: 'blue',
+					fillOpacity: 0.6
+				});
+		}
+
+		var estados = {
+			path: {},
+			poligonos: {}
+		}
+		var path = {};
+		var poligonos = {};
+		
+		// Definicion de Paths
+
+		path['P1A'] = [
+			[39.48244,-0.349364], 
+			[39.482179,-0.349064], 
+			[39.48191,-0.349192],	
+			[39.481848,-0.349047],
+			[39.481554,-0.349155],
+			[39.48126,-0.348141],
+			[39.481057,-0.348227],
+			[39.481657,-0.350217],
+		];
+
+		path['P1B'] = [
+			[39.48061,-0.346545], 
+			[39.481796,-0.345898], 
+			[39.482063,-0.346746],	
+			[39.480889,-0.347684],
+		];
+
+
+		path['P3A'] = [
+			[39.483839,-0.34545], 
+			[39.483144,-0.343004], 
+			[39.482535,-0.34335],	
+			[39.48311,-0.345786],
+		];
+
+
+		path['P5A'] = [
+			[39.483013,-0.342365], 
+			[39.483057,-0.342512], 
+			[39.483297,-0.342363],	
+			[39.483149,-0.341816],	
+			[39.483064,-0.341867],	
+			[39.483192,-0.342273],	
+		];
+
+		
+		path['P6A'] = [
+			[39.479651,-0.341598], 
+			[39.479277,-0.341786], 
+			[39.478941,-0.340918],	
+			[39.479386,-0.340685],	
+		];
+
+		path['P6B'] = [
+			[39.479009,-0.338098], 
+			[39.478461,-0.338407], 
+			[39.478835,-0.339831],	
+			[39.479417,-0.339544],	
+		];
+
+		
+		path['P7A'] = [
+			[39.480647,-0.339461], 
+			[39.480959,-0.34055], 
+			[39.48252,-0.339793],	
+			[39.482218,-0.338696],	
+		];
+
+
+		path['P7B'] = [
+			[39.480647,-0.339461], 
+			[39.480959,-0.34055], 
+			[39.48252,-0.339793],	
+			[39.482218,-0.338696],	
+		];
+
+		path['P7B'] = [
+			[39.480129,-0.337554], 
+			[39.480396,-0.33849], 
+			[39.481088,-0.338211],	
+			[39.48079,-0.337189],	
+			[39.480585,-0.337296],	
+			[39.480719,-0.33775],	
+			[39.480496,-0.33786],	
+			[39.480363,-0.337417],	
+		];
+
+		path['P7C'] = [
+			[39.481013,-0.337079], 
+			[39.481295,-0.338109], 
+			[39.481978,-0.337798],	
+			[39.481688,-0.336784],	
+			[39.481463,-0.33687],	
+			[39.481585,-0.337291],	
+			[39.481376,-0.337409],	
+			[39.481241,-0.33699],	
+		];
+
+		path['P8A'] = [
+			[39.479007,-0.337583], 
+			[39.478365,-0.335212], 
+			[39.478782,-0.335027],	
+			[39.479177,-0.336357],	
+			[39.478937,-0.336478],	
+			[39.479216,-0.337503],	
+		];
+
+		path['P8B'] = [
+			[39.476947,-0.334027], 
+			[39.478632,-0.333273], 
+			[39.478771,-0.333748],	
+			[39.477173,-0.334789],	
+		];
+
+		// Creacion de Poligonos
+
+		poligonos['P1A'] = createPolygon(path.P1A);
+		poligonos['P1B'] = createPolygon(path.P1B);
+		poligonos['P7B'] = createPolygon(path.P7B);
+		poligonos['P6B'] = createPolygon(path.P6B);
+		poligonos['P6A'] = createPolygon(path.P6A);
+		poligonos['P3A'] = createPolygon(path.P3A);
+		poligonos['P5A'] = createPolygon(path.P5A);
+		poligonos['P7A'] = createPolygon(path.P7A);
+		poligonos['P8B'] = createPolygon(path.P8B);
+		poligonos['P8A'] = createPolygon(path.P8A);
+		poligonos['P7C'] = createPolygon(path.P7C);
+
+		// Los asignamos a estados
+
+		estados.path = path;
+		estados.poligonos = poligonos;
+
+		for(key in estados.poligonos){
+			estados.poligonos[key].setOptions({
+				fillColor: 'red'
+			});
+		}
+

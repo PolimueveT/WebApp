@@ -4,24 +4,24 @@ block content
             .row
                 h1 ¡Bienvenido!
                 .col-md-6
-                    form(role="form", name="ingresar", method="post")
-                    .panel.panel-default
-                        .panel-heading Entra a tu cuenta
-                        .panel-body
-                            .form-group
-                                label(for="nPlazas") Nombre
-                                input.form-control(ng-model="name", id="nombre",name="nombre", type="text", placeHolder="Nombre")
+                    form(role="form", name="ingresar", method="post", action="/login")
+                        .panel.panel-default
+                            .panel-heading Entra a tu cuenta
+                            .panel-body
+                                .form-group
+                                    label(for="nPlazas") Nombre
+                                    input.form-control(ng-model="obj.loginUsername", required, id="username",name="username", type="text", placeHolder="Nombre")
 
-                            .form-group
-                                label(for="horaSalida") Contraseña
-                                input.form-control(ng-model="pass", name="passwordUsuario",type="text", placeHolder="Contraseña")
+                                .form-group
+                                    label(for="horaSalida") Contraseña
+                                    input.form-control(ng-model="obj.LoginPassword", required, id="password", name="password",type="password", placeHolder="Contraseña")
 
-                            .form-group
-                               label.checkbox(for="labelrecuerdame") Recuerdame 
-                                        input(ng-model="recuerdame", name="recuerdame",type="checkbox", id="recuerdame") 
+                                .form-group
+                                   label.checkbox(for="labelrecuerdame") Recuerdame 
+                                            input(ng-model="recuerdame", name="recuerdame",type="checkbox", id="recuerdame") 
 
-                            .form-group
-                                 button.col-md-6(class="btn btn btn-success", id="entrar", ng-click="Ingresar()") Entrar a mi Cuenta
+                                .form-group
+                                     input.col-md-6(class="btn btn btn-success", id="entrar", type="submit") Entrar a mi Cuenta
                 .col-md-6
                     form(role="form", name="crear-usuario", method="post")
                     .panel.panel-default
@@ -29,20 +29,20 @@ block content
                         .panel-body
                             .form-group
                                 label(for="labelnombre") Nombre
-                                input.form-control(ng-model="nombre", id="nombre",name="nombre", type="text", placeHolder="Nombre")
+                                input.form-control(ng-model="nombre", required, id="nombre",name="nombre", type="text", placeHolder="Nombre")
 
                             .form-group
                                 label(for="origen") Email
-                                input.form-control(ng-model="email",name="email", type="email", placeHolder="Email")
+                                input.form-control(ng-model="email",required, name="email", type="email", placeHolder="Email")
 
                             .form-group
                                 label(for="horaSalida") Contraseña
-                                input.form-control(ng-model="password", name="password",type="password", placeHolder="Contraseña")
+                                input.form-control(ng-model="password", required, name="password",type="password", placeHolder="Contraseña")
 
                             .form-group
                                 label(for="horaSalida") Confirma contraseña
-                                input.form-control(ng-model="password2",name="password2",type="password", placeHolder="Repite la contraseña")
-
+                                input.form-control(ng-model="password2", required, name="password2",type="password", placeHolder="Repite la contraseña")
+                                {{ bypass | json}}
                             .form-group
                                  button.col-md-6(class="btn btn btn-primary", id="registrar", ng-click="RegistrarUsuario()") Registrarme
 block script

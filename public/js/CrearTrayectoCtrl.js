@@ -27,7 +27,9 @@ function CrearTrayectoCtrl($scope, $http) {
 			personal: true
 		},
 		fecha_time: getDate(),
-		horaSalida: getTime()
+		horaSalida: getTime(),
+		origen_latlng: [],
+		destino_latlng: []
 	};
 	$scope.submitted = false;
 

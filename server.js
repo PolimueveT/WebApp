@@ -1,6 +1,8 @@
 var express = require('express')
 , stylus = require('stylus')
-, nib = require('nib');
+, nib = require('nib')
+, passport = require('passport')
+, LocalStrategy = require('passport-local').Strategy;
 
 var app = express(),
 server = require('http').createServer(app),
@@ -29,8 +31,13 @@ app.use(stylus.middleware(
     compile: compile
 }
 ))
-app.use(express.static(__dirname + '/public'))
+app.use(express.cookieParser());
 app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.session({ secret: 'monopolio' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'))
 
 // NO CACHE
 app.use(function(req, res, next) {
@@ -60,7 +67,6 @@ if ('production' === app.get('env')) {
     // TODO: zona horaria es una hora menos que en ESPAÑA!!!
 }
 
-
 // Conexion a MongoDB
 // Deberiamos meter el resto del codigo dentro de la conexion... (tema de asincrono y tal...)
 var mongo = require('mongodb');
@@ -83,6 +89,58 @@ db.open(function(err, db) {
         console.log("Unable to connecto to 'polimuevet' database");
     }
 });
+
+// PASSPORT
+var users = [
+    { id: 1, username: 'bob', password: '222' },
+    { id: 2, username: 'pep', password: '333' }
+];
+
+var findById = function (id, fn) {
+    var idx = id - 1;
+    if(users[idx]) {
+        fn(null, users[idx]);
+    } else {
+        fn(new Error('User ' + id + ' does not exist'));
+    }
+};
+
+var findByUsername = function(username, fn) {
+    for (var i = 0, len = users.length; i < len; i++) {
+        var user = users[i];
+        if (user.username === username) {
+            return fn(null, user);
+        }
+    }
+    return fn(null, null);
+};
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    findById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        process.nextTick(function() {
+            findByUsername(username, function(err, user) {
+                if (err)
+                    return done(err);
+                if (!user)
+                    return done(null, false, { message: 'Unknown user: ' + username });
+                if (user.password != password)
+                    return done(null, false, { message: 'Invalid password' });
+                return done(null, user);
+            });
+        });
+    }
+));
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +190,7 @@ app.get('/api/getuserstype/:type', userController.getUsersByType);
 app.delete('/api/deleteuser/:id', userController.deleteUser);
 app.put('/api/updateuser', userController.updateUser);
 app.get('/api/isuserintrip/:iduser/:idtrip', userController.isUserInTrip);
-
+app.get('/api/isuserregistered/:name/:pass', userController.isUserRegistered);
 
 // API para listar Parkings
 app.get('/api/parking', parkingController.listParkings);
@@ -140,12 +198,18 @@ app.get('/api/parking', parkingController.listParkings);
 
 // Web
 app.get('/estado-parking', homeController.estado_parking);
-app.get('/crear-trayecto', homeController.crear_trayecto);
-app.get('/mis-trayectos', homeController.mis_trayectos);
+app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
+app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
-app.get('/trayecto/:id', homeController.ver_trayecto);
-app.get('/editar-trayecto/:id', homeController.editar_trayecto);
+app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
+app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
+app.post('/login', 
+    passport.authenticate('local', { failureRedirect: '/'}),
+    function(req, res) {
+        console.log(req.user.username + ' has logged in');
+        res.redirect('/trayectos');
+});
 
 
 // Inicio de la App
@@ -165,6 +229,12 @@ io.of("/estado-parking").on("connection", function (socket) {
         socket.emit('palCliente', datos);
     });
 });
+
+// Login (in progress...)
+function ensureAuthenticated (req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+}
 
 
 server.listen(3000)

@@ -37,8 +37,8 @@ html(ng-app)
 							a(href="/crear-trayecto") Crear trayecto
 						li
 							a(href="/mis-trayectos") Mis trayectos
-						//- li
-						//- 	a(href="/registrar") Registrar
+						li
+							a(href="/registrar") Registrar
 						//- li
 						//- 	a(href="/Mi Cuenta") Mi Cuenta
 		.container
@@ -51,6 +51,8 @@ html(ng-app)
 		script(src="/js/bootstrap-datetimepicker.min.js")
 		script(src="/js/moment-with-langs.min.js")
 		script(src="/js/jquery-ui-1.10.3.custom.min.js")
+		script(src="http://maps.google.com/maps/api/js?sensor=true")
+		script(src="/js/gmaps.js")
 		script.
 				moment.lang('es');
 
