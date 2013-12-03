@@ -9,21 +9,21 @@ block content
         form.form-horizontal(role="form", name="form", novalidate)
             .row
                 .col-sm-3
-                   .form-group(ng-class="{'has-error': form.submitted}") 
+                   .form-group
                         label.col-sm-3.control-label(for="origen") Origen  
                         .col-sm-9
                             input.form-control.autocomplete_destino(ng-model="salida", name="salida", type="text", placeHolder="Salida")
 
 
                 .col-sm-3
-                   .form-group(ng-class="{'has-error': form.submitted }")
+                   .form-group
                         label.col-sm-3.control-label(for="destino") Destino
                         .col-sm-9
                             input.form-control.autocomplete_destino(ng-model="destino", name="destino", type="text", placeHolder="Destino")
 
 
                 .col-sm-3
-                    .form-group(ng-class="{'has-error': form.submitted }")
+                    .form-group
                         label.col-sm-3.control-label(for="fecha") Fecha
                         .col-sm-9
                             .datePicker.date.input-group
@@ -34,7 +34,7 @@ block content
 
 
                 .col-sm-2
-                    .form-group(ng-class="{'has-error': form.submitted }")
+                    .form-group
                         label.col-sm-3.control-label(for="hora") Hora
                         .col-sm-9
                             .timePicker.date.input-group

@@ -48,10 +48,6 @@ var BuscarTrayectosCtrl = function($scope, $http){
 			obj.Hora = $scope.hora_salida;
 			obj.Max_tamanyo_equipaje = $scope.equipaje;
 
-			console.log("---------F "+obj.Fecha);
-			console.log("---------H "+obj.Hora);
-			console.log("--------- ++ "+obj.Origen);
-
 			/*var filtrados = _.filter($scope.todos, function(tra){ 
 
 				var fyh = tra.Fecha_time;
@@ -64,12 +60,12 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 			$scope.trayectos = filtrados;*/
 
-			/*$http.post('', obj).success(function (response){
+			$http.post('/api/getfilteredtrips', obj).success(function (response){
 				console.log(response);
 				if(response.success === true) { 
-					
+					console.log("Enviado!");
 				 }
-			});*/
+			});
 			
 		} else{
 			$scope.form.submitted = true;
