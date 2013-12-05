@@ -146,30 +146,57 @@ block script
                     dragend: function(e) {
                         if(map.markers.length > 1){
                             drawRoute();
-                          }
+                        }
                       }
                   });
                 if(map.markers.length > 1){
                     drawRoute();
-                  }
+                }
               }
             }
         });
 
+        var route = null;
+
         function drawRoute(){
+            console.log('Drawing...');
             map.cleanRoute();
+            route = null;
 
             var origin = map.markers[0].getPosition();
             var destination = map.markers[map.markers.length-1].getPosition();
 
-            map.drawRoute({
+            console.log([origin.lat(), origin.lng()]);
+
+            map.getRoutes({
               origin: [origin.lat(), origin.lng()],
               destination: [destination.lat(), destination.lng()],
               travelMode: 'driving',
-              strokeColor: '#336699',
-              strokeOpacity: 0.5,
-              strokeWeight: 6
+              callback: function(e){
+                    console.log(e);
+                    route = new GMaps.Route({
+                      map: map,
+                      route: e[0],
+                      strokeColor: '#336699',
+                      strokeOpacity: 0.5,
+                      strokeWeight: 6,
+                    });
+                    paintRoute();
+                }
             });
+        }
+
+        function paintRoute(){
+            for(var i = 0; i < route.steps_length; i++){
+                route.forward();
+            }
+
+            //- var orig = route.steps[0].start_location;
+            //- var dest = route.steps[route.steps_length - 1].end_location;
+            //- map.markers[0].setPosition({ lat: orig.lat() , lng: orig.lng() });
+            //- map.markers[0].setDraggable(true);
+            //- map.markers[1].setPosition({ lat: dest.lat() , lng: dest.lng() });
+            //- map.markers[1].setDraggable(true);;
         }
 
         //- map.getRoutes({
