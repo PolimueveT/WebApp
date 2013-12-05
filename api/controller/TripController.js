@@ -208,7 +208,8 @@ var TripController = function(TripDAO) {
     };
 
     //Devuelve trayectos con filtro
-    this.getTripsFiltro = function(req, res) {
+    this.getFilteredTrips = function(req, res) {
+        console.log('getFilteredTrips');
         _tripdata= crearData(false,req.body);
 
          //crear objeto consulta
@@ -218,7 +219,7 @@ var TripController = function(TripDAO) {
 
 
 
-        _TripDAO.readTripsFiltro(_tripdata, function(err,trips) {
+        _TripDAO.getFilteredTrips(_tripdata, function(err,trips) {
             if(err) {
                 console.log('Error TripController');
                 objetoRespuesta.success=false;                
@@ -231,7 +232,7 @@ var TripController = function(TripDAO) {
             if(trips.length > 0){
 
             objetoRespuesta.success=true;                
-            objetoRespuesta.info="Se han leido correctamente los trayectos  "+Iid;
+            objetoRespuesta.info="Se han leido correctamente los trayectos  ";
             objetoRespuesta.data=trips;
             res.send(objetoRespuesta);
             return;

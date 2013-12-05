@@ -79,15 +79,15 @@ var TripDAO = function(db) {
     };
 
 
-        this.readTripsFiltro = function(tripdata , callback) {
+        this.getFilteredTrips = function(tripdata , callback) {
         console.log('Ejecutando el get');
         if(!tripdata) {
             console.log('dao receive no id');
             return callback(new Error("id invalido."));
         }
 
-        _db.collection("trayectos", function(err,collection){
-            collection.find({"Inscritos": Iid }).toArray(function (err, trips){
+        _db.collection("trayectos", function(err, collection){
+            collection.find({"Fecha_time": {$gte: "2013-12-03T19" } }).toArray(function (err, trips){
                 if(err){
                     console.log('Error leyendo en collection trayectos');
                     return callback(err);
