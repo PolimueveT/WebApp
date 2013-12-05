@@ -91,21 +91,26 @@ db.open(function(err, db) {
 });
 
 // PASSPORT
-var users = [
-    { id: 1, username: 'bob', password: '222' },
-    { id: 2, username: 'pep', password: '333' }
-];
 
 var findById = function (id, fn) {
-    var idx = id - 1;
-    if(users[idx]) {
-        fn(null, users[idx]);
-    } else {
-        fn(new Error('User ' + id + ' does not exist'));
-    }
+    db.collection('usuarios', function(err, collection) {
+        collection.findOne({_id: id}, function(err, user) {
+            if(err) fn(new Error('Database Problem'));
+            else if(user) fn(null, user);
+            else fn(new Error('User ' + id + 'does not exist'));
+        })
+    });
 };
 
+//////// AÑADIR CAMPO USERNAME!!!!
 var findByUsername = function(username, fn) {
+    db.collection('usuarios', function(err, collection) {
+        collection.findOne({_id: id}, function(err, user) {
+            if(err) fn(new Error('Database Problem'));
+            else if(user) fn(null, user);
+            else fn(new Error('User ' + id + 'does not exist'));
+        })
+    });
     for (var i = 0, len = users.length; i < len; i++) {
         var user = users[i];
         if (user.username === username) {
@@ -116,7 +121,7 @@ var findByUsername = function(username, fn) {
 };
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
@@ -133,7 +138,7 @@ passport.use(new LocalStrategy(
                     return done(err);
                 if (!user)
                     return done(null, false, { message: 'Unknown user: ' + username });
-                if (user.password != password)
+                if (user.Pass != password)
                     return done(null, false, { message: 'Invalid password' });
                 return done(null, user);
             });
