@@ -105,10 +105,10 @@ var findById = function (id, fn) {
 //////// AÑADIR CAMPO USERNAME!!!!
 var findByUsername = function(username, fn) {
     db.collection('usuarios', function(err, collection) {
-        collection.findOne({_id: id}, function(err, user) {
+        collection.findOne({username: username}, function(err, user) {
             if(err) fn(new Error('Database Problem'));
             else if(user) fn(null, user);
-            else fn(new Error('User ' + id + 'does not exist'));
+            else fn(new Error('User ' + username + 'does not exist'));
         })
     });
     for (var i = 0, len = users.length; i < len; i++) {
@@ -203,7 +203,7 @@ app.get('/api/parking', parkingController.listParkings);
 
 // Web
 app.get('/estado-parking', homeController.estado_parking);
-app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
+app.get('/crear-trayecto', /*ensureAuthenticated,*/ homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
