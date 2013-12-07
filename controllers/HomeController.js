@@ -43,7 +43,8 @@ var HomeController = function(Dao){
 	self.mis_trayectos = function(req, res) {
 		console.log('usuario: ' + JSON.stringify(req.user));
 		var data = { 
-			title : 'Gestión de mis trayectos' 
+			title : 'Gestión de mis trayectos',
+			userId: JSON.stringify(req.user._id)
 		};
 		res.render('trayectos/mis-trayectos', data);
 	};

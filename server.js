@@ -91,10 +91,11 @@ db.open(function(err, db) {
 });
 
 // PASSPORT
+var ObjectID = require('mongodb').ObjectID;
 
 var findById = function (id, fn) {
     db.collection('usuarios', function(err, collection) {
-        collection.findOne({_id: id}, function(err, user) {
+        collection.findOne({_id: ObjectID(id)}, function(err, user) {
             if(err) fn(new Error('Database Problem'));
             else if(user) fn(null, user);
             else fn(new Error('User ' + id + 'does not exist'));
@@ -105,19 +106,12 @@ var findById = function (id, fn) {
 //////// AÑADIR CAMPO USERNAME!!!!
 var findByUsername = function(username, fn) {
     db.collection('usuarios', function(err, collection) {
-        collection.findOne({username: username}, function(err, user) {
-            if(err) fn(new Error('Database Problem'));
-            else if(user) fn(null, user);
-            else fn(new Error('User ' + username + 'does not exist'));
+        collection.findOne({Nombre: username}, function(err, user) {
+            if(err) return fn(null, null);
+            if(user) return fn(null, user);
+            return fn(null, null);
         })
     });
-    for (var i = 0, len = users.length; i < len; i++) {
-        var user = users[i];
-        if (user.username === username) {
-            return fn(null, user);
-        }
-    }
-    return fn(null, null);
 };
 
 passport.serializeUser(function(user, done) {
@@ -212,7 +206,8 @@ app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_traye
 app.post('/login', 
     passport.authenticate('local', { failureRedirect: '/'}),
     function(req, res) {
-        console.log(req.user.username + ' has logged in');
+        console.log(req.user.Nombre + ' has logged in');
+        console.log("el usuario completo: " + JSON.stringify(req.user));
         res.redirect('/trayectos');
 });
 
