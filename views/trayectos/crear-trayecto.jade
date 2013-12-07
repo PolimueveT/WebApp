@@ -123,7 +123,8 @@ block script
         var scope;
         $(document).ready(function (){
             scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
-            scope.trayecto.creador_id = "from_site";
+            //- scope.trayecto.creador_id = "from_site";
+            scope.trayecto.creador_id = !{ userId };
             scope.$apply();
         }); 
         var mapMarkers = {

@@ -197,7 +197,7 @@ app.get('/api/parking', parkingController.listParkings);
 
 // Web
 app.get('/estado-parking', homeController.estado_parking);
-app.get('/crear-trayecto', /*ensureAuthenticated,*/ homeController.crear_trayecto);
+app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/registrar', homeController.registrar);
