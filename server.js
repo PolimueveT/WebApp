@@ -211,7 +211,8 @@ app.post('/login',
         res.redirect('/trayectos');
 });
 app.get('/logout', function(req, res) {
-        console.log(req.user.Nombre + ' is about to log out.');
+        if(req.user)
+            console.log(req.user.Nombre + ' is about to log out.');
         req.logout();
         res.redirect('/');
 });
