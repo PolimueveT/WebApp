@@ -210,6 +210,11 @@ app.post('/login',
         console.log("el usuario completo: " + JSON.stringify(req.user));
         res.redirect('/trayectos');
 });
+app.get('/logout', function(req, res) {
+        console.log(req.user.Nombre + ' is about to log out.');
+        req.logout();
+        res.redirect('/');
+});
 
 
 // Inicio de la App
