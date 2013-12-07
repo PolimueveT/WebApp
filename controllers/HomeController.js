@@ -7,7 +7,8 @@ var HomeController = function(Dao){
 
 		var data = {
 			title: 'Ver Trayecto',
-			id_trayecto: req.params.id
+			id_trayecto: req.params.id,
+			userId:	JSON.stringify(req.user._id)
 		};
 		
 		// res.he
@@ -35,14 +36,17 @@ var HomeController = function(Dao){
 
 	self.crear_trayecto = function(req, res) {
 		var data = {
-			title : 'Creando Trayecto'
+			title : 'Creando Trayecto',
+			userId:	JSON.stringify(req.user._id)
+
 		}
 		res.render('trayectos/crear-trayecto', data);
 	};
 
 	self.mis_trayectos = function(req, res) {
 		var data = { 
-			title : 'Gestión de mis trayectos' 
+			title : 'Gestión de mis trayectos',
+			userId: JSON.stringify(req.user._id)
 		};
 		res.render('trayectos/mis-trayectos', data);
 	};

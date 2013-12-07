@@ -91,32 +91,31 @@ db.open(function(err, db) {
 });
 
 // PASSPORT
-var users = [
-    { id: 1, username: 'bob', password: '222' },
-    { id: 2, username: 'pep', password: '333' }
-];
+var ObjectID = require('mongodb').ObjectID;
 
 var findById = function (id, fn) {
-    var idx = id - 1;
-    if(users[idx]) {
-        fn(null, users[idx]);
-    } else {
-        fn(new Error('User ' + id + ' does not exist'));
-    }
+    db.collection('usuarios', function(err, collection) {
+        collection.findOne({_id: ObjectID(id)}, function(err, user) {
+            if(err) fn(new Error('Database Problem'));
+            else if(user) fn(null, user);
+            else fn(new Error('User ' + id + 'does not exist'));
+        })
+    });
 };
 
+//////// AÑADIR CAMPO USERNAME!!!!
 var findByUsername = function(username, fn) {
-    for (var i = 0, len = users.length; i < len; i++) {
-        var user = users[i];
-        if (user.username === username) {
-            return fn(null, user);
-        }
-    }
-    return fn(null, null);
+    db.collection('usuarios', function(err, collection) {
+        collection.findOne({Nombre: username}, function(err, user) {
+            if(err) return fn(null, null);
+            if(user) return fn(null, user);
+            return fn(null, null);
+        })
+    });
 };
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
@@ -133,7 +132,7 @@ passport.use(new LocalStrategy(
                     return done(err);
                 if (!user)
                     return done(null, false, { message: 'Unknown user: ' + username });
-                if (user.password != password)
+                if (user.Pass != password)
                     return done(null, false, { message: 'Invalid password' });
                 return done(null, user);
             });
@@ -207,8 +206,15 @@ app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_traye
 app.post('/login', 
     passport.authenticate('local', { failureRedirect: '/'}),
     function(req, res) {
-        console.log(req.user.username + ' has logged in');
+        console.log(req.user.Nombre + ' has logged in');
+        console.log("el usuario completo: " + JSON.stringify(req.user));
         res.redirect('/trayectos');
+});
+app.get('/logout', function(req, res) {
+        if(req.user)
+            console.log(req.user.Nombre + ' is about to log out.');
+        req.logout();
+        res.redirect('/');
 });
 
 
@@ -225,6 +231,7 @@ app.get('/', function (req, res) {
 // para saber los clientes que hay conectados: console.log(io.sockets.manager.connected);
 io.of("/estado-parking").on("connection", function (socket) {
     console.log('un cliente se ha conectado a la visualizacion del parking');
+    console.log('clientes conectados: ' + Object.keys(io.sockets.manager.connected).length);
     parkingManager.ee.on('parkingEvent', function(datos){
         socket.emit('palCliente', datos);
     });

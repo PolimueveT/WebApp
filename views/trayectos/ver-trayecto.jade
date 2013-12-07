@@ -105,7 +105,8 @@ block script
 		var scope;
 		$(document).ready(function(){
 			scope = angular.element('[ng-controller="VerTrayectoCtrl"]').scope();
-			scope.current_user = "from_site";
+			//- scope.current_user = "from_site";
+			scope.current_user = !{ userId };
 			scope.$apply();
 			scope.getTrayecto('!{id_trayecto}');
 			scope.$apply();
