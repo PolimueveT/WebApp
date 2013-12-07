@@ -7,7 +7,8 @@ var HomeController = function(Dao){
 
 		var data = {
 			title: 'Ver Trayecto',
-			id_trayecto: req.params.id
+			id_trayecto: req.params.id,
+			userId:	JSON.stringify(req.user._id)
 		};
 		
 		// res.he
