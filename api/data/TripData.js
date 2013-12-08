@@ -14,6 +14,8 @@ module.exports=
 	"Observaciones": null,
 	"Creador_id": null,
 	"Inscritos" :null,
+	"Origen_latlng": null,
+	"Destino_latlng": null
 };
 
 
