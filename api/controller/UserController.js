@@ -67,6 +67,17 @@ var UserController = function(userDAO) {
     };
 
 
+    var isMailUPV = function($email) {
+        //var emailReg = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        var emailReg = /^([\da-z_\.-]+)@([\da-z\.-]*\.)*upv.es$/;
+        if( !emailReg.test( $email ) ) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+
     //Por hacer
     this.getUser = function(req, res) {
         var name = req.params.name;
@@ -94,6 +105,15 @@ var UserController = function(userDAO) {
                 res.send(objetoRespuesta);
                 return;
 
+        }
+
+        if(!isMailUPV(_userdata.Email)){
+            console.log('El mail no pertenece a la UPV');
+            objetoRespuesta.success = false;                
+            objetoRespuesta.info = "Es necesario registrarse con un email de la UPV";
+            objetoRespuesta.data = null;
+            res.send(objetoRespuesta);
+            return;
         }
  
         _UserDAO.insertUser(_userdata, function(err) {
