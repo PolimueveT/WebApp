@@ -33,14 +33,21 @@ html(ng-app)
 							a(href="/estado-parking") Estado Parking
 						li 
 							a(href="/trayectos") Trayectos
-						li
-							a(href="/crear-trayecto") Crear trayecto
-						li
-							a(href="/mis-trayectos") Mis trayectos
-						li
-							a(href="/cuenta") Entrar o Registrase
+						if user
+							li
+								a(href="/crear-trayecto") Crear trayecto
+							li
+								a(href="/mis-trayectos") Mis trayectos
 						//- li
 						//- 	a(href="/Mi Cuenta") Mi Cuenta
+					ul.nav.navbar-nav.navbar-right
+						if !user
+							li
+								a(href="/cuenta") Entrar o Registrase
+						else
+							li
+								a(href="/logout") Salir	
+
 
 		.row
 			.col-md-12

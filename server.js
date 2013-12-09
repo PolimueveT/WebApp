@@ -44,8 +44,10 @@ app.use(express.static(__dirname + '/public'))
 // NO CACHE
 app.use(function(req, res, next) {
     res.locals.flash = req.flash();
-    // res.locals.user = ;
-    console.log(req.user);
+    res.locals.user = req.user !== undefined ? {
+        nombre: req.user.Nombre,
+        email: req.user.Email
+    } : undefined;
     res.header('Cache-Control','private'); 
     next();
 });
