@@ -240,7 +240,7 @@ io.of("/estado-parking").on("connection", function (socket) {
 // Login (in progress...)
 function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/');
+    res.redirect('/', {user: req.user});
 }
 
 
