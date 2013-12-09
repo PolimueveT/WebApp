@@ -10,8 +10,15 @@ block content
                         b  Error en formulario 
                         p Favor de comprobar los campos
 
+                    .row
+                        .col-md-6 Origen:
+                            span(ng-model="trayecto.origen")
+                        .col-md-6 Destino:
+                            span(ng-model="trayecto.destino")
 
-                    div#map(style="width: 100%; height: 400px")
+                    .row
+                        .col-md-12
+                            div#map(style="width: 100%; height: 400px")
 
                     .panel.panel-default
                         .panel-heading Informacion del Trayecto
@@ -175,12 +182,14 @@ block script
               travelMode: 'driving',
               callback: function(e){
                     console.log(e);
+                    var i = e.length - 1;
                     route = new GMaps.Route({
                       map: map,
-                      route: e[0],
+                      route: e[i],
                       strokeColor: '#336699',
                       strokeOpacity: 0.5,
                       strokeWeight: 6,
+                      draggable: true
                     });
                     paintRoute();
                 }
@@ -192,25 +201,10 @@ block script
                 route.forward();
             }
 
-            //- var orig = route.steps[0].start_location;
-            //- var dest = route.steps[route.steps_length - 1].end_location;
-            //- map.markers[0].setPosition({ lat: orig.lat() , lng: orig.lng() });
-            //- map.markers[0].setDraggable(true);
-            //- map.markers[1].setPosition({ lat: dest.lat() , lng: dest.lng() });
-            //- map.markers[1].setDraggable(true);;
+            var orig = route.steps[0].start_location;
+            var dest = route.steps[route.steps_length - 1].end_location;
+            map.markers[0].setPosition({ lat: orig.lat() , lng: orig.lng() });
+            map.markers[0].setDraggable(true);
+            map.markers[1].setPosition({ lat: dest.lat() , lng: dest.lng() });
+            map.markers[1].setDraggable(true);;
         }
-
-        //- map.getRoutes({
-        //-   origin: [origin.lat(), origin.lng()],
-        //-   destination: [destination.lat(), destination.lng()],
-        //-   travelMode: 'driving',
-        //-   callback: function(e){
-        //-     route = new GMaps.Route({
-        //-       map: map,
-        //-       route: e[0],
-        //-       strokeColor: '#336699',
-        //-       strokeOpacity: 0.5,
-        //-       strokeWeight: 10
-        //-     });
-        //-   }
-        //- });
