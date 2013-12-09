@@ -2,7 +2,8 @@ var express = require('express')
 , stylus = require('stylus')
 , nib = require('nib')
 , passport = require('passport')
-, LocalStrategy = require('passport-local').Strategy;
+, LocalStrategy = require('passport-local').Strategy
+, flash = require('connect-flash');
 
 var app = express(),
 server = require('http').createServer(app),
@@ -35,12 +36,16 @@ app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({ secret: 'monopolio' }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'))
 
 // NO CACHE
 app.use(function(req, res, next) {
+    res.locals.flash = req.flash();
+    // res.locals.user = ;
+    console.log(req.user);
     res.header('Cache-Control','private'); 
     next();
 });
@@ -200,7 +205,7 @@ app.get('/estado-parking', homeController.estado_parking);
 app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
-app.get('/registrar', homeController.registrar);
+app.get('/cuenta', homeController.registrar);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
@@ -240,7 +245,8 @@ io.of("/estado-parking").on("connection", function (socket) {
 // Login (in progress...)
 function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/', {user: req.user});
+    req.flash('danger', 'Debes entrar a tu cuenta o Registrar una nueva para realizar esta acción.');
+    res.redirect('/cuenta');
 }
 
 

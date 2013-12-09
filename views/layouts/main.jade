@@ -38,9 +38,16 @@ html(ng-app)
 						li
 							a(href="/mis-trayectos") Mis trayectos
 						li
-							a(href="/registrar") Registrar
+							a(href="/cuenta") Entrar o Registrase
 						//- li
 						//- 	a(href="/Mi Cuenta") Mi Cuenta
+
+		.row
+			.col-md-12
+				each value, key in flash
+					.alert(class="alert-#{key}") 
+						.container #{value}
+
 		.container
 				block content
 
