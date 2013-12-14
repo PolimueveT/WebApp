@@ -31,9 +31,7 @@ block script
 	script(src="/socket.io/socket.io.js")
 	script.
 		var scope,
-		//- la url tiene que ser la de produccion
-		//- socket = io.connect('http://localhost:3000/estado-parking');
-		socket = io.connect('http://polimuevet.eu01.aws.af.cm/estado-parking');
+		socket = io.connect('/estado-parking');
 		$(document).ready(function (){
 			scope = angular.element('div[ng-controller="ParkingsCtrl"]').scope();
 			scope.getParkings();
@@ -70,6 +68,33 @@ block script
 		}
 		var path = {};
 		var poligonos = {};
+		var coordenadas = {};
+
+		coordenadas['P1A'] = [39.481802,-0.349911];
+		coordenadas['P1B1'] = [39.480858,-0.346866];
+		coordenadas['P1B2'] = [39.482042, -0.346431];
+		coordenadas['P3A1'] = [39.483508, -0.34543];
+		coordenadas['P3A2'] = [39.483678, -0.344722];
+		coordenadas['P4P'] = [39.479671,-0.343729];
+		coordenadas['P5A'] = [39.482958,-0.340997];
+		coordenadas['P6A'] = [39.479815,-0.341459];
+		coordenadas['P6B'] = [39.478708, -0.338144];
+		coordenadas['P7A'] = [39.482034,-0.338664];
+		coordenadas['P7B'] = [39.480278, -0.337222];
+		coordenadas['P7C'] = [39.481389, -0.336944];
+		coordenadas['P8A'] = [39.479763,-0.336701];
+		coordenadas['P8B'] = [39.477314,-0.333388];
+
+
+		for(key in coordenadas) {
+			var latitud = coordenadas[key][0];
+			var longitud = coordenadas[key][1];
+			map.addMarker({
+				lat: latitud,
+				lng: longitud,
+				tittle: key
+			});
+		}
 		
 		// Definicion de Paths
 
@@ -99,14 +124,19 @@ block script
 			[39.48311,-0.345786],
 		];
 
+		path['P4P'] = [
+			[39.479506,-0.343125],
+			[39.479771,-0.344002],
+			[39.479986,-0.343903],
+			[39.479748,-0.343036]
+		];
 
 		path['P5A'] = [
-			[39.483013,-0.342365], 
-			[39.483057,-0.342512], 
-			[39.483297,-0.342363],	
-			[39.483149,-0.341816],	
-			[39.483064,-0.341867],	
-			[39.483192,-0.342273],	
+			[39.483029,-0.341335], 
+			[39.482849,-0.340731], 
+			[39.482849,-0.340731],	
+			[39.482816,-0.340749],
+			[39.48299,-0.341354],
 		];
 
 		
@@ -182,15 +212,16 @@ block script
 
 		poligonos['P1A'] = createPolygon(path.P1A);
 		poligonos['P1B'] = createPolygon(path.P1B);
-		poligonos['P7B'] = createPolygon(path.P7B);
-		poligonos['P6B'] = createPolygon(path.P6B);
-		poligonos['P6A'] = createPolygon(path.P6A);
 		poligonos['P3A'] = createPolygon(path.P3A);
+		poligonos['P4P'] = createPolygon(path.P4P);
 		poligonos['P5A'] = createPolygon(path.P5A);
+		poligonos['P6A'] = createPolygon(path.P6A);
+		poligonos['P6B'] = createPolygon(path.P6B);
 		poligonos['P7A'] = createPolygon(path.P7A);
+		poligonos['P7B'] = createPolygon(path.P7B);
+		poligonos['P7C'] = createPolygon(path.P7C);
 		poligonos['P8B'] = createPolygon(path.P8B);
 		poligonos['P8A'] = createPolygon(path.P8A);
-		poligonos['P7C'] = createPolygon(path.P7C);
 
 		// Los asignamos a estados
 
@@ -202,4 +233,3 @@ block script
 				fillColor: 'red'
 			});
 		}
-

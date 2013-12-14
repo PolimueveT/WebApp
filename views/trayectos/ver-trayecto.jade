@@ -88,16 +88,20 @@ block content
 							span.glyphicon.glyphicon-road 
 							|  Ruta
 						.panel-body
-							.col-md-6
-								table.table
-									tr 
-										th Origen
-										td {{ trayecto.Origen }}
-							.col-md-6
-								table.table
-									tr 
-										th Destino
-										td {{ trayecto.Destino }}
+							.row
+								.col-md-6
+									table.table
+										tr 
+											th Origen
+											td {{ trayecto.Origen }}
+								.col-md-6
+									table.table
+										tr 
+											th Destino
+											td {{ trayecto.Destino }}
+							.row
+								.col-md-12
+									div#map(style="width: 100%; height: 400px")
 
 block script
 	script(src="/js/VerTrayectoCtrl.js")
@@ -105,7 +109,8 @@ block script
 		var scope;
 		$(document).ready(function(){
 			scope = angular.element('[ng-controller="VerTrayectoCtrl"]').scope();
-			scope.current_user = "from_site";
+			//- scope.current_user = "from_site";
+			scope.current_user = !{ userId };
 			scope.$apply();
 			scope.getTrayecto('!{id_trayecto}');
 			scope.$apply();
@@ -116,6 +121,27 @@ block script
 				scope.$apply();
 			});
 
+			map.drawRoute({
+				origin: scope.trayecto.Origen_lat_lng,
+				destination: scope.trayecto.Destino_lat_lng,
+				travelMode: 'driving',
+				strokeColor: '#336699',
+				strokeOpacity: 0.5,
+				strokeWeight: 6
+			});
+
+			map.addMarker({
+				lat: scope.trayecto.Origen_lat_lng[0],
+				lng: scope.trayecto.Origen_lat_lng[1],
+				icon: '/img/inicio.png'
+			});
+
+			map.addMarker({
+				lat: scope.trayecto.Destino_lat_lng[0],
+				lng: scope.trayecto.Destino_lat_lng[1],
+				icon: '/img/meta_centro.png'
+			});
+
 			setTimeout(function(){
 				var h = $('.trayecto-div').css('height');
 				$('.creador-div').css('height', h);
@@ -123,3 +149,8 @@ block script
 			
 		});
 
+		var map = new GMaps({
+			div: '#map',
+			lat: 39.481289,
+			lng: -0.3425168
+		});

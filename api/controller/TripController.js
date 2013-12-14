@@ -28,7 +28,8 @@ var TripController = function(TripDAO) {
         var observaciones = body.observaciones;
         var creador_id = body.creador_id;
         var inscritos = body.inscritos;
-        
+        var origen_latlng = body.origen_latlng;
+        var destino_latlng = body.destino_latlng;
       
         //TripData._id=null;
         TripData.Num_plazas = null;
@@ -45,7 +46,8 @@ var TripController = function(TripDAO) {
         TripData.Observaciones = null;
         TripData.Creador_id = null;
         TripData.Inscritos = null;
-
+        TripData.Origen_latlng = null;
+        TripData.Destino_latlng = null;
 
         if(conid){
             
@@ -71,6 +73,8 @@ var TripController = function(TripDAO) {
         TripData.Observaciones = observaciones;
         TripData.Creador_id = creador_id;
         TripData.Inscritos = inscritos;
+        TripData.Origen_latlng = origen_latlng;
+        TripData.Destino_latlng = destino_latlng;
 
         if(TripData.Num_plazas==null){
          delete TripData['Num_plazas'];
@@ -99,15 +103,21 @@ var TripController = function(TripDAO) {
             if(TripData.Tipo_pasajeros==null){
          delete TripData['Restricciones'];
         }
-            if(TripData.Observaciones==null){
+        if(TripData.Observaciones==null){
          delete TripData['Restricciones'];
         }
-            if(TripData.Creador_id==null){
+        if(TripData.Creador_id==null){
          delete TripData['Restricciones'];
         }
 
-            if(TripData.Inscritos==null){
+        if(TripData.Inscritos==null){
          delete TripData['Inscritos'];
+        }
+        if(TripData.Origen_latlng == null){
+         delete TripData['Origen_latlng'];
+        }
+        if(TripData.Destino_latlng == null){
+         delete TripData['Destino_latlng'];
         }
 
         console.log('tripdata creado =' + JSON.stringify(TripData));

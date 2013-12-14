@@ -14,8 +14,13 @@ module.exports=
 	"Observaciones": null,
 	"Creador_id": null,
 	"Inscritos" :null,
+<<<<<<< HEAD
 	"Origen_latlng": [],
 	"Destino_latlng": []
+=======
+	"Origen_latlng": null,
+	"Destino_latlng": null
+>>>>>>> 79750b034efc3192d5f296c75e28bb916a865b4a
 };
 
 

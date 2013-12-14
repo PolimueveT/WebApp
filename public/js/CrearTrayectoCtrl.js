@@ -32,6 +32,23 @@ function CrearTrayectoCtrl($scope, $http) {
 		destino_latlng: []
 	};
 	$scope.submitted = false;
+	$scope.progreso = 25;
+
+	$scope.setOrigen = function (origen) {
+		$scope.trayecto.origen = origen;
+	}
+
+	$scope.setDestino = function (destino) {
+		$scope.trayecto.destino = destino;
+	}
+
+	$scope.setOrigenLatLng = function (origen) {
+		$scope.trayecto.origen_latlng = origen;
+	}
+
+	$scope.setDestinoLatLng = function (destino) {
+		$scope.trayecto.destino_latlng = destino;
+	}
 
 	$scope.getTrayecto = function(id){
 		$http.get('/api/gettrip/' + id).success(function(result){

@@ -81,7 +81,8 @@ block script
 		var scope;
 		$(document).ready(function (){
 			scope = angular.element('[ng-controller="MisTrayectosCtrl"]').scope();
-			scope.id_user = 'from_site';
+			//- scope.id_user = 'from_site';
+			scope.id_user = !{ userId };
 			scope.$apply();
 			scope.getData();
 			scope.getInscritos();

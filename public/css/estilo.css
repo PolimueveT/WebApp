@@ -1,3 +1,10 @@
+h1,
+h2 {
+  font-weight: 100;
+}
+.progress {
+  margin-top: 15px;
+}
 .navbar,
 .panel-heading {
   background: -webkit-linear-gradient(#fafafa, #eaeaea);

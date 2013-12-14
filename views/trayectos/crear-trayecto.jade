@@ -5,15 +5,32 @@ block content
             .row
                 .col-md-12
                     h1 Crear Trayecto
+                        small.pull-right
+                            btn#anterior.btn.btn-primary Anterior
+                            |  
+                            btn#siguiente.btn.btn-primary Siguiente
                     .alert.alert-danger(ng-show="form.submitted && !form.$valid")
                         span.glyphicon.glyphicon-warning-sign 
                         b  Error en formulario 
                         p Favor de comprobar los campos
 
+                    .row
+                        .col-md-12
+                            .progress.progress-striped.active
+                              .progress-bar(role="progressbar",aria-valuenow="45",aria-valuemin="0",aria-valuemax="100",style="width: {{ progreso }}%")
+                                span.sr-only 45% Complete
+                            
+                    .row#step0
+                        .col-md-12
+                            .row
+                                .col-md-6 Origen: <b>{{ trayecto.origen }}</b>
+                                .col-md-6 Destino: <b>{{ trayecto.destino }}</b>
 
-                    div#map(style="width: 100%; height: 400px")
+                            .row
+                                .col-md-12
+                                    div#map(style="width: 100%; height: 400px")
 
-                    .panel.panel-default
+                    .panel.panel-default#step1
                         .panel-heading Informacion del Trayecto
                         .panel-body
                             .col-md-6
@@ -74,58 +91,78 @@ block content
                                         select.form-control(ng-model="trayecto.equipaje",name="equipaje")
                                             option Mochila
                                             option Maleta
-            .row
-                .col-md-6 
-                    .panel.panel-default
-                        .panel-heading Restricciones
-                        .panel-body
-                            .col-md-6
-                                .form-group
-                                    label.checkbox(for="noFumadores") No fumadores 
-                                        input(ng-model="trayecto.restricciones.no_fumadores",name="noFumadores",type="checkbox", id="NoFumadores") 
-                                 .form-group
-                                    label.checkbox(for="noAnimales") No animales 
-                                        input(ng-model="trayecto.restricciones.no_animales",name="noAnimales",type="checkbox", id="NoAnimales") 
-                            .col-md-6
-                                .form-group
-                                    label.checkbox(for="noComida") No comida 
-                                        input(ng-model="trayecto.restricciones.no_comida",name="noComida",type="checkbox", id="NoComida")
-                .col-md-6
-                    .panel.panel-default
-                            .panel-heading Tipo de pasajero
-                            .panel-body 
-                                .col-md-6
-                                    .form-group
-                                        label.checkbox(for="alumnos") Alumnos 
-                                            input(ng-model="trayecto.tipo_pasajero.alumnos",name="alumnos",type="checkbox", id="Alumnos") 
-                                     .form-group
-                                        label.checkbox(for="profesores") Profesores 
-                                            input(ng-model="trayecto.tipo_pasajero.profesores",name="profesores",type="checkbox", id="Profesores") 
-                                .col-md-6
-                                    .form-group
-                                        label.checkbox(for="personal") Personal 
-                                            input(ng-model="trayecto.tipo_pasajero.personal",name="personal",type="checkbox", id="Personal") 
-            .row
+            .row#step2
                 .col-md-12
-                    .form-group
-                        label.col-sm-2.control-label(for="observaciones") Observaciones
-                        .col-md-10
-                                textarea.form-control.col-sm-12(ng-model="trayecto.observaciones",name="observaciones", id="textareaObservaciones", rows="5")
-            .row
-                .col-md-12
-                    .btn-group.col-md-4.btn-lg
-                        button.col-md-6(class="btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar Trayecto
-                        button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Limpiar Campos
+                    .row
+                        .col-md-6 
+                            .panel.panel-default
+                                .panel-heading Restricciones
+                                .panel-body
+                                    .col-md-6
+                                        .form-group
+                                            label.checkbox(for="noFumadores") No fumadores 
+                                                input(ng-model="trayecto.restricciones.no_fumadores",name="noFumadores",type="checkbox", id="NoFumadores") 
+                                         .form-group
+                                            label.checkbox(for="noAnimales") No animales 
+                                                input(ng-model="trayecto.restricciones.no_animales",name="noAnimales",type="checkbox", id="NoAnimales") 
+                                    .col-md-6
+                                        .form-group
+                                            label.checkbox(for="noComida") No comida 
+                                                input(ng-model="trayecto.restricciones.no_comida",name="noComida",type="checkbox", id="NoComida")
+                        .col-md-6
+                            .panel.panel-default
+                                    .panel-heading Tipo de pasajero
+                                    .panel-body 
+                                        .col-md-6
+                                            .form-group
+                                                label.checkbox(for="alumnos") Alumnos 
+                                                    input(ng-model="trayecto.tipo_pasajero.alumnos",name="alumnos",type="checkbox", id="Alumnos") 
+                                             .form-group
+                                                label.checkbox(for="profesores") Profesores 
+                                                    input(ng-model="trayecto.tipo_pasajero.profesores",name="profesores",type="checkbox", id="Profesores") 
+                                        .col-md-6
+                                            .form-group
+                                                label.checkbox(for="personal") Personal 
+                                                    input(ng-model="trayecto.tipo_pasajero.personal",name="personal",type="checkbox", id="Personal") 
+                    .row
+                        .col-md-12
+                            .form-group
+                                label.col-sm-2.control-label(for="observaciones") Observaciones
+                                .col-md-10
+                                        textarea.form-control.col-sm-12(ng-model="trayecto.observaciones",name="observaciones", id="textareaObservaciones", rows="5")
+                    .row
+                        .col-md-12
+                            .btn-group.col-md-4.btn-lg
+                                button.col-md-6(class="btn btn-success", id="cancelar", ng-click="PublicarTrayecto()") Publicar Trayecto
+                                button.col-md-6(class="btn btn-danger", id="cancelar",  onClick="reset()") Limpiar Campos
 
 block script
     script(src="/js/CrearTrayectoCtrl.js")
     script.
-        var scope;
+        var scope, step = 0;
         $(document).ready(function (){
             scope = angular.element('[ng-controller="CrearTrayectoCtrl"]').scope();
-            scope.trayecto.creador_id = "from_site";
+            //- scope.trayecto.creador_id = "from_site";
+            scope.trayecto.creador_id = !{ userId };
             scope.$apply();
-        }); 
+        });
+
+        $('#step1, #step2').hide();
+
+        $('#siguiente').click(function () {
+            $('#step' + step).slideUp(function (){
+                step++;
+                $('#step' + step).slideDown();
+            });
+            scope.progreso += 25;
+            scope.$apply();
+        });
+
+        $('#anterior').click(function (){
+            scope.progreso -= 25;
+            scope.$apply();
+        });
+
         var mapMarkers = {
             origin: false,
             destination: false
@@ -146,43 +183,101 @@ block script
                     dragend: function(e) {
                         if(map.markers.length > 1){
                             drawRoute();
-                          }
+                        }
                       }
                   });
+
+                if(map.markers.length == 1){
+                    // Get Origin Location
+                    GMaps.geocode({
+                        callback: getOriginLocation,
+                        lat: e.latLng.lat(),
+                        lng: e.latLng.lng()
+                    });
+                }
+
                 if(map.markers.length > 1){
                     drawRoute();
-                  }
+                }
               }
             }
         });
 
+        var route = null;
+
         function drawRoute(){
+            console.log('Drawing...');
             map.cleanRoute();
+            route = null;
 
             var origin = map.markers[0].getPosition();
             var destination = map.markers[map.markers.length-1].getPosition();
 
-            map.drawRoute({
+            console.log([origin.lat(), origin.lng()]);
+
+            scope.setOrigenLatLng([origin.lat(), origin.lng()]);
+            scope.setDestinoLatLng([destination.lat(), destination.lng()]);
+
+            map.getRoutes({
               origin: [origin.lat(), origin.lng()],
               destination: [destination.lat(), destination.lng()],
               travelMode: 'driving',
-              strokeColor: '#336699',
-              strokeOpacity: 0.5,
-              strokeWeight: 6
+              callback: function(e){
+                    console.log(e);
+                    var i = e.length - 1;
+                    route = new GMaps.Route({
+                      map: map,
+                      route: e[i],
+                      strokeColor: '#336699',
+                      strokeOpacity: 0.5,
+                      strokeWeight: 6,
+                      draggable: true
+                    });
+                    paintRoute();
+                }
             });
         }
 
-        //- map.getRoutes({
-        //-   origin: [origin.lat(), origin.lng()],
-        //-   destination: [destination.lat(), destination.lng()],
-        //-   travelMode: 'driving',
-        //-   callback: function(e){
-        //-     route = new GMaps.Route({
-        //-       map: map,
-        //-       route: e[0],
-        //-       strokeColor: '#336699',
-        //-       strokeOpacity: 0.5,
-        //-       strokeWeight: 10
-        //-     });
-        //-   }
-        //- });
+        function paintRoute(){
+            for(var i = 0; i < route.steps_length; i++){
+                route.forward();
+            }
+
+            var orig = route.steps[0].start_location;
+            var dest = route.steps[route.steps_length - 1].end_location;
+            map.markers[0].setPosition({ lat: orig.lat() , lng: orig.lng() });
+            map.markers[0].setDraggable(true);
+            map.markers[1].setPosition({ lat: dest.lat() , lng: dest.lng() });
+            map.markers[1].setDraggable(true);
+
+            
+
+            // Get Destination Location
+            GMaps.geocode({
+                callback: getDestinationLocation,
+                lat: dest.lat(),
+                lng: dest.lng()
+            });
+        }
+
+        function getOriginLocation(results, status){
+            scope.setOrigen('...');
+            scope.$apply();
+            getLocation(results, status, scope.setOrigen);
+        }
+
+        function getDestinationLocation(results, status){
+            scope.setDestino('...');
+            scope.$apply();
+            getLocation(results, status, scope.setDestino);
+        }
+
+        function getLocation(results, status, function_address){
+            console.log(results);
+            if(results.length > 0){
+                console.log(results.length);
+                console.log(results[0].formatted_address);
+                function_address(results[0].formatted_address);
+            }
+            scope.$apply(); 
+        }
