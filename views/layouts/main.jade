@@ -46,11 +46,12 @@ html(ng-app)
 								a(href="/cuenta") Entrar o Registrase
 						else
 							li
+								a(href="#") #{user.nombre}
+							li
 								a(href="/logout") Salir	
 
 
-		.row
-			.col-md-12
+		.col-md-12
 				each value, key in flash
 					.alert(class="alert-#{key}") 
 						.container #{value}
