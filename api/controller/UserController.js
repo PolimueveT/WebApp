@@ -61,6 +61,8 @@ var UserController = function(userDAO) {
         UserData.Observaciones = obs;
         UserData.Telefono = telefono;
         UserData.Coche = coche;
+        //Admin
+        UserData.IsAdmin = false;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
         return UserData;
