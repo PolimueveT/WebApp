@@ -3,6 +3,8 @@ var BuscarTrayectosCtrl = function($scope, $http){
 	$scope.trayectos = [];
 	$scope.submitted = false;
 	$scope.todos = [];
+	$scope.hora_salida = 'Mañana';
+	$scope.equipaje = 'Mochila';
 
 	$scope.getData = function(){
 		$http.get('/api/gettrips/').success(function (result){

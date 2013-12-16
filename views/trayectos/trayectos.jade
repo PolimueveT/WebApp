@@ -37,8 +37,8 @@ block content
                         label.col-sm-3.control-label(for="hora") Hora
                         .col-sm-9
                             select.form-control(ng-model="hora_salida", name="Hora", required)
-                                option Mañana  
-                                option Tarde
+                                option(value="Mañana") Mañana  
+                                option(value="Tarde") Tarde
 
 
                 //-.col-sm-2
@@ -77,8 +77,8 @@ block content
                                 label.control-label Tamaño máx. del equipaje
                                 .col-sm-12
                                         select.form-control(ng-model="equipaje", name="equipaje", required)
-                                            option Mochila
-                                            option Maleta
+                                            option(value="Mochila") Mochila
+                                            option(value="Maleta") Maleta
                     .form-group
                         button.col-md-12(class="btn", id="buscar", ng-click="EliminarRest()", onClick="reset()") Eliminar Restricciones
 
