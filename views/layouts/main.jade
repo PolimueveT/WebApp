@@ -25,11 +25,9 @@ html(ng-app)
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a.navbar-brand(href="#") PolimueveT
+					a.navbar-brand(href="/") PolimueveT
 				.navbar-collapse.collapse
 					ul.nav.navbar-nav
-						li
-							a(href="/") Inicio
 						li 
 							a(href="/estado-parking") Estado Parking
 						li 
@@ -41,8 +39,6 @@ html(ng-app)
 								a(href="/mis-trayectos") Mis trayectos
 							li
 								a(href="/users") Gestionar Usuarios
-						//- li
-						//- 	a(href="/Mi Cuenta") Mi Cuenta
 					ul.nav.navbar-nav.navbar-right
 						if !user
 							li
@@ -51,7 +47,7 @@ html(ng-app)
 							li
 								a(href="#") #{user.nombre}
 							li
-								a(href="/logout") Salir	
+								a.btn.btn-info(href="/logout") Salir	
 
 		.hideEverything(align="center")
 			i.icon-spinner.icon-3x.icon-spin.icon-large

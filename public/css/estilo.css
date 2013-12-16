@@ -38,6 +38,10 @@ h2 {
   color: #fff;
   text-shadow: 1px 1px 1px #333;
 }
+.navbar-default .navbar-brand:hover {
+  color: #ddd;
+  text-shadow: 1px 1px 1px #333;
+}
 .navbar-default .navbar-nav>li>a {
   color: #fff;
   text-shadow: 1px 1px 1px #333;
@@ -149,6 +153,7 @@ span.bold_word {
   padding: 30px;
   -webkit-box-shadow: 1px 1px 10px #000;
   box-shadow: 1px 1px 10px #000;
+  z-index: 9999;
 }
 .jumbotron_content .contenido:before {
   border: 2px dashed #999;

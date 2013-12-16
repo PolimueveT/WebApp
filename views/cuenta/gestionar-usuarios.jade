@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-	.container(ng-controller="UsuariosCtrl")
+	.container(ng-controller="UsuarioCtrl")
 		h1 Usuarios Registrados
 		.row
 			.col-md-12
@@ -18,7 +18,7 @@ block content
 								td {{ u.Email }}
 								td {{ u.UserType }}
 								td
-									a.btn.btn-info(href="/trayecto/{{ u.id }}")
+									a.btn.btn-info(href="/user/{{ u.id }}/edit")
 										span.glyphicon.glyphicon-pencil
 									|  
 									a.btn.btn-primary(href="/editar-trayecto/{{ u.id }}")
@@ -29,11 +29,11 @@ block content
 			
 
 block script
-	script(src="/js/UsuariosCtrl.js")
+	script(src="/js/UsuarioCtrl.js")
 	script.
 		var scope;
 		$(document).ready(function (){
-			scope = angular.element('[ng-controller="UsuariosCtrl"]').scope();
+			scope = angular.element('[ng-controller="UsuarioCtrl"]').scope();
 			scope.getData();
 		});
 

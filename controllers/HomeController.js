@@ -65,7 +65,8 @@ var HomeController = function(Dao){
 
 	self.editar_cuenta = function(req, res) {
 		var data = { 
-			title : 'Editar Usuario' 
+			title : 'Editar Usuario',
+			userId: req.params.id
 		};
 
 		res.render('cuenta/editar-usuario', data);	

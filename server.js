@@ -201,17 +201,25 @@ app.post('/api/ismailregistered', userController.isMailRegistered);
 // API para listar Parkings
 app.get('/api/parking', parkingController.listParkings);
 
-
 // Web
 app.get('/estado-parking', homeController.estado_parking);
+
+// Web - Trayectos
 app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
-app.get('/cuenta', homeController.registrar);
-app.get('/editar-cuenta', ensureAuthenticated, homeController.editar_cuenta);
-app.get('/users', ensureAuthenticated, homeController.gestiona_usuarios);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
+
+// Web - Cuenta
+app.get('/cuenta', homeController.registrar);
+// app.get('/user/:id', ensureAuthenticated, homeController.editar_cuenta);
+
+// Web - Usuarios
+app.get('/user/:id/edit', ensureAuthenticated, homeController.editar_cuenta);
+app.get('/users', ensureAuthenticated, homeController.gestiona_usuarios);
+
+// Login - Logout
 app.post('/login', 
     passport.authenticate('local', { failureRedirect: '/cuenta', failureFlash: true}),
     function(req, res) {

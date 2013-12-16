@@ -42,14 +42,17 @@ h1, h2
 	.navbar-brand
 		color: #FFF
 		text-shadow 1px 1px 1px #333
+		&:hover
+			color: #DDD
+			text-shadow 1px 1px 1px #333
 	.navbar-nav
 		&>li
 			&>a
 				color: #FFF
 				text-shadow 1px 1px 1px #333
-			&>a:hover
-				color: #DDD
-				text-shadow 1px 1px 1px #333
+				&:hover
+					color: #DDD
+					text-shadow 1px 1px 1px #333
 
 
 .btn-primary
@@ -138,6 +141,7 @@ span.bold_word
 		margin-right: auto;
 		padding 30px
 		box-shadow 1px 1px 10px #000
+		z-index 9999
 	.contenido:before 
 		border: 2px dashed #999;
 		outline: 2px rgba(255,255,255,0.4) dashed;

@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-    .container(ng-controller="CrearUsuarioCtrl")
+    .container(ng-controller="UsuarioCtrl")
             .row
                 .col-md-12(ng-repeat="a in alertas")
                     .alert(ng-class="{ 'alert-danger': !a.success, 'alert-success': a.success }")
@@ -14,8 +14,8 @@ block content
                             .panel-heading Entra a tu cuenta
                             .panel-body
                                 .form-group
-                                    label(for="nPlazas") Nombre
-                                    input.form-control(ng-model="obj.loginUsername", required, id="username",name="username", type="text", placeHolder="Nombre")
+                                    label(for="nPlazas") Email
+                                    input.form-control(ng-model="obj.loginUsername", required, id="username",name="username", type="text", placeHolder="Email")
 
                                 .form-group
                                     label(for="horaSalida") Contraseña
@@ -58,4 +58,4 @@ block content
                             .form-group
                                  button.col-md-6(class="btn btn btn-primary", id="registrar", ng-click="RegistrarUsuario()") Registrarme
 block script
-    script(src="/js/CrearUsuarioCtrl.js")
+    script(src="/js/UsuarioCtrl.js")
