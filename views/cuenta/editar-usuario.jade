@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-	.container(ng-controller="EditarUsuarioCtrl")
+	.container(ng-controller="UsuarioCtrl")
 		form.form-horizontal(role="form", name="form", method="post", novalidate)
 			.row
 				.col-md-12
@@ -13,35 +13,25 @@ block content
 						.panel-heading Informacion del Usuario
 						.panel-body
 							.col-md-6 
-								.form-group(ng-class="{'has-error': form.nombre.$error.required  && form.submitted }")
+								.form-group(ng-class="{'has-error': form.nombre.$error.required && form.submitted }")
 									label.col-sm-3.control-label(for="nombre") Nombre
 									.col-sm-9
 										input.form-control(ng-model="usuario.nombre",id="nombreUsuario",name="nombre", type="text",placeHolder="Nombre del usuario, required")
 										span(ng-show="form.nombre.$error.required  && form.submitted") El Nombre es un campo obligatorio
 
 								.form-group(ng-class="{'has-error': form.email.$error.required  && form.submitted }")
-									label(for="email") Email
-									input.form-control(ng-model="email", required, name="email", type="email", placeHolder="Email")
-									span(ng-show="form.email.$error.required  && form.submitted") El Email (de la UPV) es obligatorio.
-
-								.form-group(ng-class="{'has-error': form.password.$error.required  && form.submitted }")
-									label(for="pass") Contraseña
-									input.form-control(ng-model="password", required, name="password",type="password", placeHolder="Contraseña")
-									span(ng-show="form.password.$error.required  && form.submitted") La contraseña es obligatoria.
-
-								.form-group(ng-class="{'has-error': form.password2.$error.required  && form.submitted }")
-									label(for="confPass") Confirma contraseña
-									input.form-control(ng-model="password2", required, name="password2",type="password", placeHolder="Repite la contraseña")
-									span(ng-show="form.password2.$error.required  && form.submitted") La confirmación de la contraseña es obligatoria.
-
+									label.col-sm-3.control-label(for="email") Email
+									.col-sm-9
+										input.form-control(ng-model="usuario.email", required, name="email", type="email", placeHolder="Email")
+										span(ng-show="form.email.$error.required  && form.submitted") El Email (de la UPV) es obligatorio.
 
 								.form-group 
-									label.col-sm-3.control-label(for="usertype") Tipo de usuario
+									label.col-sm-3.control-label(for="usertype") Tipo
 									.col-sm-9
 										select.form-control(ng-model="usuario.usertype",name="userType")
-											option Alumno
-											option Profesor
-											option PAS/PDI
+											option(value="Alumno") Alumno
+											option(value="Profesor") Profesor
+											option(value="Personal") Personal
 
 								.form-group 
 									label.col-sm-3.control-label(for="sexo") Sexo
@@ -49,16 +39,30 @@ block content
 										select.form-control(ng-model="usuario.sexo",name="sexo")
 											option Hombre
 											option Mujer
-										
-								.form-group(ng-class="{'has-error': form.fechaNacimiento.$error.required && form.submitted }")
-									label.col-sm-3.control-label(for="fechaNacimiento") Fecha de Nacimiento
+
+								//- .form-group(ng-class="{'has-error': form.password.$error.required  && form.submitted }")
+								//- 	label.col-sm-3.control-label(for="pass") Contraseña
+								//- 	.col-sm-9
+								//- 		input.form-control(ng-model="password", required, name="password",type="password", placeHolder="Contraseña")
+								//- 		span(ng-show="form.password.$error.required  && form.submitted") La contraseña es obligatoria.
+
+								//- .form-group(ng-class="{'has-error': form.password2.$error.required  && form.submitted }")
+								//- 	label.col-sm-3.control-label(for="confPass") Confirma contraseña
+								//- 	.col-sm-9
+								//- 		input.form-control(ng-model="password2", required, name="password2",type="password", placeHolder="Repite la contraseña")
+								//- 		span(ng-show="form.password2.$error.required  && form.submitted") La confirmación de la contraseña es obligatoria.
+
+
+							.col-md-6 
+								.form-group(ng-class="{'has-error': form.fechanacimiento.$error.required && form.submitted }")
+									label.col-sm-3.control-label(for="fechanacimiento") Fecha de Nacimiento
 									.col-sm-9
 										.datePicker.date.input-group
-											input.form-control(data-format="dd/MM/yyyy",ng-model="usuario.fechaNacimiento",name="fechaNacimiento",type="text", placeHolder="Fecha de Nacimiento", required)
+											input.form-control(data-format="dd/MM/yyyy",ng-model="usuario.fechanacimiento",name="fechanacimiento",type="text", placeHolder="Fecha de Nacimiento", required)
 											span.add-on.input-group-btn
 												a.btn.btn-primary.btn-group
 													span.glyphicon.glyphicon-calendar
-										span(ng-show="form.fechaNacimiento.$error.required && form.submitted") La Fecha de Nacimiento es obligatoria.
+										span(ng-show="form.fechanacimiento.$error.required && form.submitted") La Fecha de Nacimiento es obligatoria.
 
 								.form-group(ng-class="{'has-error': form.poblacion.$error.required  && form.submitted }")
 									label.col-sm-3.control-label(for="poblacion") Poblacion
@@ -90,7 +94,7 @@ block content
 										span(ng-show="(form.nPlazas.$error.required || form.telefono.$error.number) && form.submitted") El teléfono debe ser un número.
 
 			.row
-				.col-md-6 
+				.col-md-12
 					.panel.panel-default
 						.panel-heading Vehículo
 						.panel-body
@@ -113,6 +117,7 @@ block content
 										input.form-control(ng-model="usuario.coche.anyo",id="anyoCoche",name="anyo", type="number", placeHolder="Año del vehículo", required, min="1850")
 										span(ng-show="(form.anyo.$error.required || form.anyo.$error.number || form.anyo.$error.min) && form.submitted") El vehículo debe ser posterior al año 1850
 
+							.col-md-6
 								.form-group
 									label.col-sm-3.control-label(for="color") Color
 									.col-sm-9
@@ -136,13 +141,18 @@ block content
 						.col-md-10
 								textarea.form-control.col-sm-12(ng-model="usuario.observaciones",name="observaciones", id="textareaObservaciones", rows="5")
 
+			.row
+				.col-md-12
+					.btn-group.col-md-4.btn-lg
+						button.col-md-6(class="btn btn-success", id="cancelar", ng-click="EditarUser()") Editar Usuario
+
 block script
-	script(src="/js/CrearUsuarioCtrl.js")
+	script(src="/js/UsuarioCtrl.js")
 	script.
 		var scope;
 		$(document).ready(function (){
-			scope = angular.element('[ng-controller="CrearUsuarioCtrl"]').scope();
-			scope.getUsuario('!{id_usuario}'); // - Esto NO existe aún...
+			scope = angular.element('[ng-controller="UsuarioCtrl"]').scope();
+			scope.getUsuario('!{userId}'); 
 			scope.$apply();
 		}); 
 										

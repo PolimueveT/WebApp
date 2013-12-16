@@ -10,8 +10,6 @@ var UserController = function(userDAO) {
         data: null
     };
 
-
-
     var crearData = function(conid,body){
 
         var nombre = body.nombre;
