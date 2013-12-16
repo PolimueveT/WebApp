@@ -71,7 +71,7 @@ var BuscarTrayectosCtrl = function($scope, $http){
 						var fyh = filtrados[i].Fecha_time;
 						var fechaObj = moment(fyh);
 
-						filtrados.id = filtrados[i]._id;
+						filtrados[i].id = filtrados[i]._id;
 						filtrados[i].FechaFromNow = fechaObj.fromNow();
 						filtrados[i].Fecha_time = fechaObj.format("DD/MM/YYYY HH:mm");
 					}
