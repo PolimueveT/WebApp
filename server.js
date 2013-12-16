@@ -175,7 +175,6 @@ var homeController = new HomeController();
  * DELETE: Borrar
  */
 
-
 //TRAYECTOS
 app.get('/api/gettrips',tripController.getTrips)
 app.get('/api/gettrip/:id',tripController.getTrip)
@@ -208,10 +207,11 @@ app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/cuenta', homeController.registrar);
+app.get('/editar-cuenta', ensureAuthenticated, homeController.editar_cuenta);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
-    passport.authenticate('local', { failureRedirect: '/'}),
+    passport.authenticate('local', { failureRedirect: '/', failureFlash: true}),
     function(req, res) {
         console.log(req.user.Nombre + ' has logged in');
         console.log("el usuario completo: " + JSON.stringify(req.user));
@@ -221,7 +221,8 @@ app.get('/logout', function(req, res) {
         if(req.user)
             console.log(req.user.Nombre + ' is about to log out.');
         req.logout();
-        res.redirect('/');
+        req.flash('warning', 'Ha salido de su cuenta!');
+        res.redirect('/cuenta');
 });
 
 

@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-    .container(ng-controller="CrearTrayectoCtrl")
+    .container.crear-trayecto(ng-controller="CrearTrayectoCtrl")
         form.form-horizontal(role="form", name="form", method="post", novalidate)
             .row
                 .col-md-12
@@ -22,6 +22,9 @@ block content
                             
                     .row#step0
                         .col-md-12
+                            .row
+                                .col-md-12
+                                    h2 1. Selecciona el Origen y Destino
                             .row
                                 .col-md-6 Origen: <b>{{ trayecto.origen }}</b>
                                 .col-md-6 Destino: <b>{{ trayecto.destino }}</b>
