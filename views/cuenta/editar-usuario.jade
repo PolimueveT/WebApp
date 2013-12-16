@@ -1,0 +1,148 @@
+extend ../layouts/main
+block content
+	.container(ng-controller="EditarUsuarioCtrl")
+		form.form-horizontal(role="form", name="form", method="post", novalidate)
+			.row
+				.col-md-12
+					h1 Editar Usuario
+					.alert.alert-danger(ng-show="form.submitted && !form.$valid")
+						span.glyphicon.glyphicon-warning-sign 
+						b  Error en formulario 
+						p Favor de comprobar los campos
+					.panel.panel-default
+						.panel-heading Informacion del Usuario
+						.panel-body
+							.col-md-6 
+								.form-group(ng-class="{'has-error': form.nombre.$error.required  && form.submitted }")
+									label.col-sm-3.control-label(for="nombre") Nombre
+									.col-sm-9
+										input.form-control(ng-model="usuario.nombre",id="nombreUsuario",name="nombre", type="text",placeHolder="Nombre del usuario, required")
+										span(ng-show="form.nombre.$error.required  && form.submitted") El Nombre es un campo obligatorio
+
+								.form-group(ng-class="{'has-error': form.email.$error.required  && form.submitted }")
+									label(for="email") Email
+									input.form-control(ng-model="email", required, name="email", type="email", placeHolder="Email")
+									span(ng-show="form.email.$error.required  && form.submitted") El Email (de la UPV) es obligatorio.
+
+								.form-group(ng-class="{'has-error': form.password.$error.required  && form.submitted }")
+									label(for="pass") Contraseña
+									input.form-control(ng-model="password", required, name="password",type="password", placeHolder="Contraseña")
+									span(ng-show="form.password.$error.required  && form.submitted") La contraseña es obligatoria.
+
+								.form-group(ng-class="{'has-error': form.password2.$error.required  && form.submitted }")
+									label(for="confPass") Confirma contraseña
+									input.form-control(ng-model="password2", required, name="password2",type="password", placeHolder="Repite la contraseña")
+									span(ng-show="form.password2.$error.required  && form.submitted") La confirmación de la contraseña es obligatoria.
+
+
+								.form-group 
+									label.col-sm-3.control-label(for="usertype") Tipo de usuario
+									.col-sm-9
+										select.form-control(ng-model="usuario.usertype",name="userType")
+											option Alumno
+											option Profesor
+											option PAS/PDI
+
+								.form-group 
+									label.col-sm-3.control-label(for="sexo") Sexo
+									.col-sm-9
+										select.form-control(ng-model="usuario.sexo",name="sexo")
+											option Hombre
+											option Mujer
+										
+								.form-group(ng-class="{'has-error': form.fechaNacimiento.$error.required && form.submitted }")
+									label.col-sm-3.control-label(for="fechaNacimiento") Fecha de Nacimiento
+									.col-sm-9
+										.datePicker.date.input-group
+											input.form-control(data-format="dd/MM/yyyy",ng-model="usuario.fechaNacimiento",name="fechaNacimiento",type="text", placeHolder="Fecha de Nacimiento", required)
+											span.add-on.input-group-btn
+												a.btn.btn-primary.btn-group
+													span.glyphicon.glyphicon-calendar
+										span(ng-show="form.fechaNacimiento.$error.required && form.submitted") La Fecha de Nacimiento es obligatoria.
+
+								.form-group(ng-class="{'has-error': form.poblacion.$error.required  && form.submitted }")
+									label.col-sm-3.control-label(for="poblacion") Poblacion
+									.col-sm-9
+										input.form-control(ng-model="usuario.poblacion",id="Poblacion",name="poblacion", type="text",placeHolder="Poblacion de residencia", required)
+										span(ng-show="form.poblacion.$error.required  && form.submitted") La Poblacion de residencia es obligatoria.
+								
+								.form-group
+									label.col-sm-3.control-label(for="escuela") Escuela
+									.col-sm-9
+										select.form-control(ng-model="usuario.escuela",name="escuela") 
+											option ETSA-ARQUITECTURA
+											option ETSIAMN-AGRONOMICA
+											option ETSIE-EDIFICACION
+											option ETSID-DISEÑO
+											option ETSIGCT-GEODESICA
+											option ETSINF-INFORMATICA
+											option ETSICCP-CAMINOS
+											option ETSIT-TELECOMUNICACIONES
+											option ETSII-INDUSTRIALES
+											option ADE
+											option BELLAS ARTES
+											option OTRA
+
+								.form-group(ng-class="{'has-error': (form.telefono.$error.required || form.telefono.$error.number)  && form.submitted }")
+									label.col-sm-3.control-label(for="telefono") Teléfono
+									.col-sm-9
+										input.form-control(ng-model="usuario.telefono",id="telefono",name="telefono", type="number", placeHolder="Teléfono de contacto", required)
+										span(ng-show="(form.nPlazas.$error.required || form.telefono.$error.number) && form.submitted") El teléfono debe ser un número.
+
+			.row
+				.col-md-6 
+					.panel.panel-default
+						.panel-heading Vehículo
+						.panel-body
+							.col-md-6
+								.form-group(ng-class="{'has-error': form.marca.$error.required  && form.submitted }")
+									label.col-sm-3.control-label(for="marca") Marca
+									.col-sm-9
+										input.form-control(ng-model="usuario.coche.marca",id="MarcaCoche",name="marca", type="text",placeHolder="Marca del vehículo", required)
+										span(ng-show="form.marca.$error.required  && form.submitted") La marca del vehículo es obligatoria.
+								
+								.form-group(ng-class="{'has-error': form.modelo.$error.required  && form.submitted }")
+									label.col-sm-3.control-label(for="modelo") Modelo
+									.col-sm-9
+										input.form-control(ng-model="usuario.coche.modelo",id="ModeloCoche",name="modelo", type="text",placeHolder="Modelo del vehículo", required)
+										span(ng-show="form.modelo.$error.required  && form.submitted") El modelo del vehículo es obligatorio.
+								
+								.form-group(ng-class="{'has-error': (form.anyo.$error.required || form.anyo.$error.number|| form.anyo.$error.min)  && form.submitted }")
+									label.col-sm-3.control-label(for="anyo") Año
+									.col-sm-9
+										input.form-control(ng-model="usuario.coche.anyo",id="anyoCoche",name="anyo", type="number", placeHolder="Año del vehículo", required, min="1850")
+										span(ng-show="(form.anyo.$error.required || form.anyo.$error.number || form.anyo.$error.min) && form.submitted") El vehículo debe ser posterior al año 1850
+
+								.form-group
+									label.col-sm-3.control-label(for="color") Color
+									.col-sm-9
+										input.form-control(ng-model="usuario.coche.color",id="colorCoche",name="color", type="text",placeHolder="Color del vehículo")
+
+								.form-group
+									label.col-sm-3.control-label(for="tipoCombustible") Tipo de Combustible
+									.col-sm-9
+										select.form-control(ng-model="usuario.coche.tipoCombustible",name="tipoCombustible")
+											option Diesel
+											option Gasolina
+											option Eléctricoz
+											option Híbrido
+											option Otro (especificar en Observaciones)
+								
+
+			.row
+				.col-md-12
+					.form-group
+						label.col-sm-2.control-label(for="observaciones") Observaciones
+						.col-md-10
+								textarea.form-control.col-sm-12(ng-model="usuario.observaciones",name="observaciones", id="textareaObservaciones", rows="5")
+
+block script
+	script(src="/js/CrearUsuarioCtrl.js")
+	script.
+		var scope;
+		$(document).ready(function (){
+			scope = angular.element('[ng-controller="CrearUsuarioCtrl"]').scope();
+			scope.getUsuario('!{id_usuario}'); // - Esto NO existe aún...
+			scope.$apply();
+		}); 
+										

@@ -17,9 +17,9 @@ function CrearUsuarioCtrl($scope, $http) {
 			// Por AJAX.
 			$http.post('/api/newuser', obj).success(function (response){
 				console.log(response);
-				/*if(response.success === true) { 
-					window.location = "/cuenta";	
-				 }*/
+				if(response.success === true) { 
+						
+				}
 			});
 		}
 	};
