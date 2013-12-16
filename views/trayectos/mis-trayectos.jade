@@ -41,6 +41,11 @@ block content
 										|  
 										a.btn.btn-danger(ng-click="borrarTrayecto(t.id)")
 											span.glyphicon.glyphicon-trash
+								tr(ng-show="trayectos_ofreciendo.length === 0")
+									td(colspan="8", align="center") 
+										div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No estas <span class="bold_word">ofreciendo</span> ning&uacute;n trayecto todav&iacute;a!
+										br
+										a.btn.btn-success(href="/crear-trayecto") Ofrece uno
 			.row
 				.col-md-12
 					.panel.panel-default
@@ -74,6 +79,11 @@ block content
 										td
 											a.btn.btn-primary(href="/trayecto/{{ i.id }}")
 												span.glyphicon.glyphicon-eye-open
+									tr(ng-show="trayectos_inscrito.length === 0")
+										td(colspan="8", align="center") 
+											div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No estas <span class="bold_word">inscrito</span> en ning&uacute;n trayecto todav&iacute;a!
+											br
+											a.btn.btn-success(href="/trayectos") Inscribete en uno
 
 block script
 	script(src="/js/MisTrayectosCtrl.js")

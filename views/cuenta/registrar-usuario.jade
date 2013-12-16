@@ -34,7 +34,10 @@ block content
                         .panel-body
                             .form-group
                                 label(for="labelnombre") Tipo Usuario
-
+                            select.form-control(ng-model="usertype")
+                                    option(value="Alumno") Alumno
+                                    option(value="Profesor") Profesor
+                                    option(value="Personal") Personal
 
                             .form-group
                                 label(for="labelnombre") Nombre

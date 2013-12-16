@@ -1,6 +1,7 @@
 function CrearUsuarioCtrl($scope, $http) {
 
 	$scope.alertas = [];
+	$scope.usertype = 'Alumno';
 
 	$scope.RegistrarUsuario = function () {
 		var obj = { 
@@ -8,6 +9,7 @@ function CrearUsuarioCtrl($scope, $http) {
 			pass: $scope.password,
 			email: $scope.email,
 			passconf: $scope.password2,
+			usertype: $scope.usertype
 		};
 
 		// Enviamos obj con un POST al server
@@ -17,11 +19,19 @@ function CrearUsuarioCtrl($scope, $http) {
 			console.log(response);
 			if(response !== undefined) { 
 				$scope.alertas.push(response);
+				limpiarCampos();
 			}
 		});
 	};
 
-$scope.Ingresar = function () {
+	var limpiarCampos = function(){
+		$scope.nombre = "";
+		$scope.password = "";
+		$scope.email = "";
+		$scope.password2 = "";
+	}
+
+	$scope.Ingresar = function () {
 		var obj = { 
 			nombre: $scope.nombre,
 			password: $scope.nombre,
@@ -37,7 +47,7 @@ $scope.Ingresar = function () {
 			console.log(response);
 			/*if(response.success === true) { 
 				window.location = "/cuenta";	
-			 }*/
+			}*/
 		});
 	};
 

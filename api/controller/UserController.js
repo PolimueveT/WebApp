@@ -102,7 +102,7 @@ var UserController = function(userDAO) {
         if(req.body.pass != req.body.passconf){
                console.log('Error UserController');
                 objetoRespuesta.success = false;                
-                objetoRespuesta.info = "La contraseña y la confirmación no son iguales";
+                objetoRespuesta.info = "La contraseña y la confirmación deben ser iguales";
                 objetoRespuesta.data = null;
                 res.send(objetoRespuesta);
                 return;
@@ -129,7 +129,7 @@ var UserController = function(userDAO) {
                 return;
             }
             objetoRespuesta.success = true;                
-            objetoRespuesta.info = "Usuario creado correctamente";
+            objetoRespuesta.info = "Usuario creado correctamente, ya puedes entrar a tu cuenta!";
             objetoRespuesta.data = null;
             res.send(objetoRespuesta);
         });
