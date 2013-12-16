@@ -79,8 +79,8 @@ block content
                                         select.form-control(ng-model="equipaje", name="equipaje", required)
                                             option(value="Mochila") Mochila
                                             option(value="Maleta") Maleta
-                    .form-group
-                        button.col-md-12(class="btn", id="buscar", ng-click="EliminarRest()", onClick="reset()") Eliminar Restricciones
+                    
+                    button.btn.btn-danger.col-md-12(btnid="buscar", ng-click="EliminarRest()", onClick="reset()", style="width: 100%") Eliminar Restricciones
 
                 .col-md-9
                     .panel.panel-default

@@ -6,6 +6,45 @@ block content
 			.row
 				.col-md-12
 					.panel.panel-default
+						.panel-heading Trayectos que estoy inscrito
+						.panel-body
+							.col-md-12
+								table.table
+									tr
+										th Num. Plazas
+										th Origen
+										th Destino
+										th Fecha y Hora Salida
+										th Precio Plaza
+										th Max. Espera
+										th Restricciones
+										th
+									tr(ng-repeat="i in trayectos_inscrito")
+										td {{ i.Num_plazas }}
+										td {{ i.Origen }}
+										td {{ i.Destino }}
+										td 
+											{{ i.fechaFormat }}
+											br
+											{{ i.fechaHoraSalida }}
+										td {{ i.Precio_plaza }} €
+										td {{ i.Tiempo_max_espera }} min.
+										td 
+											span(ng-repeat="(key, r) in i.Restricciones")
+												{{ 	key.replace('_', ' ').toUpperCase() }}
+												br
+										td
+											a.btn.btn-primary(href="/trayecto/{{ i.id }}")
+												span.glyphicon.glyphicon-eye-open
+									tr(ng-show="trayectos_inscrito.length === 0")
+										td(colspan="8", align="center") 
+											div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No est&aacute;s <span class="bold_word">inscrito</span> en ning&uacute;n trayecto todav&iacute;a!
+											br
+											a.btn.btn-success(href="/trayectos") Inscr&iacute;bete en uno
+
+			.row
+				.col-md-12
+					.panel.panel-default
 						.panel-heading Trayectos que estoy ofreciendo
 						.panel-body
 							table.table
@@ -43,47 +82,9 @@ block content
 											span.glyphicon.glyphicon-trash
 								tr(ng-show="trayectos_ofreciendo.length === 0")
 									td(colspan="8", align="center") 
-										div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No estas <span class="bold_word">ofreciendo</span> ning&uacute;n trayecto todav&iacute;a!
+										div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No est&aacute;s <span class="bold_word">ofreciendo</span> ning&uacute;n trayecto todav&iacute;a!
 										br
 										a.btn.btn-success(href="/crear-trayecto") Ofrece uno
-			.row
-				.col-md-12
-					.panel.panel-default
-						.panel-heading Trayectos que estoy inscrito
-						.panel-body
-							.col-md-12
-								table.table
-									tr
-										th Num. Plazas
-										th Origen
-										th Destino
-										th Fecha y Hora Salida
-										th Precio Plaza
-										th Max. Espera
-										th Restricciones
-										th
-									tr(ng-repeat="i in trayectos_inscrito")
-										td {{ i.Num_plazas }}
-										td {{ i.Origen }}
-										td {{ i.Destino }}
-										td 
-											{{ i.fechaFormat }}
-											br
-											{{ i.fechaHoraSalida }}
-										td {{ i.Precio_plaza }} €
-										td {{ i.Tiempo_max_espera }} min.
-										td 
-											span(ng-repeat="(key, r) in i.Restricciones")
-												{{ 	key.replace('_', ' ').toUpperCase() }}
-												br
-										td
-											a.btn.btn-primary(href="/trayecto/{{ i.id }}")
-												span.glyphicon.glyphicon-eye-open
-									tr(ng-show="trayectos_inscrito.length === 0")
-										td(colspan="8", align="center") 
-											div(style="color: gray; font-size: 24px; font-weight: 100; padding-top: 10px") No estas <span class="bold_word">inscrito</span> en ning&uacute;n trayecto todav&iacute;a!
-											br
-											a.btn.btn-success(href="/trayectos") Inscribete en uno
 
 block script
 	script(src="/js/MisTrayectosCtrl.js")
