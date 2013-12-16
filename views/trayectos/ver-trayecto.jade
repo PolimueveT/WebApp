@@ -11,7 +11,7 @@ block content
 				.col-md-12
 					h1 Trayecto
 						small.pull-right
-							a.btn.btn-primary(ng-click="unirmeTrayecto()", ng-hide="unido_trayecto")
+							a.btn.btn-success(ng-click="unirmeTrayecto()", ng-hide="unido_trayecto")
 								span.glyphicon.glyphicon-plus-sign
 								|  Unirse A Trayecto
 							a.btn.btn-danger(ng-click="salirTrayecto()", ng-show="unido_trayecto")
@@ -73,13 +73,15 @@ block content
 									table.table
 										tr
 											th Nombre
-											td Juan Perez
+											td {{ usuario.nombre }}
 										tr 
 											th Coche
-											td Seat Leon Rojo
+											td {{ usuario.coche.marca }} {{ usuario.coche.modelo }} 
+												br(ng-show="usuario.coche.anyo !== '' ")
+												| {{ usuario.coche.anyo }}
 										tr 
-											th Departamento
-											td Informatica
+											th Escuela
+											td {{ usuario.escuela }}
 							
 			.row
 				.col-md-12

@@ -1,6 +1,6 @@
 extend ../layouts/main
 block content
-    h1 Búsqueda de Trayectos
+    h1.col-md-12 Búsqueda de Trayectos
     .container(ng-controller="BuscarTrayectosCtrl")
         .alert.alert-danger(ng-show="form.submitted && !form.$valid")
                         span.glyphicon.glyphicon-warning-sign  

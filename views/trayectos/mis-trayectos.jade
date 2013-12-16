@@ -10,7 +10,7 @@ block content
 						.panel-body
 							.col-md-12
 								table.table
-									tr
+									tr(ng-show="trayectos_inscrito.length > 0")
 										th Num. Plazas
 										th Origen
 										th Destino
@@ -48,7 +48,7 @@ block content
 						.panel-heading Trayectos que estoy ofreciendo
 						.panel-body
 							table.table
-								tr
+								tr(ng-show="trayectos_ofreciendo.length > 0")
 									th Num. Plazas
 									th Origen
 									th Destino

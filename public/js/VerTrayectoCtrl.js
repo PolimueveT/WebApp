@@ -36,9 +36,26 @@ function VerTrayectoCtrl($scope, $http) {
 				$scope.trayecto = obj;
 
 				$scope.getUnidoATrayecto();
+				$scope.getUsuario(obj.Creador_id);
 			};
 		});
 	};
+
+	$scope.getUsuario = function(id){
+		$http.get('/api/getuser/' + id).success(function (response){
+			console.log(response);
+			var usrObj = {};
+			if(response !== undefined) { 
+				var data = response.data[0];
+				for (var k in data) {
+			        usrObj[k.toLowerCase()] = data[k];
+			    }
+
+				usrObj.id = data._id;
+			    $scope.usuario = usrObj;
+			}
+		});
+	}
 
 	$scope.unirmeTrayecto = function () {
 		var data = {
