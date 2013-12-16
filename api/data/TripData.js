@@ -9,7 +9,7 @@ module.exports=
 	"Precio_plaza": 0,
 	"Tiempo_max_espera": 0,
 	"Restricciones" :null,
-	"Max_tamaño_equipaje": 0,
+	"Max_tamanyo_equipaje": 0,
 	"Tipo_pasajeros": 1,
 	"Observaciones": null,
 	"Creador_id": null,

@@ -62,7 +62,7 @@ var TripController = function(TripDAO) {
         TripData.Destino = destino;
        // TripData.Hora_salida = hora_salida;
         //TripData.Fecha_salida = fecha_salida;
-        TripData.Fecha_time= fecha_time
+        TripData.Fecha_time= fecha_time;
 
      
         TripData.Precio_plaza = precio_plaza;
@@ -101,13 +101,13 @@ var TripController = function(TripDAO) {
          delete TripData['Max_tamanyo_equipaje'];
         }
             if(TripData.Tipo_pasajeros==null){
-         delete TripData['Restricciones'];
+         delete TripData['Tipo_pasajeros'];
         }
         if(TripData.Observaciones==null){
-         delete TripData['Restricciones'];
+         delete TripData['Observaciones'];
         }
         if(TripData.Creador_id==null){
-         delete TripData['Restricciones'];
+         delete TripData['Creador_id'];
         }
 
         if(TripData.Inscritos==null){
