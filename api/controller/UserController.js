@@ -17,7 +17,7 @@ var UserController = function(userDAO) {
         var nombre = body.nombre;
         var email = body.email;
         var pass = body.pass;
-        var passconf = body.passconf;
+        // var passconf = body.passconf;
         var userType = body.usertype;
         var sexo = body.sexo;
         var fecNac = body.fechanacimiento;
@@ -31,7 +31,7 @@ var UserController = function(userDAO) {
         UserData.Nombre = null;
         UserData.Email = null;
         UserData.Pass = null;
-        UserData.Passconf = null;
+        // UserData.Passconf = null;
         UserData.UserType = null;
         UserData.Sexo = null;
         UserData.FechaNacimiento = null;
@@ -52,7 +52,7 @@ var UserController = function(userDAO) {
         UserData.Nombre = nombre;
         UserData.Email = email;
         UserData.Pass = pass;
-        UserData.Passconf = passconf;
+        // UserData.Passconf = passconf;
         UserData.UserType = userType;
         UserData.Sexo = sexo;
         UserData.FechaNacimiento = fecNac;
@@ -61,6 +61,8 @@ var UserController = function(userDAO) {
         UserData.Observaciones = obs;
         UserData.Telefono = telefono;
         UserData.Coche = coche;
+        //Admin
+        UserData.IsAdmin = false;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
         return UserData;
@@ -96,16 +98,17 @@ var UserController = function(userDAO) {
 
     this.addUser = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
-        _userdata= crearData(false,req.body);
-        if(_userdata.Pass != _userdata.Passconf){
+        
+        if(req.body.pass != req.body.passconf){
                console.log('Error UserController');
                 objetoRespuesta.success = false;                
-                objetoRespuesta.info = "La contraseña y la confirmación no son iguales";
+                objetoRespuesta.info = "La contraseña y la confirmación deben ser iguales";
                 objetoRespuesta.data = null;
                 res.send(objetoRespuesta);
                 return;
-
         }
+
+        _userdata= crearData(false,req.body);
 
         if(!isMailUPV(_userdata.Email)){
             console.log('El mail no pertenece a la UPV');
@@ -126,7 +129,7 @@ var UserController = function(userDAO) {
                 return;
             }
             objetoRespuesta.success = true;                
-            objetoRespuesta.info = "Usuario creado correctamente";
+            objetoRespuesta.info = "Usuario creado correctamente, ya puedes entrar a tu cuenta!";
             objetoRespuesta.data = null;
             res.send(objetoRespuesta);
         });

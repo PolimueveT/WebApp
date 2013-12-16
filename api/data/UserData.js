@@ -5,7 +5,6 @@ module.exports=
 	"Nombre": 0,
 	"Email": null,
 	"Pass": null,
-	"Passconf": null,
 	"UserType": null,
 	"Sexo": null,
 	"FechaNacimiento": null,

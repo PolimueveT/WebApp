@@ -24,13 +24,32 @@ var BuscarTrayectosCtrl = function($scope, $http){
 	}
 
 	$scope.FiltrarTrayectos = function () {
-		
-
 		if ($scope.form.$valid) {
-			var filtrados = _.filter($scope.todos, function(tra){ 
-				/*var f = $scope.fecha_salida.split("/");
-				var h = $scope.hora_salida.split(":");
-				var fecha_hora = new Date(f[2], f[1], f[0], h[0], h[1], 0, 0); */
+
+			var obj =  {
+				Origen: null,
+				Destino: null,
+				Restricciones: { 
+					no_fumadores: null,
+					no_animales: null,
+					no_comida: null
+				},
+				Fecha: null,
+				Hora:null,
+				Max_tamanyo_equipaje: null
+			};
+
+			obj.Origen = $scope.salida;
+			obj.Destino = $scope.destino;
+			obj.Restricciones.no_fumadores = $scope.noFumadores;
+			obj.Restricciones.no_animales = $scope.noAnimales;
+			obj.Restricciones.no_comida = $scope.noComida;
+			obj.Fecha = $scope.fecha_salida;
+			obj.Hora = $scope.hora_salida.substring(0,1);
+			obj.Max_tamanyo_equipaje = $scope.equipaje;
+
+
+			/*var filtrados = _.filter($scope.todos, function(tra){ 
 
 				var fyh = tra.Fecha_time;
 				var aux = fyh.split(" ");
@@ -40,7 +59,14 @@ var BuscarTrayectosCtrl = function($scope, $http){
 				return (tra.Origen.toUpperCase() == $scope.salida.toUpperCase())&&(tra.Destino.toUpperCase() == $scope.destino.toUpperCase())&&(fecha == $scope.fecha_salida)&&(hora == $scope.hora_salida)&&(tra.Restricciones.no_fumadores == $scope.noFumadores)&&(tra.Restricciones.no_animales == $scope.noAnimales)&&(tra.Restricciones.no_comida == $scope.noComida)&&(tra.Max_tamanyo_equipaje == $scope.equipaje);
 			});
 
-			$scope.trayectos = filtrados;
+			$scope.trayectos = filtrados;*/
+
+			$http.post('/api/getfilteredtrips', obj).success(function (response){
+				console.log(response);
+				if(response.success === true) { 
+					console.log("Enviado!");
+				 }
+			});
 			
 		} else{
 			$scope.form.submitted = true;

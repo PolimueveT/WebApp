@@ -111,9 +111,9 @@ var findById = function (id, fn) {
 };
 
 //////// AÑADIR CAMPO USERNAME!!!!
-var findByUsername = function(username, fn) {
+var findByUsername = function(usermail, fn) {
     db.collection('usuarios', function(err, collection) {
-        collection.findOne({Nombre: username}, function(err, user) {
+        collection.findOne({Email: usermail}, function(err, user) {
             if(err) return fn(null, null);
             if(user) return fn(null, user);
             return fn(null, null);
@@ -132,15 +132,15 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function(usermail, password, done) {
         process.nextTick(function() {
-            findByUsername(username, function(err, user) {
+            findByUsername(usermail, function(err, user) {
                 if (err)
                     return done(err);
                 if (!user)
-                    return done(null, false, { message: 'Unknown user: ' + username });
+                    return done(null, false, { message: 'Usuario no está en nuestro sistema: ' + usermail });
                 if (user.Pass != password)
-                    return done(null, false, { message: 'Invalid password' });
+                    return done(null, false, { message: 'Usuario y/o Clave inválida.' });
                 return done(null, user);
             });
         });
@@ -175,7 +175,6 @@ var homeController = new HomeController();
  * DELETE: Borrar
  */
 
-
 //TRAYECTOS
 app.get('/api/gettrips',tripController.getTrips)
 app.get('/api/gettrip/:id',tripController.getTrip)
@@ -208,10 +207,12 @@ app.get('/crear-trayecto', ensureAuthenticated, homeController.crear_trayecto);
 app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/cuenta', homeController.registrar);
+app.get('/editar-cuenta', ensureAuthenticated, homeController.editar_cuenta);
+app.get('/users', ensureAuthenticated, homeController.gestiona_usuarios);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
-    passport.authenticate('local', { failureRedirect: '/'}),
+    passport.authenticate('local', { failureRedirect: '/cuenta', failureFlash: true}),
     function(req, res) {
         console.log(req.user.Nombre + ' has logged in');
         console.log("el usuario completo: " + JSON.stringify(req.user));
@@ -221,7 +222,8 @@ app.get('/logout', function(req, res) {
         if(req.user)
             console.log(req.user.Nombre + ' is about to log out.');
         req.logout();
-        res.redirect('/');
+        req.flash('warning', 'Ha salido de su cuenta!');
+        res.redirect('/cuenta');
 });
 
 
@@ -250,6 +252,5 @@ function ensureAuthenticated (req, res, next) {
     req.flash('danger', 'Debes entrar a tu cuenta o Registrar una nueva para realizar esta acción.');
     res.redirect('/cuenta');
 }
-
 
 server.listen(3000)

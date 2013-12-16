@@ -7,11 +7,12 @@ html(ng-app)
 		meta(name="description" content="")
 		meta(name="author" content="")
 		title #{title} - PolimueveT
-		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/bootstrap.css')
 		link(rel='stylesheet', href='/css/nav-bar-top.css')
 		link(rel='stylesheet', href='/css/estilo.css')
 		link(rel='stylesheet', href='/css/bootstrap-datetimepicker.min.css')
 		link(rel='stylesheet', href='/css/jquery-ui-1.10.3.custom.min.css')
+		link(href='http://fonts.googleapis.com/css?family=Roboto:400,100', rel='stylesheet', type='text/css')
 			
 		// if lt IE 9
 			script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
@@ -38,6 +39,8 @@ html(ng-app)
 								a(href="/crear-trayecto") Crear trayecto
 							li
 								a(href="/mis-trayectos") Mis trayectos
+							li
+								a(href="/users") Gestionar Usuarios
 						//- li
 						//- 	a(href="/Mi Cuenta") Mi Cuenta
 					ul.nav.navbar-nav.navbar-right
@@ -46,15 +49,17 @@ html(ng-app)
 								a(href="/cuenta") Entrar o Registrase
 						else
 							li
+								a(href="#") #{user.nombre}
+							li
 								a(href="/logout") Salir	
 
+		.hideEverything(align="center")
+			i.icon-spinner.icon-3x.icon-spin.icon-large
 
-		.row
-			.col-md-12
+		.col-md-12
 				each value, key in flash
 					.alert(class="alert-#{key}") 
 						.container #{value}
-
 		.container
 				block content
 
@@ -64,7 +69,7 @@ html(ng-app)
 		script(src="/js/underscore-min.js")
 		script(src="/js/bootstrap-datetimepicker.min.js")
 		script(src="/js/moment-with-langs.min.js")
-		script(src="/js/jquery-ui-1.10.3.custom.min.js")
+		script(src="/js/jquery-ui.js")
 		script(src="http://maps.google.com/maps/api/js?sensor=true")
 		script(src="/js/gmaps.js")
 		script.
@@ -84,7 +89,14 @@ html(ng-app)
 					'BELLAS ARTES'
 				];
 
+
+				var he = $('.hideEverything');
+
 				$(function() {
+
+						he.html();
+						he.fadeOut();
+
 						$('.timePicker').datetimepicker({
 								pickDate:false,
 								pickSeconds: false
@@ -99,4 +111,5 @@ html(ng-app)
 							source: destinos
 						});
 				});
+
 		block script

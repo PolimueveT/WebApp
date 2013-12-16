@@ -2,6 +2,11 @@ extend ../layouts/main
 block content
     .container(ng-controller="CrearUsuarioCtrl")
             .row
+                .col-md-12(ng-repeat="a in alertas")
+                    .alert(ng-class="{ 'alert-danger': !a.success, 'alert-success': a.success }")
+                        {{ a.info }}
+                    
+            .row
                 h1 ¡Bienvenido!
                 .col-md-6
                     form(role="form", name="ingresar", method="post", action="/login")
@@ -21,12 +26,19 @@ block content
                                             input(ng-model="recuerdame", name="recuerdame",type="checkbox", id="recuerdame") 
 
                                 .form-group
-                                     input.col-md-6(class="btn btn btn-success", id="entrar", type="submit") Entrar a mi Cuenta
+                                     input.col-md-6(class="btn btn btn-success", id="entrar", type="submit", value="Entrar a mi Cuenta")
                 .col-md-6
                     form(role="form", name="crear-usuario", method="post")
                     .panel.panel-default
                         .panel-heading Registro de Usuario
                         .panel-body
+                            .form-group
+                                label(for="labelnombre") Tipo Usuario
+                                select.form-control(ng-model="usertype")
+                                    option(value="Alumno") Alumno
+                                    option(value="Profesor") Profesor
+                                    option(value="Personal") Personal
+
                             .form-group
                                 label(for="labelnombre") Nombre
                                 input.form-control(ng-model="nombre", required, id="nombre",name="nombre", type="text", placeHolder="Nombre")
