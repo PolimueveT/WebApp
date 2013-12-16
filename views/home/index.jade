@@ -1,10 +1,21 @@
 extend ../layouts/main
 block content
-  .jumbotron
-    h1 PolimueveT
-    p
-        | Ahorra viajando a la Universidad en grupo
-    p
-        | Inscríbete con tu correo universitario
-    p
-        a.btn.btn-lg.btn-primary(role="button", href="/cuenta") Registrarme!
+	div#map.jumbotron
+	div.jumbotron_hide
+	div.jumbotron_content
+		div.contenido
+			h1 PolimueveT
+			p
+				| Ahorra viajando a la Universidad en grupo
+				br
+				| Inscríbete con tu correo universitario
+			p
+				a.btn.btn-lg.btn-primary(role="button", href="/cuenta") Registrarme!
+
+block script
+	script.
+		var map = new GMaps({
+			div: '#map',
+			lat: 39.481289,
+			lng: -0.3425168
+		});
