@@ -238,9 +238,8 @@ var TripController = function(TripDAO) {
 
         if(_tripdata.Hora == "M"){
             _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T00:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T13:59" };
-             //_tripdata.Fecha_time = {$lt: ""+anyo+"-"+mes+"-"+dia+"T11:59" };
         }else{
-            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", , $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
+            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
         }
         delete _tripdata['Fecha'];
         delete _tripdata['Hora'];       
