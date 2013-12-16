@@ -220,15 +220,24 @@ var TripController = function(TripDAO) {
     //Devuelve trayectos con filtro
     this.getFilteredTrips = function(req, res) {
         console.log('getFilteredTrips');
-        _tripdata= crearData(false,req.body);
+        console.log('request =' + JSON.stringify(req.body));
+
+        //_tripdata= crearData(false,req.body);
 
          //crear objeto consulta
-          console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
+          
 
-         // _tripdata.
+        _tripdata = req.body;
 
+        
+         delete _tripdata['Destino'];
+          delete _tripdata['Restricciones'];
+           delete _tripdata['Fecha'];
+            delete _tripdata['Hora'];
+             delete _tripdata['Max_tamanyo_equipaje'];
+        
 
-
+        console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
         _TripDAO.getFilteredTrips(_tripdata, function(err,trips) {
             if(err) {
                 console.log('Error TripController');
@@ -240,7 +249,7 @@ var TripController = function(TripDAO) {
             } 
 
             if(trips.length > 0){
-
+                console.log(trips);
             objetoRespuesta.success=true;                
             objetoRespuesta.info="Se han leido correctamente los trayectos  ";
             objetoRespuesta.data=trips;
