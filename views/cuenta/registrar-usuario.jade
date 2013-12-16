@@ -2,6 +2,11 @@ extend ../layouts/main
 block content
     .container(ng-controller="CrearUsuarioCtrl")
             .row
+                .col-md-12(ng-repeat="a in alertas")
+                    .alert(ng-class="{ 'alert-danger': !a.success, 'alert-success': a.success }")
+                        {{ a.info }}
+                    
+            .row
                 h1 ¡Bienvenido!
                 .col-md-6
                     form(role="form", name="ingresar", method="post", action="/login")
@@ -27,6 +32,10 @@ block content
                     .panel.panel-default
                         .panel-heading Registro de Usuario
                         .panel-body
+                            .form-group
+                                label(for="labelnombre") Tipo Usuario
+
+
                             .form-group
                                 label(for="labelnombre") Nombre
                                 input.form-control(ng-model="nombre", required, id="nombre",name="nombre", type="text", placeHolder="Nombre")

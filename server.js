@@ -208,6 +208,7 @@ app.get('/mis-trayectos', ensureAuthenticated, homeController.mis_trayectos);
 app.get('/trayectos', homeController.trayectos);
 app.get('/cuenta', homeController.registrar);
 app.get('/editar-cuenta', ensureAuthenticated, homeController.editar_cuenta);
+app.get('/users', ensureAuthenticated, homeController.gestiona_usuarios);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
@@ -251,6 +252,5 @@ function ensureAuthenticated (req, res, next) {
     req.flash('danger', 'Debes entrar a tu cuenta o Registrar una nueva para realizar esta acción.');
     res.redirect('/cuenta');
 }
-
 
 server.listen(3000)
