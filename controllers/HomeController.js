@@ -63,7 +63,14 @@ var HomeController = function(Dao){
 		res.render('cuenta/registrar-usuario', data)
 	};
 
-};
+	self.editar_cuenta = function(req, res) {
+		var data = { 
+			title : 'Editar Usuario' 
+		};
 
+		res.render('cuenta/editar-usuario', data);	
+	}
+
+};
 
 module.exports = HomeController;
