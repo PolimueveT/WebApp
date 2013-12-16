@@ -138,9 +138,9 @@ passport.use(new LocalStrategy(
                 if (err)
                     return done(err);
                 if (!user)
-                    return done(null, false, { message: 'Unknown user: ' + usermail });
+                    return done(null, false, { message: 'Usuario no está en nuestro sistema: ' + usermail });
                 if (user.Pass != password)
-                    return done(null, false, { message: 'Invalid password' });
+                    return done(null, false, { message: 'Usuario y/o Clave inválida.' });
                 return done(null, user);
             });
         });
@@ -212,7 +212,7 @@ app.get('/users', ensureAuthenticated, homeController.gestiona_usuarios);
 app.get('/trayecto/:id', ensureAuthenticated, homeController.ver_trayecto);
 app.get('/editar-trayecto/:id', ensureAuthenticated, homeController.editar_trayecto);
 app.post('/login', 
-    passport.authenticate('local', { failureRedirect: '/', failureFlash: true}),
+    passport.authenticate('local', { failureRedirect: '/cuenta', failureFlash: true}),
     function(req, res) {
         console.log(req.user.Nombre + ' has logged in');
         console.log("el usuario completo: " + JSON.stringify(req.user));
