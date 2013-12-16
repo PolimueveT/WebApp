@@ -220,15 +220,32 @@ var TripController = function(TripDAO) {
     //Devuelve trayectos con filtro
     this.getFilteredTrips = function(req, res) {
         console.log('getFilteredTrips');
-        _tripdata= crearData(false,req.body);
+        console.log('request =' + JSON.stringify(req.body));
+
+        //_tripdata= crearData(false,req.body);
 
          //crear objeto consulta
-          console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
+          
 
-         // _tripdata.
+        _tripdata = req.body;
+       
+        if(!_tripdata.Restricciones.no_fumadores && !_tripdata.Restricciones.no_comida && !_tripdata.Restricciones.no_animales){
+            delete _tripdata['Restricciones'];
+        }
+        var dia = _tripdata.Fecha.substring(0, 2);
+        var mes = _tripdata.Fecha.substring(3, 5);
+        var anyo = _tripdata.Fecha.substring(6, 10);
 
+        if(_tripdata.Hora == "M"){
+            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T00:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T13:59" };
+             //_tripdata.Fecha_time = {$lt: ""+anyo+"-"+mes+"-"+dia+"T11:59" };
+        }else{
+            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", , $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
+        }
+        delete _tripdata['Fecha'];
+        delete _tripdata['Hora'];       
 
-
+        console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
         _TripDAO.getFilteredTrips(_tripdata, function(err,trips) {
             if(err) {
                 console.log('Error TripController');
@@ -239,18 +256,21 @@ var TripController = function(TripDAO) {
                 return;
             } 
 
-            if(trips.length > 0){
+            if(trips.length > 0){                
+                objetoRespuesta.success=true;                
+                objetoRespuesta.info="Se han leido correctamente los trayectos  ";
+                objetoRespuesta.data=trips;
+                res.send(objetoRespuesta);
+                return;
+              }
 
+            //TODO: Se modifica porque no se limpiaba la búsuqeda si no encuentra resultados
+            //objetoRespuesta.success=false;                
+            //objetoRespuesta.info="no hay trayectos para esta fecha";
+            //objetoRespuesta.data=null;
             objetoRespuesta.success=true;                
-            objetoRespuesta.info="Se han leido correctamente los trayectos  ";
-            objetoRespuesta.data=trips;
-            res.send(objetoRespuesta);
-            return;
-          }
-
-            objetoRespuesta.success=false;                
             objetoRespuesta.info="no hay trayectos para esta fecha";
-            objetoRespuesta.data=null;
+            objetoRespuesta.data={};
             res.send(objetoRespuesta);
             return;
 

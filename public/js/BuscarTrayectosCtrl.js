@@ -3,6 +3,8 @@ var BuscarTrayectosCtrl = function($scope, $http){
 	$scope.trayectos = [];
 	$scope.submitted = false;
 	$scope.todos = [];
+	$scope.hora_salida = 'Mañana';
+	$scope.equipaje = 'Mochila';
 
 	$scope.getData = function(){
 		$http.get('/api/gettrips/').success(function (result){
@@ -61,11 +63,22 @@ var BuscarTrayectosCtrl = function($scope, $http){
 
 			$scope.trayectos = filtrados;*/
 
-			$http.post('/api/getfilteredtrips', obj).success(function (response){
-				console.log(response);
-				if(response.success === true) { 
-					console.log("Enviado!");
-				 }
+			var filtrados;
+
+			$http.post('/api/getfilteredtrips', obj).success(function (result){
+				console.log(result);
+				if(result.success === true) { 
+					filtrados = result.data;
+					for (var i = 0; i<filtrados.length; ++i){
+						var fyh = filtrados[i].Fecha_time;
+						var fechaObj = moment(fyh);
+
+						filtrados[i].id = filtrados[i]._id;
+						filtrados[i].FechaFromNow = fechaObj.fromNow();
+						filtrados[i].Fecha_time = fechaObj.format("DD/MM/YYYY HH:mm");
+					}
+					$scope.trayectos = filtrados;
+				}
 			});
 			
 		} else{

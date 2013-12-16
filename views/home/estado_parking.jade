@@ -88,11 +88,12 @@ block script
 
 		for(key in coordenadas) {
 			var latitud = coordenadas[key][0];
-			var longitud = coordenadas[key][1];
+			var longitud = coordenadas[key][1];	
 			map.addMarker({
 				lat: latitud,
 				lng: longitud,
-				tittle: key
+				tittle: key,
+				icon: 'img/poli[mueveT]movil2.png'
 			});
 		}
 		
@@ -230,6 +231,6 @@ block script
 
 		for(key in estados.poligonos){
 			estados.poligonos[key].setOptions({
-				fillColor: 'red'
+				fillColor: 'green'
 			});
 		}

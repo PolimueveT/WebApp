@@ -87,7 +87,8 @@ var TripDAO = function(db) {
         }
 
         _db.collection("trayectos", function(err, collection){
-            collection.find({"Fecha_time": {$gte: "2013-12-03T19" } }).toArray(function (err, trips){
+            //collection.find({"Fecha_time": {$gte: "2013-12-03T19" } }).toArray(function (err, trips){
+                collection.find(tripdata).toArray(function (err, trips){
                 if(err){
                     console.log('Error leyendo en collection trayectos');
                     return callback(err);
