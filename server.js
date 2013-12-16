@@ -111,9 +111,9 @@ var findById = function (id, fn) {
 };
 
 //////// AÑADIR CAMPO USERNAME!!!!
-var findByUsername = function(username, fn) {
+var findByUsername = function(usermail, fn) {
     db.collection('usuarios', function(err, collection) {
-        collection.findOne({Nombre: username}, function(err, user) {
+        collection.findOne({Email: usermail}, function(err, user) {
             if(err) return fn(null, null);
             if(user) return fn(null, user);
             return fn(null, null);
@@ -132,13 +132,13 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function(usermail, password, done) {
         process.nextTick(function() {
-            findByUsername(username, function(err, user) {
+            findByUsername(usermail, function(err, user) {
                 if (err)
                     return done(err);
                 if (!user)
-                    return done(null, false, { message: 'Unknown user: ' + username });
+                    return done(null, false, { message: 'Unknown user: ' + usermail });
                 if (user.Pass != password)
                     return done(null, false, { message: 'Invalid password' });
                 return done(null, user);
