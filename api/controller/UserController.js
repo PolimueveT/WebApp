@@ -98,16 +98,17 @@ var UserController = function(userDAO) {
 
     this.addUser = function(req, res) {
         console.log('request =' + JSON.stringify(req.body))
-        _userdata= crearData(false,req.body);
-        if(_userdata.Pass != _userdata.Passconf){
+        
+        if(req.body.pass != req.body.passconf){
                console.log('Error UserController');
                 objetoRespuesta.success = false;                
                 objetoRespuesta.info = "La contraseña y la confirmación no son iguales";
                 objetoRespuesta.data = null;
                 res.send(objetoRespuesta);
                 return;
-
         }
+
+        _userdata= crearData(false,req.body);
 
         if(!isMailUPV(_userdata.Email)){
             console.log('El mail no pertenece a la UPV');
