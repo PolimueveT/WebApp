@@ -192,6 +192,33 @@ var UserDAO = function(db) {
         });
     };
 
+    /**
+    * Método que obtiene un usuario a través de su ID
+    */
+    this.isMailRegistered = function(mail, pass, callback){
+        console.log('Comprobando mail y pass ');
+        if(!mail || !pass) {
+            console.log('dao receive no id');
+            return callback(new Error("id invalido."));
+        }
+
+        _db.collection("usuarios", function(err, collection){
+            collection.findOne({"Email":mail, "Pass":pass}, function (err, idUser){
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+
+                if(idUser != null){
+                    console.log("El mail está registrado");
+                    return callback(null, idUser._id);
+                }
+                console.log("Mail no registrado");
+                return callback(null, false);                
+            });
+        });
+    };
+
 };
 
 module.exports = UserDAO;

@@ -298,6 +298,34 @@ var UserController = function(userDAO) {
         });
     };
 
+
+
+    /**
+    * Método que obtiene el iduser si el mail está registrado
+    */
+    this.isMailRegistered = function(req, res){
+        var mail = req.body.mail;
+        var pass = req.body.pass;
+        _UserDAO.isMailRegistered(mail, pass, function(err, idUser){
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;     
+            if(idUser != false){
+                objetoRespuesta.info = "El mail está registrado";
+            }else{
+                objetoRespuesta.info = "El mail no está registrado";
+            }
+            objetoRespuesta.data = idUser;
+            res.send(objetoRespuesta);
+        });
+    };
+
 };
 
 module.exports = UserController;
