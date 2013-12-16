@@ -45,8 +45,9 @@ var BuscarTrayectosCtrl = function($scope, $http){
 			obj.Restricciones.no_animales = $scope.noAnimales;
 			obj.Restricciones.no_comida = $scope.noComida;
 			obj.Fecha = $scope.fecha_salida;
-			obj.Hora = $scope.hora_salida;
+			obj.Hora = $scope.hora_salida.substring(0,1);
 			obj.Max_tamanyo_equipaje = $scope.equipaje;
+
 
 			/*var filtrados = _.filter($scope.todos, function(tra){ 
 
