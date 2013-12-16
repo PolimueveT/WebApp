@@ -38,6 +38,8 @@ html(ng-app)
 								a(href="/crear-trayecto") Crear trayecto
 							li
 								a(href="/mis-trayectos") Mis trayectos
+							li
+								a(href="/users") Gestionar Usuarios
 						//- li
 						//- 	a(href="/Mi Cuenta") Mi Cuenta
 					ul.nav.navbar-nav.navbar-right
@@ -46,16 +48,17 @@ html(ng-app)
 								a(href="/cuenta") Entrar o Registrase
 						else
 							li
-								a(href="#") #{user.nombre} (Mi Cuenta)
+								a(href="#") #{user.nombre}
 							li
 								a(href="/logout") Salir	
 
+		.hideEverything(align="center")
+			i.icon-spinner.icon-3x.icon-spin.icon-large
 
 		.col-md-12
 				each value, key in flash
 					.alert(class="alert-#{key}") 
 						.container #{value}
-
 		.container
 				block content
 
@@ -65,7 +68,7 @@ html(ng-app)
 		script(src="/js/underscore-min.js")
 		script(src="/js/bootstrap-datetimepicker.min.js")
 		script(src="/js/moment-with-langs.min.js")
-		script(src="/js/jquery-ui-1.10.3.custom.min.js")
+		script(src="/js/jquery-ui.js")
 		script(src="http://maps.google.com/maps/api/js?sensor=true")
 		script(src="/js/gmaps.js")
 		script.
@@ -85,7 +88,14 @@ html(ng-app)
 					'BELLAS ARTES'
 				];
 
+
+				var he = $('.hideEverything');
+
 				$(function() {
+
+						he.html();
+						he.fadeOut();
+
 						$('.timePicker').datetimepicker({
 								pickDate:false,
 								pickSeconds: false
@@ -100,4 +110,5 @@ html(ng-app)
 							source: destinos
 						});
 				});
+
 		block script

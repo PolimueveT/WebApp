@@ -1,0 +1,43 @@
+extend ../layouts/main
+block content
+	.container(ng-controller="UsuariosCtrl")
+		h1 Usuarios Registrados
+		.row
+			.col-md-12
+				.panel.panel-default
+					.panel-heading Usuarios
+					.panel-body
+						table.table
+							tr
+								th Nombre
+								th Email
+								th Tipo Usuario
+								th
+							tr(ng-repeat="u in usuarios")
+								td {{ u.Nombre }}
+								td {{ u.Email }}
+								td {{ u.UserType }}
+								td
+									a.btn.btn-info(href="/trayecto/{{ u.id }}")
+										span.glyphicon.glyphicon-pencil
+									|  
+									a.btn.btn-primary(href="/editar-trayecto/{{ u.id }}")
+										span.glyphicon.glyphicon-ban-circle
+									|  
+									a.btn.btn-danger(ng-click="borrarTrayecto(u.id)")
+										span.glyphicon.glyphicon-trash
+			
+
+block script
+	script(src="/js/UsuariosCtrl.js")
+	script.
+		var scope;
+		$(document).ready(function (){
+			scope = angular.element('[ng-controller="UsuariosCtrl"]').scope();
+			scope.getData();
+		});
+
+		function capitaliseFirstLetter(string)
+		{
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}

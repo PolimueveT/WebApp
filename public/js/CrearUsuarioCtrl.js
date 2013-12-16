@@ -1,5 +1,7 @@
 function CrearUsuarioCtrl($scope, $http) {
 
+	$scope.alertas = [];
+
 	$scope.RegistrarUsuario = function () {
 		var obj = { 
 			nombre: $scope.nombre,
@@ -8,20 +10,15 @@ function CrearUsuarioCtrl($scope, $http) {
 			passconf: $scope.password2,
 		};
 
-		console.log(obj);
-		if(obj.password !== obj.password2) {
-			alert('Las contraseñas deben coincidir');
-		}
-		else {
-			// Enviamos obj con un POST al server
-			// Por AJAX.
-			$http.post('/api/newuser', obj).success(function (response){
-				console.log(response);
-				if(response.success === true) { 
-						
-				}
-			});
-		}
+		// Enviamos obj con un POST al server
+		// Por AJAX.
+		$scope.alertas = [];
+		$http.post('/api/newuser', obj).success(function (response){
+			console.log(response);
+			if(response !== undefined) { 
+				$scope.alertas.push(response);
+			}
+		});
 	};
 
 $scope.Ingresar = function () {

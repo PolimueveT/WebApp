@@ -223,7 +223,7 @@ var TripController = function(TripDAO) {
         _tripdata= crearData(false,req.body);
 
          //crear objeto consulta
-
+          console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
 
          // _tripdata.
 
