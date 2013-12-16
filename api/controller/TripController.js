@@ -219,19 +219,15 @@ var TripController = function(TripDAO) {
 
     //Devuelve trayectos con filtro
     this.getFilteredTrips = function(req, res) {
-        console.log('getFilteredTrips');
         console.log('request =' + JSON.stringify(req.body));
-
         //_tripdata= crearData(false,req.body);
-
-         //crear objeto consulta
-          
 
         _tripdata = req.body;
        
         if(!_tripdata.Restricciones.no_fumadores && !_tripdata.Restricciones.no_comida && !_tripdata.Restricciones.no_animales){
             delete _tripdata['Restricciones'];
         }
+        
         var dia = _tripdata.Fecha.substring(0, 2);
         var mes = _tripdata.Fecha.substring(3, 5);
         var anyo = _tripdata.Fecha.substring(6, 10);
@@ -241,6 +237,7 @@ var TripController = function(TripDAO) {
         }else{
             _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
         }
+        
         delete _tripdata['Fecha'];
         delete _tripdata['Hora'];       
 
