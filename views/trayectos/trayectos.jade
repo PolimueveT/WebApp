@@ -41,20 +41,9 @@ block content
                                 option(value="Tarde") Tarde
 
 
-                //-.col-sm-2
-                    .form-group
-                        label.col-sm-3.control-label(for="hora") Hora
-                        .col-sm-9
-                            .timePicker.date.input-group
-                                input.form-control(ng-model="hora_salida", name="Hora", data-format='hh:mm', type='text')
-                                span.add-on.input-group-btn
-                                    a.btn.btn-primary.btn-group
-                                        span.glyphicon.glyphicon-time
-                
-
                 .col-sm-1
                     .form-group
-                        button.col-md-10.btn.btn-success(, id="buscar", ng-click="FiltrarTrayectos()") Buscar
+                        button.col-md-10.btn.btn-success(id="buscar", ng-click="FiltrarTrayectos()") Buscar
                     
             .row
                 .col-md-3 

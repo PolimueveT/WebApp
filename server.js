@@ -47,7 +47,8 @@ app.use(function(req, res, next) {
     res.locals.user = req.user !== undefined ? {
         nombre: req.user.Nombre,
         email: req.user.Email,
-        IsAdmin: req.user.IsAdmin
+        IsAdmin: req.user.IsAdmin,
+        id: req.user._id
     } : undefined;
     res.header('Cache-Control','private'); 
     next();
