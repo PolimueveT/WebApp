@@ -143,6 +143,8 @@ passport.use(new LocalStrategy(
                     return done(null, false, { message: 'Usuario no está en nuestro sistema: ' + usermail });
                 if (user.Pass != password)
                     return done(null, false, { message: 'Usuario y/o Clave inválida.' });
+                if (!user.activo)
+                    return done(null, false, { message: 'El usuario ha sido bloqueado por el administrador.' });
                 return done(null, user);
             });
         });
