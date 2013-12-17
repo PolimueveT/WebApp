@@ -162,8 +162,14 @@ block script
         });
 
         $('#anterior').click(function (){
-            scope.progreso -= 25;
-            scope.$apply();
+            if(step >= 1){
+                $('#step' + step).slideUp(function (){
+                    step--;
+                    $('#step' + step).slideDown();
+                });
+                scope.progreso -= 25;
+                scope.$apply();
+            }
         });
 
         var mapMarkers = {

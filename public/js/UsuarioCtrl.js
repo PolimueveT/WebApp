@@ -69,7 +69,7 @@ function UsuarioCtrl($scope, $http) {
 			
 			$http.put('/api/updateuser', $scope.usuario).success(function (response){
 				console.log(response);
-				
+				$scope.alertas.push(response);
 			});
 
 		}else{

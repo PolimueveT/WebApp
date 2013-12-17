@@ -9,6 +9,10 @@ block content
 						span.glyphicon.glyphicon-warning-sign 
 						b  Error en formulario 
 						p Favor de comprobar los campos
+
+					.col-md-12(ng-repeat="a in alertas")
+						.alert(ng-class="{ 'alert-danger': !a.success, 'alert-success': a.success }")
+							{{ a.info }}
 					.panel.panel-default
 						.panel-heading Informacion del Usuario
 						.panel-body
@@ -144,7 +148,7 @@ block content
 			.row
 				.col-md-12
 					.btn-group.col-md-4.btn-lg
-						button.col-md-6(class="btn btn-success", id="cancelar", ng-click="EditarUser()") Editar Usuario
+						button.col-md-6(class="btn btn-success", id="editar-user", ng-click="EditarUser()") Editar Usuario
 
 block script
 	script(src="/js/UsuarioCtrl.js")
@@ -154,5 +158,9 @@ block script
 			scope = angular.element('[ng-controller="UsuarioCtrl"]').scope();
 			scope.getUsuario('!{userId}'); 
 			scope.$apply();
+
+			$('#editar-user').click(function(){
+				$('html,body').animate({scrollTop: 0},'slow');
+			});
 		}); 
 										
