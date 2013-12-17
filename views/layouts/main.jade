@@ -37,8 +37,9 @@ html(ng-app)
 								a(href="/crear-trayecto") Crear trayecto
 							li
 								a(href="/mis-trayectos") Mis trayectos
-							li
-								a(href="/users") Gestionar Usuarios
+							if user.IsAdmin
+								li
+									a(href="/users") Gestionar Usuarios
 					ul.nav.navbar-nav.navbar-right
 						if !user
 							li
@@ -90,22 +91,22 @@ html(ng-app)
 
 				$(function() {
 
-						he.html();
-						he.fadeOut();
+					he.html();
+					he.fadeOut();
 
-						$('.timePicker').datetimepicker({
-								pickDate:false,
-								pickSeconds: false
-						});
+					$('.timePicker').datetimepicker({
+							pickDate:false,
+							pickSeconds: false
+					});
 
-						$('.datePicker').datetimepicker({
-								pickTime:false,
-								weekStart: 1,
-						});
+					$('.datePicker').datetimepicker({
+							pickTime:false,
+							weekStart: 1,
+					});
 
-						$('.autocomplete_destino').autocomplete({
-							source: destinos
-						});
+					$('.autocomplete_destino').autocomplete({
+						source: destinos
+					});
 				});
 
 		block script

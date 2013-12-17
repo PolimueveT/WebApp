@@ -21,10 +21,10 @@ block content
 									a.btn.btn-info(href="/user/{{ u.id }}/edit")
 										span.glyphicon.glyphicon-pencil
 									|  
-									a.btn.btn-primary(href="/editar-trayecto/{{ u.id }}")
-										span.glyphicon.glyphicon-ban-circle
+									a.btn(ng-class="{'btn-success': u.activo, 'btn-primary': !u.activo}",ng-click="BlockUser(u.id, u.activo)")
+										span.glyphicon(ng-class="{'glyphicon-ok-circle': u.activo, 'glyphicon-ban-circle': !u.activo}")
 									|  
-									a.btn.btn-danger(ng-click="borrarTrayecto(u.id)")
+									a.btn.btn-danger(ng-click="DeleteUser(u.id)")
 										span.glyphicon.glyphicon-trash
 			
 

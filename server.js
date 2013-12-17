@@ -46,7 +46,8 @@ app.use(function(req, res, next) {
     res.locals.flash = req.flash();
     res.locals.user = req.user !== undefined ? {
         nombre: req.user.Nombre,
-        email: req.user.Email
+        email: req.user.Email,
+        IsAdmin: req.user.IsAdmin
     } : undefined;
     res.header('Cache-Control','private'); 
     next();
@@ -194,6 +195,7 @@ app.post('/api/newuser',userController.addUser);
 app.get('/api/getuserstype/:type', userController.getUsersByType);
 app.delete('/api/deleteuser/:id', userController.deleteUser);
 app.put('/api/updateuser', userController.updateUser);
+app.put('/api/blockuser', userController.blockUser);
 app.get('/api/isuserintrip/:iduser/:idtrip', userController.isUserInTrip);
 app.get('/api/isuserregistered/:name/:pass', userController.isUserRegistered);
 app.post('/api/ismailregistered', userController.isMailRegistered);

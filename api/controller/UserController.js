@@ -61,6 +61,7 @@ var UserController = function(userDAO) {
         UserData.Coche = coche;
         //Admin
         UserData.IsAdmin = false;
+        UserData.activo = true;
 
         console.log('userdata creado =' + JSON.stringify(UserData));
         return UserData;
@@ -216,6 +217,31 @@ var UserController = function(userDAO) {
             }
             objetoRespuesta.success = true;                
             objetoRespuesta.info = "Usuario modificado correctamente";
+            objetoRespuesta.data = null;
+            res.send(objetoRespuesta);
+        });
+    };
+
+    /**
+    * Método que bloquea/desbloquea un usuario
+    */
+    this.blockUser = function(req, res) {
+        console.log('requestmod =' + JSON.stringify(req.body))
+        var _userData = {
+                id: req.body.id,
+                estado: req.body.estado
+            };
+        _UserDAO.blockUser(_userData, function(err) {
+            if(err) {
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            }
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Usuario Bloqueado/Desbloqueado correctamente";
             objetoRespuesta.data = null;
             res.send(objetoRespuesta);
         });

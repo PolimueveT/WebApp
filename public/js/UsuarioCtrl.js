@@ -77,6 +77,31 @@ function UsuarioCtrl($scope, $http) {
 		}
 	}
 
+	$scope.DeleteUser = function (id) {
+		if(confirm('Seguro que desea borrar el usuario? No puede deshacer esta acción')){
+			$http.delete('/api/deleteuser/' + id).success(function (response){
+				console.log(response);
+
+				var user = _.find($scope.usuarios, function(r){
+					return r.id === id;
+				});
+
+				var index = $scope.usuarios.indexOf(user);
+				$scope.usuarios.splice(index,1);
+			});
+		}
+	}
+
+	$scope.BlockUser = function (id, estado) {
+		estado = (estado === undefined ? true : estado)
+		if(confirm('Seguro que desea ' + (estado ? 'bloquear': 'desbloquear') + ' el usuario?')){
+			$http.put('/api/blockuser/', {id: id, estado: !estado}).success(function (response){
+				console.log(response);
+				$scope.getData();
+			});
+		}
+	}
+
 	$scope.getUsuario = function(id){
 		$http.get('/api/getuser/' + id).success(function (response){
 			console.log(response);

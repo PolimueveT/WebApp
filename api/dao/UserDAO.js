@@ -115,6 +115,27 @@ var UserDAO = function(db) {
         });
     };
 
+    /**
+    * Método para bloquear un usuario
+    */
+    this.blockUser = function(userData, callback) {
+         var id = userData.id;
+         console.log('user data block: ');
+         console.log(userData);
+         delete userData['_id'];
+         console.log('Ejecutando el update');
+         _db.collection("usuarios", function(err, collection){
+            collection.update({"_id":ObjectID(id)}, { $set: {activo: userData.estado} }, function (err, result){
+                if(err){
+                    console.log('Error actualizando en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Éxito actualizando en collection usuarios');
+                return callback(null);
+            });
+        });
+    };
+
 
     /**
     * Método que elimina un usuario a través de su ID
