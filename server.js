@@ -166,7 +166,7 @@ var parkingController = new ParkingController(parkingManager);
 
 // Web Controllers
 var HomeController = require('./controllers/HomeController');
-var homeController = new HomeController();
+var homeController = new HomeController(tripDAO);
 
 /**
  * GET: Leer

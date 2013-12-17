@@ -1,19 +1,37 @@
 var HomeController = function(Dao){
 
 	var self = this;
+	var tripDAO = Dao;
 
 	self.ver_trayecto = function(req, res) {
-		console.log(req.params);
+    console.log(req.params);
 
-		var data = {
-			title: 'Ver Trayecto',
-			id_trayecto: req.params.id,
-			userId:	JSON.stringify(req.user._id)
-		};
-		
-		// res.he
-		res.render('trayectos/ver-trayecto', data);
-	}
+    objetoRespuesta = {};
+
+    tripDAO.readTrip(req.params.id, function(err,trip) {
+        if(err) {
+            console.log('Error TripController: ' + err);
+            objetoRespuesta.success=false;                
+            objetoRespuesta.info=err;
+            objetoRespuesta.data=null;
+        } else{
+            objetoRespuesta.success=true;                
+            objetoRespuesta.info="Se ha leido correctamente el trayecto";
+            objetoRespuesta.data=trip;
+        }
+
+        var data = {
+            title: 'Ver Trayecto',
+            id_trayecto: req.params.id,
+            userId: JSON.stringify(req.user._id),
+            trayecto: JSON.stringify(trip[0]),
+            success: objetoRespuesta.data
+        };
+        
+        // res.he
+        res.render('trayectos/ver-trayecto', data);
+    });
+}
 
 	self.editar_trayecto = function(req, res) {
 		console.log(req.params);

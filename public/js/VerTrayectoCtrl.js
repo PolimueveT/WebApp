@@ -12,33 +12,28 @@ function VerTrayectoCtrl($scope, $http) {
 		});
 	};
 
-	$scope.getTrayecto = function(id){
-		$http.get('/api/gettrip/' + id).success(function(result){
-			console.log(result);
-			if (result !== undefined && result.data.length > 0) {
-				var obj = result.data[0];
+	$scope.getTrayecto = function(trayecto){
+		var obj = trayecto;
 
-				var fechaObj = moment(obj.Fecha_time);
-				obj.Fecha_time = fechaObj.format("DD/MM/YYYY") + " (" + fechaObj.fromNow() + ")" ;
-				obj.hora_salida = fechaObj.format("hh:mm a");
-				if(obj.Inscritos === undefined){
-					obj.Inscritos = [];
-				}
-				obj.libres = obj.Num_plazas - obj.Inscritos.length;
+		var fechaObj = moment(obj.Fecha_time);
+		obj.Fecha_time = fechaObj.format("DD/MM/YYYY") + " (" + fechaObj.fromNow() + ")" ;
+		obj.hora_salida = fechaObj.format("hh:mm a");
+		if(obj.Inscritos === undefined){
+			obj.Inscritos = [];
+		}
+		obj.libres = obj.Num_plazas - obj.Inscritos.length;
 
-				if(obj.Restricciones === undefined || _.isEmpty(obj.Restricciones))
-				{
-					obj.Restricciones = {
-						Ninguna: true
-					};	
-				}
+		if(obj.Restricciones === undefined || _.isEmpty(obj.Restricciones))
+		{
+			obj.Restricciones = {
+				Ninguna: true
+			};	
+		}
 
-				$scope.trayecto = obj;
+		$scope.trayecto = obj;
 
-				$scope.getUnidoATrayecto();
-				$scope.getUsuario(obj.Creador_id);
-			};
-		});
+		$scope.getUnidoATrayecto();
+		$scope.getUsuario(obj.Creador_id);
 	};
 
 	$scope.getUsuario = function(id){

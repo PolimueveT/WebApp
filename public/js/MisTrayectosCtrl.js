@@ -7,7 +7,7 @@ var MisTrayectosCtrl = function($scope, $http){
 	$scope.getData = function(){
 		$http.get('/api/getpersontrips/' + $scope.id_user).success(function (result){
 			console.log(result);
-			if(result !== undefined){
+			if(result !== undefined && result.success === true){
 				$scope.trayectos_ofreciendo = [];
 				for (var i = 0; i < result.data.length; i++) {
 					var obj = result.data[i];
@@ -25,7 +25,7 @@ var MisTrayectosCtrl = function($scope, $http){
 	$scope.getInscritos = function(){
 		$http.get('/api/getinscritotrips/' + $scope.id_user).success(function (result){
 			console.log(result);
-			if(result !== undefined){
+			if(result !== undefined && result.success === true){
 				$scope.trayectos_inscrito = [];
 				for (var i = 0; i < result.data.length; i++) {
 					var obj = result.data[i];
