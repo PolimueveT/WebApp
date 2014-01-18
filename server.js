@@ -202,6 +202,7 @@ app.put('/api/blockuser', userController.blockUser);
 app.get('/api/isuserintrip/:iduser/:idtrip', userController.isUserInTrip);
 app.get('/api/isuserregistered/:name/:pass', userController.isUserRegistered);
 app.post('/api/ismailregistered', userController.isMailRegistered);
+app.put('/api/addfavoritefilter', userController.addFavoriteFilter);
 
 // API para listar Parkings
 app.get('/api/parking', parkingController.listParkings);

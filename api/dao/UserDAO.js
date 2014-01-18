@@ -214,6 +214,19 @@ var UserDAO = function(db) {
     };
 
     /**
+     * Método que agrega un filtro de trayecto a favoritos
+     */
+    this.addFavoriteFilter = function(iduser, filtro, callback) {
+        // comprobaciones
+        _db.collection("usuarios", function(err, collection) {
+            collection.update({"_id":ObjectID(iduser)}, { $addToSet: {"Favoritos": filtro} }, function(err) {
+                if(err) return callback(new Error("error agregando filtro a favoritos"));
+                return callback(null);
+            });
+        });
+    };
+
+    /**
     * Método que obtiene un usuario a través de su ID
     */
     this.isMailRegistered = function(mail, pass, callback){

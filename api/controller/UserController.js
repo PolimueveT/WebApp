@@ -322,7 +322,27 @@ var UserController = function(userDAO) {
         });
     };
 
-
+    /**
+     * Método que agrega un filtro de trayecto a favoritos
+     */
+    this.addFavoriteFilter = function(req, res) {
+        var iduser = req.body.iduser;
+        var filter = req.body.filter;
+        _UserDAO.addFavoriteFilter(iduser, filter, function(err) {
+            if(err) {
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "trayecto favorito guardado correctamente.";
+            objetoRespuesta.data = null;
+            res.send(objetoRespuesta);
+        });        
+    };
 
     /**
     * Método que obtiene el iduser si el mail está registrado
