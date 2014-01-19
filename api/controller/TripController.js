@@ -220,12 +220,16 @@ var TripController = function(TripDAO) {
     //Devuelve trayectos con filtro
     this.getFilteredTrips = function(req, res) {
         console.log('request =' + JSON.stringify(req.body));
-
+        var web;
         //Arreglo para que sea compatible movil con web.. los datos no se pasan igual
-        if(req.body.Origen){
+        if(req.body.Origen){       
+            web = true;     
             _tripdata = req.body;
-        }else if(req.body.origen){
-            _tripdata= crearData(false,req.body);
+        }else{
+            web = false;
+            _tripdata = crearData(false,req.body);
+            _tripdata.Fecha = req.body.Fecha;
+            _tripdata.Hora = req.body.Hora;
         }
            
         if(!_tripdata.Restricciones || (!_tripdata.Restricciones.no_fumadores && 
@@ -269,12 +273,16 @@ var TripController = function(TripDAO) {
               }
 
             //TODO: Se modifica porque no se limpiaba la búsuqeda si no encuentra resultados
-            //objetoRespuesta.success=false;                
-            //objetoRespuesta.info="no hay trayectos para esta fecha";
-            //objetoRespuesta.data=null;
-            objetoRespuesta.success=true;                
+            if(web){
+                objetoRespuesta.success=true;                
+                objetoRespuesta.info="no hay trayectos para esta fecha";
+                objetoRespuesta.data={};
+                res.send(objetoRespuesta);
+                return;
+            }
+            objetoRespuesta.success=false;                
             objetoRespuesta.info="no hay trayectos para esta fecha";
-            objetoRespuesta.data={};
+            objetoRespuesta.data=null;
             res.send(objetoRespuesta);
             return;
 
