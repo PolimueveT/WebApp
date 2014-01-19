@@ -217,11 +217,28 @@ var UserDAO = function(db) {
      * Método que agrega un filtro de trayecto a favoritos
      */
     this.addFavoriteFilter = function(iduser, filtro, callback) {
-        // comprobaciones
+        // faltarian comprobaciones...
         _db.collection("usuarios", function(err, collection) {
             collection.update({"_id":ObjectID(iduser)}, { $addToSet: {"Favoritos": filtro} }, function(err) {
                 if(err) return callback(new Error("error agregando filtro a favoritos"));
                 return callback(null);
+            });
+        });
+    };
+
+    /**
+     * Método que obtiene los filtros favoritos de un usuario
+     */
+    this.getFavoriteFilters = function(id, callback) {
+        // faltarian comprobaciones...
+        _db.collection("usuarios", function(err, collection) {
+            collection.find({"_id":ObjectID(id)},{_id:0, Favoritos: 1}).toArray(function (err, filters) {
+                if(err){
+                    console.log('Error leyendo en collection usuarios');
+                    return callback(err);
+                }
+                console.log('Se han obtenido los favoritos correctamente');
+                return callback(null, filters);
             });
         });
     };

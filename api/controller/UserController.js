@@ -345,6 +345,29 @@ var UserController = function(userDAO) {
     };
 
     /**
+     * Método que obtiene los filtros favoritos de un usuario
+     */
+    this.getFavoriteFilters = function(req, res) {
+        var id = req.params.id;
+        _UserDAO.getFavoriteFilters(id, function(err, filters) {
+            if(err){
+                console.log('Error UserController');
+                objetoRespuesta.success = false;                
+                objetoRespuesta.info = err;
+                objetoRespuesta.data = null;
+                res.send(objetoRespuesta);
+                return;
+            } 
+            objetoRespuesta.success = true;                
+            objetoRespuesta.info = "Se han obtenido correctamente los filtros favoritos del usuario "
+                + id;
+            console.log("filters: "+JSON.stringify(filters));
+            objetoRespuesta.data = filters[0].Favoritos;
+            res.send(objetoRespuesta);
+        });
+    };
+
+    /**
     * Método que obtiene el iduser si el mail está registrado
     */
     this.isMailRegistered = function(req, res){
