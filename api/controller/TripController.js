@@ -224,22 +224,26 @@ var TripController = function(TripDAO) {
 
         _tripdata = req.body;
        
-        if(!_tripdata.Restricciones.no_fumadores && !_tripdata.Restricciones.no_comida && !_tripdata.Restricciones.no_animales){
+       
+        if(!_tripdata.Restricciones || (!_tripdata.Restricciones.no_fumadores && 
+            !_tripdata.Restricciones.no_comida && !_tripdata.Restricciones.no_animales)){
             delete _tripdata['Restricciones'];
         }
         
-        var dia = _tripdata.Fecha.substring(0, 2);
-        var mes = _tripdata.Fecha.substring(3, 5);
-        var anyo = _tripdata.Fecha.substring(6, 10);
+        if(_tripdata.Fecha){
+            var dia = _tripdata.Fecha.substring(0, 2);
+            var mes = _tripdata.Fecha.substring(3, 5);
+            var anyo = _tripdata.Fecha.substring(6, 10);
 
-        if(_tripdata.Hora == "M"){
-            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T00:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T13:59" };
-        }else{
-            _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
+            if(_tripdata.Hora == "M"){
+                _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T00:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T13:59" };
+            }else{
+                _tripdata.Fecha_time = {$gte: ""+anyo+"-"+mes+"-"+dia+"T13:00", $lt: ""+anyo+"-"+mes+"-"+dia+"T23:59" };
+            }
+            
+            delete _tripdata['Fecha'];
+            delete _tripdata['Hora'];       
         }
-        
-        delete _tripdata['Fecha'];
-        delete _tripdata['Hora'];       
 
         console.log('tripdata busqueda =' + JSON.stringify(_tripdata));
         _TripDAO.getFilteredTrips(_tripdata, function(err,trips) {
