@@ -220,11 +220,14 @@ var TripController = function(TripDAO) {
     //Devuelve trayectos con filtro
     this.getFilteredTrips = function(req, res) {
         console.log('request =' + JSON.stringify(req.body));
-        //_tripdata= crearData(false,req.body);
 
-        _tripdata = req.body;
-       
-       
+        //Arreglo para que sea compatible movil con web.. los datos no se pasan igual
+        if(req.body.Origen){
+            _tripdata = req.body;
+        }else if(req.body.origen){
+            _tripdata= crearData(false,req.body);
+        }
+           
         if(!_tripdata.Restricciones || (!_tripdata.Restricciones.no_fumadores && 
             !_tripdata.Restricciones.no_comida && !_tripdata.Restricciones.no_animales)){
             delete _tripdata['Restricciones'];
@@ -256,7 +259,8 @@ var TripController = function(TripDAO) {
                 return;
             } 
 
-            if(trips.length > 0){                
+            if(trips.length > 0){      
+                console.log('tripdata encontrado =' + JSON.stringify(trips));          
                 objetoRespuesta.success=true;                
                 objetoRespuesta.info="Se han leido correctamente los trayectos  ";
                 objetoRespuesta.data=trips;
