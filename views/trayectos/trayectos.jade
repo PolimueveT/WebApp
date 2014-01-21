@@ -15,7 +15,7 @@ block content
                 button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 h4#myModalLabel.modal-title Favoritos
               .modal-body
-                .favorito(ng-repeat="f in favoritos")
+                .favorito(ng-repeat="f in favoritos", ng-show="favoritos.length > 0")
                     .row
                         .col-md-9
                             div(ng-show="f.Origen") Origen: <b>{{ f.Origen }}</b>
@@ -31,6 +31,8 @@ block content
                         .col-md-3
                             button.btn.btn-primary(type="button", ng-click="ColocarFiltro(f)", data-dismiss="modal") Colocar Filtro
                     hr
+                .no-favoritos(ng-hide="favoritos.length > 0")
+                    | No tiene trayectos favoritos
 
               .modal-footer
 
