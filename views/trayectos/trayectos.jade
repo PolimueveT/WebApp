@@ -1,11 +1,39 @@
 extend ../layouts/main
 block content
     h1.col-md-12 Búsqueda de Trayectos
+        small 
+            button.btn.btn-info(data-toggle="modal",data-target="#favoritosModal") Favoritos
     .container(ng-controller="BuscarTrayectosCtrl")
         .alert.alert-danger(ng-show="form.submitted && !form.$valid")
                         span.glyphicon.glyphicon-warning-sign  
                         b  Completa todos los campos obligatorios
         
+        div#favoritosModal.modal.fade(tabindex="-1",role="dialog",aria-labelledby="myModalLabel",aria-hidden="true")
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                h4#myModalLabel.modal-title Favoritos
+              .modal-body
+                .favorito(ng-repeat="f in favoritos")
+                    .row
+                        .col-md-9
+                            div(ng-show="f.Origen") Origen: <b>{{ f.Origen }}</b>
+                            div(ng-show="f.Destino") Destino: <b>{{ f.Destino }}</b>
+                            div(ng-show="f.Fecha") Fecha: <b>{{ f.Fecha }}</b>
+                            div(ng-show="f.Hora") Hora: <b>{{ f.Hora }}</b>
+                            div(ng-show="f.Max_tamanyo_equipaje") Equipaje: <b>{{ f.Max_tamanyo_equipaje }}</b>
+                            div
+                                ul
+                                    li(ng-repeat="(key, r) in f.Restricciones", ng-show="r")
+                                            {{  key.replace('_', ' ').toUpperCase() }}
+                                            br
+                        .col-md-3
+                            button.btn.btn-primary(type="button", ng-click="ColocarFiltro(f)", data-dismiss="modal") Colocar Filtro
+                    hr
+
+              .modal-footer
+
         form.form-horizontal(role="form", name="form", novalidate)
             .row
                 .col-sm-3
@@ -70,6 +98,13 @@ block content
                                             option(value="Maleta") Maleta
                     
                     button.btn.btn-danger.col-md-12(btnid="buscar", ng-click="EliminarRest()", onClick="reset()", style="width: 100%") Eliminar Restricciones
+                    br
+                    br
+                    if user
+                        button#favorito.btn.btn-warning.col-md-12(btnid="buscar", ng-click="AddFavorito()", style="width: 100%") 
+                            span.glyphicon.glyphicon-star
+                            | Agregar Favorito
+
 
                 .col-md-9
                     .panel.panel-default
@@ -101,6 +136,9 @@ block script
         var scope;
         $(document).ready(function (){
             scope = angular.element('[ng-controller="BuscarTrayectosCtrl"]').scope();
+            
+            scope.id_user = !{ userId };
+            scope.getFavoritos();
             scope.getData();
             scope.$apply();
         }); 

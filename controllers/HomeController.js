@@ -64,13 +64,18 @@ var HomeController = function(Dao){
 	self.mis_trayectos = function(req, res) {
 		var data = { 
 			title : 'Gestión de mis trayectos',
-			userId: JSON.stringify(req.user._id)
+			userId:  req.user ? JSON.stringify(req.user._id) : '0' 
 		};
 		res.render('trayectos/mis-trayectos', data);
 	};
 
 	self.trayectos = function(req, res) {
-		res.render('trayectos/trayectos');
+		var data = {
+			title: 'Buscar Trayecto',
+			userId:	req.user ? JSON.stringify(req.user._id) : '0' 
+		};
+
+		res.render('trayectos/trayectos', data);
 	};
 
 	self.registrar = function(req, res) {

@@ -262,6 +262,7 @@ var UserDAO = function(db) {
 
                 if(idUser != null){
                     console.log("El mail está registrado");
+                    console.log("id user: " + idUser._id);
                     return callback(null, idUser._id);
                 }
                 console.log("Mail no registrado");

@@ -5,6 +5,7 @@ var BuscarTrayectosCtrl = function($scope, $http){
 	$scope.todos = [];
 	$scope.hora_salida = 'Mañana';
 	$scope.equipaje = 'Mochila';
+	$scope.favoritos = [];
 
 	$scope.getData = function(){
 		$http.get('/api/gettrips/').success(function (result){
@@ -28,28 +29,7 @@ var BuscarTrayectosCtrl = function($scope, $http){
 	$scope.FiltrarTrayectos = function () {
 		if ($scope.form.$valid) {
 
-			var obj =  {
-				Origen: null,
-				Destino: null,
-				Restricciones: { 
-					no_fumadores: null,
-					no_animales: null,
-					no_comida: null
-				},
-				Fecha: null,
-				Hora:null,
-				Max_tamanyo_equipaje: null
-			};
-
-			obj.Origen = $scope.salida;
-			obj.Destino = $scope.destino;
-			obj.Restricciones.no_fumadores = $scope.noFumadores;
-			obj.Restricciones.no_animales = $scope.noAnimales;
-			obj.Restricciones.no_comida = $scope.noComida;
-			obj.Fecha = $scope.fecha_salida;
-			obj.Hora = $scope.hora_salida.substring(0,1);
-			obj.Max_tamanyo_equipaje = $scope.equipaje;
-
+			var obj =  getFiltros();
 
 			/*var filtrados = _.filter($scope.todos, function(tra){ 
 
@@ -92,5 +72,80 @@ var BuscarTrayectosCtrl = function($scope, $http){
 		$scope.fecha_salida = "";
 		$scope.hora_salida = "";
 	};
+
+	$scope.getFavoritos = function() {
+		if($scope.id_user.length > 5){
+			$http.get('/api/getfavoritefilters/' + $scope.id_user)
+				.success(function(result){
+					if(result != undefined){
+						if(result.success === true){
+							$scope.favoritos = result.data;
+						}
+					}
+				});
+		}
+	}
+
+	$scope.AddFavorito = function (iduser) {
+
+		var data = {
+			iduser: $scope.id_user,
+			filter: getFiltros()
+		};
+
+		$http.put('/api/addfavoritefilter', data).success(function (result){
+			console.log(result);
+			if(result !== undefined){
+				alert(result.info);
+				$scope.favoritos.push(data.filter);
+			}
+		});
+
+	}
+
+	$scope.ColocarFiltro = function (f) {
+		$scope.salida = f.Origen;
+		$scope.destino = f.Destino;
+		$scope.noFumadores = f.Restricciones.no_fumadores;
+		$scope.noAnimales = f.Restricciones.no_animales;
+		$scope.noComida = f.Restricciones.no_comida;
+		$scope.fecha_salida = f.Fecha;
+		$scope.hora_salida = getHora(f.Hora);
+		$scope.equipaje = obj.Max_tamanyo_equipaje;
+	}
+
+	var getHora = function (h){
+		if(h == 'M'){
+			return 'Mañana';
+		}else{
+			return 'Tarde';
+		}
+	}
+
+	var getFiltros = function () {
+		var obj = {
+			Origen: null,
+			Destino: null,
+			Restricciones: { 
+				no_fumadores: null,
+				no_animales: null,
+				no_comida: null
+			},
+			Fecha: null,
+			Hora:null,
+			Max_tamanyo_equipaje: null
+		};
+
+		obj.Origen = $scope.salida;
+		obj.Destino = $scope.destino;
+		obj.Restricciones.no_fumadores = $scope.noFumadores;
+		obj.Restricciones.no_animales = $scope.noAnimales;
+		obj.Restricciones.no_comida = $scope.noComida;
+		obj.Fecha = $scope.fecha_salida;
+		obj.Hora = $scope.hora_salida.substring(0,1);
+		obj.Max_tamanyo_equipaje = $scope.equipaje;
+
+		return obj;
+	}
 
 }
