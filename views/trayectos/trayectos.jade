@@ -128,7 +128,7 @@ block content
                                                     span(style="color:gray") {{ t.Fecha_time }}
                                                 td {{ t.Origen }}
                                                 td {{ t.Destino }}
-                                                td {{ t.Num_plazas - t.Inscritos.length }}
+                                                td {{ t.Num_plazas }} ({{ t.Num_plazas - t.Inscritos.length }} libres)
                                                 td
                                                     a.btn.btn-primary(href="/trayecto/{{ t.id }}") 
                                                         | Ver Trayecto
