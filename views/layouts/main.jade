@@ -40,7 +40,7 @@ html(ng-app)
 							if user.IsAdmin
 								li
 									a(href="/users") Gestionar Usuarios
-							else
+							//- else
 								li
 									a(href="/user/#{user.id}/edit") Editar Cuenta
 					ul.nav.navbar-nav.navbar-right
@@ -49,7 +49,7 @@ html(ng-app)
 								a(href="/cuenta") Entrar o Registrase
 						else
 							li
-								a(href="#") #{user.nombre}
+								a(href="/user/#{user.id}/edit") #{user.nombre}
 							li
 								a.btn.btn-info(href="/logout") Salir	
 
